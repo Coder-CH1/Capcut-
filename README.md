@@ -1,3 +1,3 @@
 # Capcut-
 
-- Video editing project using SwiftUi framework for the user interface, Supabase for the Authentication and Database management.
+- Video editing project using SwiftUi framework for the User Interface, Supabase for the Authentication and Database Management.
