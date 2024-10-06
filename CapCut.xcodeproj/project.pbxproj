@@ -14,6 +14,7 @@
 		0401E4732C427BB3006D6E2C /* CapCutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401E4722C427BB3006D6E2C /* CapCutTests.swift */; };
 		0401E47D2C427BB3006D6E2C /* CapCutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401E47C2C427BB3006D6E2C /* CapCutUITests.swift */; };
 		0401E47F2C427BB3006D6E2C /* CapCutUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401E47E2C427BB3006D6E2C /* CapCutUITestsLaunchTests.swift */; };
+		041505C42CB32BBB00E2E063 /* SwiftUISideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 041505C32CB32BBB00E2E063 /* SwiftUISideMenu */; };
 		0446E3222C4EA63C004E82A4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0446E3212C4EA63C004E82A4 /* HomeView.swift */; };
 		049590552CB2CA0F0057940B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049590542CB2CA0F0057940B /* UserViewModel.swift */; };
 		04DA5D7A2C525861004C6546 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DA5D792C525861004C6546 /* Extension.swift */; };
@@ -57,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				041505C42CB32BBB00E2E063 /* SwiftUISideMenu in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +154,9 @@
 			dependencies = (
 			);
 			name = CapCut;
+			packageProductDependencies = (
+				041505C32CB32BBB00E2E063 /* SwiftUISideMenu */,
+			);
 			productName = CapCut;
 			productReference = 0401E45E2C427BB1006D6E2C /* CapCut.app */;
 			productType = "com.apple.product-type.application";
@@ -224,6 +229,9 @@
 				Base,
 			);
 			mainGroup = 0401E4552C427BB1006D6E2C;
+			packageReferences = (
+				041505C22CB32BBB00E2E063 /* XCRemoteSwiftPackageReference "swiftui-side-menu" */,
+			);
 			productRefGroup = 0401E45F2C427BB1006D6E2C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -595,6 +603,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		041505C22CB32BBB00E2E063 /* XCRemoteSwiftPackageReference "swiftui-side-menu" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/globulus/swiftui-side-menu.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		041505C32CB32BBB00E2E063 /* SwiftUISideMenu */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 041505C22CB32BBB00E2E063 /* XCRemoteSwiftPackageReference "swiftui-side-menu" */;
+			productName = SwiftUISideMenu;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0401E4562C427BB1006D6E2C /* Project object */;
 }
