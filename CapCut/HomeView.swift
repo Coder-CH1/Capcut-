@@ -6,10 +6,6 @@
 //
 
 import SwiftUI
-import Photos
-import AVKit
-import UIKit
-import PhotosUI
 
 struct HomeView: View {
     @State var showingModal = false
@@ -415,80 +411,6 @@ struct SendOtpView: View {
         VStack {
             Text("")
         }
-//        VStack {
-//            TopView()
-//            Spacer()
-//                .frame(height: 120)
-//            VStack(spacing: 20) {
-//                Text("What's your email address?")
-//                    .font(.system(size: 25, weight: .black))
-//                    .foregroundColor(.black)
-//                TextField(" Enter email address", text: $viewModel.email)
-//                    .padding()
-//                    .keyboardType(.emailAddress)
-//                    .font(isEmailFocused ? .system(size: 20, weight: .bold) : .system(size: 15, weight: .regular))
-//                    .padding()
-//                    .frame(width: UIScreen.main.bounds.width/1.1, height: 50)
-//                    .background(.gray.opacity(0.1))
-//                    .overlay(
-//                        RoundedRectangle(cornerRadius: 10)
-//                            .stroke(isEmailFocused ? Color(red: 0/255, green: 230/255, blue: 255/255) : .clear, lineWidth: 1)
-//                    )
-//                    .focused($isEmailFocused)
-//                    .onChange(of: viewModel.email) { newValue in
-//                        if !newValue.isEmpty {
-//                            continueButtonColor = Color(red: 0/255, green: 230/255, blue: 255/255)
-//                            fontButtonColor = .white
-//                        } else {
-//                            continueButtonColor = Color.gray.opacity(0.2)
-//                            fontButtonColor = .gray
-//                        }
-//                    }
-//                Button {
-//                    viewModel.sendVerificationCode()
-//                } label: {
-//                    Text("Continue")
-//                        .font(.system(size: 18, weight: .bold))
-//                        .foregroundColor(fontButtonColor)
-//                }
-//                .frame(width: UIScreen.main.bounds.width/1.1, height: 50)
-//                .background(continueButtonColor)
-//                .cornerRadius(10)
-//                .disabled(viewModel.email.isEmpty)
-//                if !viewModel.errorMessage.isEmpty {
-//                    Text(viewModel.errorMessage)
-//                        .font(.system(size: 16, weight: .regular))
-//                        .foregroundColor(.red)
-//                        .padding()
-//                }
-//                if viewModel.otpSent {
-//                    Text("Text sent successfully")
-//                        .font(.system(size: 16, weight: .regular))
-//                        .foregroundColor(.green)
-//                        .padding()
-//                }
-//                VStack {
-//                    Text("By continuing, you agree to our")
-//                        .foregroundColor(.gray.opacity(0.9))
-//                    +
-//                    Text(" Terms of\n Service")
-//                        .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
-//                    +
-//                    Text(" and")
-//                        .foregroundColor(.gray.opacity(0.9))
-//                    +
-//                    Text(" Privacy Policy")
-//                        .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
-//                    +
-//                    Text(".")
-//                        .foregroundColor(.gray.opacity(0.9))
-//                }
-//                .font(.system(size: 18, weight: .bold))
-//                .lineSpacing(3)
-//                .multilineTextAlignment(.center)
-//            }
-//            Spacer()
-//        }
     }
 }
 
