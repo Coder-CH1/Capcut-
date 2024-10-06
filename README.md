@@ -1,3 +1,3 @@
 # Capcut-
 
-Video editing project.
+- Video editing project in SwiftUi framework.
