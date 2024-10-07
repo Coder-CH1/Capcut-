@@ -234,9 +234,6 @@ struct UserRegistration: View {
                     NavigationLink(destination: SignupView(viewModel: UserViewModel()), isActive: $signInView){
                         
                     }
-//                    .fullScreenCover(isPresented: $signInView) {
-//                        SignInView(viewModel: UserViewModel())
-//                    }
                     .navigationBarTitleDisplayMode(.inline)
                     .navigationBarBackButtonHidden(false)
                     .toolbar {
