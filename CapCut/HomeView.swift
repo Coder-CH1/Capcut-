@@ -32,219 +32,223 @@ struct HomeViewContents: View {
     @State var showMessage = true
     @State var userRegistration = false
     var body: some View {
-        VStack(spacing: 20) {
-            HStack {
-                Button {
-                    userRegistration.toggle()
-                } label: {
-                    Image(systemName: "person")
-                        .font(.system(size: 30))
+        //NavigationView {
+            VStack(spacing: 20) {
+                HStack {
+                    Button {
+                        userRegistration.toggle()
+                    } label: {
+                        Image(systemName: "person")
+                            .font(.system(size: 30))
+                            .foregroundColor(.black)
+                    }
+                    .fullScreenCover(isPresented: $userRegistration) {
+                        UserRegistration()
+                    }
+                    Spacer()
+                    HStack(spacing: 30) {
+                        Text("Pro")
+                            .font(.system(size: 20, weight: .bold))
+                        Button {
+                            print("")
+                        } label: {
+                            Image(systemName: "bell")
+                                .font(.system(size: 25))
+                                .foregroundColor(.black)
+                        }
+                        Button {
+                            print("")
+                        } label: {
+                            Image(systemName: "gearshape")
+                                .font(.system(size: 25))
+                                .foregroundColor(.black)
+                        }
+                    }
+                    .padding(.all)
+                }
+                .padding(.horizontal)
+                VStack {
+                    HStack(spacing: 8) {
+                        VStack {
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "square.slash")
+                                    .font(.system(size: 25))
+                                    .foregroundColor(.black)
+                                
+                            }
+                            .frame(width: 65, height: 65)
+                            .background(.gray.opacity(0.1))
+                            .cornerRadius(10)
+                            Text("Remove background")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundColor(.black)
+                                .lineLimit(2)
+                        }
+                        VStack {
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "photo.artframe")
+                                    .font(.system(size: 25))
+                                    .foregroundColor(.black)
+                            }
+                            .frame(width: 65, height: 65)
+                            .background(.gray.opacity(0.1))
+                            .cornerRadius(10)
+                            Text("Text to image")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundColor(.black)
+                        }
+                        VStack {
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "square.text.square")
+                                    .font(.system(size: 25))
+                                    .foregroundColor(.black)
+                            }
+                            .frame(width: 65, height: 65)
+                            .background(.gray.opacity(0.1))
+                            .cornerRadius(10)
+                            Text("Photo editor")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundColor(.black)
+                        }
+                        VStack {
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "mail")
+                                    .font(.system(size: 25))
+                                    .foregroundColor(.black)
+                            }
+                            .frame(width: 65, height: 65)
+                            .background(.gray.opacity(0.1))
+                            .cornerRadius(10)
+                            Text("Image enhancer")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundColor(.black)
+                        }
+                        VStack {
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "square.split.diagonal")
+                                    .font(.system(size: 25))
+                                    .foregroundColor(.black)
+                            }
+                            .frame(width: 65, height: 65)
+                            .background(.gray.opacity(0.1))
+                            .cornerRadius(10)
+                            Text("Product photos")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundColor(.black)
+                        }
+                    }
+                }
+                ZStack {
+                    Color.black.opacity(0.7)
+                        .frame(width: UIScreen.main.bounds.width/1.1, height: 100)
+                        .cornerRadius(5)
+                    HStack(spacing: 20) {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "plus")
+                                .font(.system(size: 20))
+                                .foregroundColor(.white)
+                        }
+                        .frame(width: 30, height: 30)
+                        .background(.black)
+                        .cornerRadius(5)
+                        Text("New project")
+                            .font(.system(size: 24, weight: .black))
+                            .foregroundColor(.black)
+                    }
+                }
+                HStack(spacing: 220) {
+                    Text("Projects")
+                        .font(.system(size: 24, weight: .black))
                         .foregroundColor(.black)
-                }
-                .fullScreenCover(isPresented: $userRegistration) {
-                    UserRegistration()
-                }
-                Spacer()
-                HStack(spacing: 30) {
-                    Text("Pro")
-                        .font(.system(size: 20, weight: .bold))
-                    Button {
-                        print("")
-                    } label: {
-                        Image(systemName: "bell")
-                            .font(.system(size: 25))
-                            .foregroundColor(.black)
-                    }
-                    Button {
-                        print("")
-                    } label: {
-                        Image(systemName: "gearshape")
-                            .font(.system(size: 25))
-                            .foregroundColor(.black)
-                    }
-                }
-                .padding(.all)
-            }
-            .padding(.horizontal)
-            VStack {
-                HStack(spacing: 8) {
-                    VStack {
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "square.slash")
-                                .font(.system(size: 25))
-                                .foregroundColor(.black)
-                            
-                        }
-                        .frame(width: 65, height: 65)
-                        .background(.gray.opacity(0.1))
-                        .cornerRadius(10)
-                        Text("Remove background")
-                            .font(.system(size: 14, weight: .bold))
-                            .foregroundColor(.black)
-                            .lineLimit(2)
-                    }
-                    VStack {
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "photo.artframe")
-                                .font(.system(size: 25))
-                                .foregroundColor(.black)
-                        }
-                        .frame(width: 65, height: 65)
-                        .background(.gray.opacity(0.1))
-                        .cornerRadius(10)
-                        Text("Text to image")
-                            .font(.system(size: 14, weight: .bold))
-                            .foregroundColor(.black)
-                    }
-                    VStack {
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "square.text.square")
-                                .font(.system(size: 25))
-                                .foregroundColor(.black)
-                        }
-                        .frame(width: 65, height: 65)
-                        .background(.gray.opacity(0.1))
-                        .cornerRadius(10)
-                        Text("Photo editor")
-                            .font(.system(size: 14, weight: .bold))
-                            .foregroundColor(.black)
-                    }
-                    VStack {
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "mail")
-                                .font(.system(size: 25))
-                                .foregroundColor(.black)
-                        }
-                        .frame(width: 65, height: 65)
-                        .background(.gray.opacity(0.1))
-                        .cornerRadius(10)
-                        Text("Image enhancer")
-                            .font(.system(size: 14, weight: .bold))
-                            .foregroundColor(.black)
-                    }
-                    VStack {
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "square.split.diagonal")
-                                .font(.system(size: 25))
-                                .foregroundColor(.black)
-                        }
-                        .frame(width: 65, height: 65)
-                        .background(.gray.opacity(0.1))
-                        .cornerRadius(10)
-                        Text("Product photos")
-                            .font(.system(size: 14, weight: .bold))
-                            .foregroundColor(.black)
-                    }
-                }
-            }
-            ZStack {
-                Color.black.opacity(0.7)
-                    .frame(width: UIScreen.main.bounds.width/1.1, height: 100)
-                    .cornerRadius(5)
-                HStack(spacing: 20) {
+                    
                     Button {
                         
                     } label: {
-                        Image(systemName: "plus")
-                            .font(.system(size: 20))
-                            .foregroundColor(.white)
+                        Image(systemName: "list.bullet")
+                            .font(.system(size: 25))
+                            .foregroundColor(.black)
                     }
-                    .frame(width: 30, height: 30)
-                    .background(.black)
-                    .cornerRadius(5)
-                    Text("New project")
-                        .font(.system(size: 24, weight: .black))
-                        .foregroundColor(.black)
+                }
+                Spacer()
+                    .frame(height: 20)
+                VStack(alignment: .center, spacing: 30) {
+                    Image(systemName: "film")
+                        .font(.system(size: 40))
+                        .foregroundColor(.black.opacity(0.7))
+                    Text("Your projects will appear\n here.\nStart creating now.")
+                        .font(.system(size: 20, weight: .black))
+                        .foregroundColor(Color.black.opacity(0.7))
                 }
             }
-            HStack(spacing: 220) {
-                Text("Projects")
-                    .font(.system(size: 24, weight: .black))
-                    .foregroundColor(.black)
-                
-                Button {
-                    
-                } label: {
-                    Image(systemName: "list.bullet")
-                        .font(.system(size: 25))
-                        .foregroundColor(.black)
-                }
-            }
-            Spacer()
-                .frame(height: 20)
-            VStack(alignment: .center, spacing: 30) {
-                Image(systemName: "film")
-                    .font(.system(size: 40))
-                    .foregroundColor(.black.opacity(0.7))
-                Text("Your projects will appear\n here.\nStart creating now.")
-                    .font(.system(size: 20, weight: .black))
-                    .foregroundColor(Color.black.opacity(0.7))
-            }
-        }
+        //}
     }
 }
 
 struct UserRegistration: View {
     @State var signInView = false
     var body: some View {
-        VStack {
+        NavigationView {
             VStack {
-                Text("Capcut")
-                    .font(.system(size: 50, weight: .bold))
-                    .foregroundColor(.black)
-            }
-            Spacer()
-                .frame(height: 100)
-            VStack(spacing: 20) {
-                Button {
-                    signInView.toggle()
-                } label: {
-                    HStack(spacing: 60) {
-                        Image(systemName: "envelope.fill")
-                            .font(.system(size: 30))
-                            .foregroundColor(.black)
-                        Text("Sign in with email")
-                            .font(.system(size: 16, weight: .bold))
-                            .foregroundColor(.black)
-                        Spacer()
-                            .frame(width: 8)
-                    }
-                }
-                .frame(width: UIScreen.main.bounds.width/1.2, height: 45)
-                .cornerRadius(22)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 22)
-                        .stroke(Color.gray, lineWidth: 1)
-                )
-                .fullScreenCover(isPresented: $signInView) {
-                    SignInView(viewModel: UserViewModel())
-                }
                 VStack {
-                    Text("I have read and acknowledge the Capcut\n")
-                        .foregroundColor(.black.opacity(0.5))
-                    +
-                    Text("Terms of Service")
-                        .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
-                    +
-                    Text(" and")
-                        .foregroundColor(.black.opacity(0.5))
-                    +
-                    Text(" Privacy Policy")
-                        .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
+                    Text("Capcut")
+                        .font(.system(size: 50, weight: .bold))
+                        .foregroundColor(.black)
                 }
-                .font(.system(size: 18, weight: .bold))
-                .lineSpacing(3)
-                .multilineTextAlignment(.center)
+                Spacer()
+                    .frame(height: 100)
+                VStack(spacing: 20) {
+                    Button {
+                        signInView.toggle()
+                    } label: {
+                        HStack(spacing: 60) {
+                            Image(systemName: "envelope.fill")
+                                .font(.system(size: 30))
+                                .foregroundColor(.black)
+                            Text("Sign in with email")
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundColor(.black)
+                            Spacer()
+                                .frame(width: 8)
+                        }
+                    }
+                    .frame(width: UIScreen.main.bounds.width/1.2, height: 45)
+                    .cornerRadius(22)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 22)
+                            .stroke(Color.gray, lineWidth: 1)
+                    )
+                    .fullScreenCover(isPresented: $signInView) {
+                        SignInView(viewModel: UserViewModel())
+                    }
+                    VStack {
+                        Text("I have read and acknowledge the Capcut\n")
+                            .foregroundColor(.black.opacity(0.5))
+                        +
+                        Text("Terms of Service")
+                            .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
+                        +
+                        Text(" and")
+                            .foregroundColor(.black.opacity(0.5))
+                        +
+                        Text(" Privacy Policy")
+                            .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
+                    }
+                    .font(.system(size: 18, weight: .bold))
+                    .lineSpacing(3)
+                    .multilineTextAlignment(.center)
+                }
             }
         }
     }
