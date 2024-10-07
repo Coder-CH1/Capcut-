@@ -18,8 +18,9 @@ struct SplashView: View {
                 HomeView()
             } else {
                 Color.white.ignoresSafeArea()
-                HStack {
-                    Image(systemName: "")
+                HStack (spacing: 0){
+                    Image("capcut")
+                        .font(.system(size: 10))
                     Text("CapCut")
                         .font(.system(size: 35, weight: .black))
                         .foregroundColor(.black)
