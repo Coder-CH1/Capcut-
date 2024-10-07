@@ -203,7 +203,9 @@ struct UserRegistration: View {
     var body: some View {
         NavigationView {
             VStack {
-                VStack {
+                VStack(spacing: 0) {
+                    Image("capcut")
+                        .font(.system(size: 10))
                     Text("Capcut")
                         .font(.system(size: 50, weight: .bold))
                         .foregroundColor(.black)
@@ -304,8 +306,9 @@ struct SignInView: View {
             Spacer()
                 .frame(height: 100)
             VStack(spacing: 100) {
-                HStack {
-                    Image(systemName: "")
+                HStack(spacing: 0) {
+                    Image("capcut")
+                        .font(.system(size: 10))
                     Text("Capcut")
                         .font(.system(size: 30, weight: .bold))
                         .foregroundColor(.black)
