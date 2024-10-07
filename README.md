@@ -6,4 +6,7 @@
 
 - SwiftUi 
 - Supabase 
-- Swift Package Manager 
+- Swift Package Manager
+- AVFoundation
+- Photos
+- PhotosUi
