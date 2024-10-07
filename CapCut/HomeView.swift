@@ -32,7 +32,7 @@ struct HomeViewContents: View {
     @State var showMessage = true
     @State var userRegistration = false
     var body: some View {
-        //NavigationView {
+        NavigationView {
             VStack(spacing: 20) {
                 HStack {
                     Button {
@@ -192,7 +192,9 @@ struct HomeViewContents: View {
                         .foregroundColor(Color.black.opacity(0.7))
                 }
             }
-        //}
+        }
+        .navigationBarBackButtonHidden(true)
+        .offset(y: -120)
     }
 }
 
@@ -235,6 +237,7 @@ struct UserRegistration: View {
 //                    .fullScreenCover(isPresented: $signInView) {
 //                        SignInView(viewModel: UserViewModel())
 //                    }
+                    .navigationBarTitleDisplayMode(.inline)
                     .navigationBarBackButtonHidden(false)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
