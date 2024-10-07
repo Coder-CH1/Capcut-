@@ -634,16 +634,19 @@ struct CreatePasswordView: View {
                     showNewView.toggle()
                 } label: {
                     Image(systemName: "chevron.backward")
+                        .padding()
                         .font(.system(size: 20))
                         .foregroundColor(.black)
                 }
                 .fullScreenCover(isPresented: $showNewView) {
                     SignInView(viewModel: UserViewModel())
                 }
-                .frame(width: 150)
+                Spacer()
+                .frame(width: 100)
                 Text("Sign up")
                     .font(.system(size: 20, weight: .black))
                     .foregroundColor(.black)
+                    .lineLimit(0)
             }
             .padding(.trailing, 140)
             Spacer()
