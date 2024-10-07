@@ -11,7 +11,7 @@ import SwiftUI
 struct CapCutApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            SplashView()
         }
     }
 }

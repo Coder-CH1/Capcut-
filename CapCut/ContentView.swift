@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CellsContentView: View {
-    //struct CustomModalPopups: View {
         @State private var showingModal = false
 
         var body: some View {
@@ -46,7 +45,6 @@ Color.black.opacity(0.4)
             }
         }
     }
-//}
 
 struct CellsContentView_Previews: PreviewProvider {
     static var previews: some View {
