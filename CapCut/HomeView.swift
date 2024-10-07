@@ -392,11 +392,20 @@ struct SignInView: View {
                             .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
                     }
                     .fullScreenCover(isPresented: $showSignUpView) {
-                        EmptyView()
+                        SignupView()
                     }
                 }
             }
         }
+    }
+}
+
+struct SignupView: View {
+    var body: some View {
+        VStack {
+           TopView()
+        }
+        Spacer()
     }
 }
 
