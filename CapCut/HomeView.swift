@@ -231,13 +231,13 @@ struct UserRegistration: View {
                 }
                 VStack {
                     Text("I have read and acknowledge the Capcut\n")
-                        .foregroundColor(.black)
+                        .foregroundColor(.black.opacity(0.5))
                     +
                     Text("Terms of Service")
                         .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
                     +
                     Text(" and")
-                        .foregroundColor(.black.opacity(0.9))
+                        .foregroundColor(.black.opacity(0.5))
                     +
                     Text(" Privacy Policy")
                         .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
@@ -392,7 +392,7 @@ struct SignInView: View {
                             .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
                     }
                     .fullScreenCover(isPresented: $showSignUpView) {
-                        SignupView()
+                        SignupView(viewModel: viewModel)
                     }
                 }
             }
@@ -401,15 +401,71 @@ struct SignInView: View {
 }
 
 struct SignupView: View {
+    @State var isSecure = true
+    @State var isTyping = false
+    @State var showNewView = false
+    @State var continueButton = false
+    @State var fontButtonColor = Color.gray
+    @State var continueButtonColor = Color.gray.opacity(0.2)
+    @FocusState var isEmailFocused: Bool
+    @StateObject var viewModel: UserViewModel
     var body: some View {
         VStack {
-           TopView()
+           TopSignupView()
+            Spacer()
+                .frame(height: 100)
+            VStack (spacing: 20){
+                Text("What's your email address?")
+                    .font(.system(size: 25, weight: .black))
+                    .foregroundColor(.black)
+                    .lineLimit(0)
+                TextField(" Enter email address", text: $viewModel.email)
+                    .padding()
+                    .autocapitalization(.none)
+                    .keyboardType(.emailAddress)
+                    .disableAutocorrection(true)
+                    .font(isEmailFocused ? .system(size: 20, weight: .bold) : .system(size: 15, weight: .regular))
+                    .padding()
+                    .frame(width: UIScreen.main.bounds.width/1.1, height: 50)
+                    .background(.gray.opacity(0.1))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(isEmailFocused ? Color(red: 0/255, green: 230/255, blue: 255/255) : .clear, lineWidth: 1)
+                    )
+                    .focused($isEmailFocused)
+                Button {
+                    continueButton.toggle()
+                } label: {
+                    Text("Continue")
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundColor(fontButtonColor)
+                }
+                .frame(width: UIScreen.main.bounds.width/1.1, height: 50)
+                .background(continueButtonColor)
+                .cornerRadius(10)
+                VStack {
+                    Text("By continuing, you agree to our")
+                        .foregroundColor(.black.opacity(0.5))
+                    +
+                    Text("Terms of\n Service")
+                        .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
+                    +
+                    Text(" and")
+                        .foregroundColor(.black.opacity(0.5))
+                    +
+                    Text(" Privacy Policy")
+                        .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
+                }
+                .font(.system(size: 18, weight: .bold))
+                .lineSpacing(3)
+                .multilineTextAlignment(.center)
+            }
         }
         Spacer()
     }
 }
 
-struct TopView: View {
+struct TopSignupView: View {
     @State var showNewView = false
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
