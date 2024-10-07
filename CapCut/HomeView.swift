@@ -231,7 +231,7 @@ struct UserRegistration: View {
                         RoundedRectangle(cornerRadius: 22)
                             .stroke(Color.gray, lineWidth: 1)
                     )
-                    NavigationLink(destination: SignupView(viewModel: UserViewModel()), isActive: $signInView){
+                    NavigationLink(destination: SignInView(viewModel: UserViewModel()), isActive: $signInView){
                         
                     }
                     .navigationBarTitleDisplayMode(.inline)
@@ -410,15 +410,16 @@ struct SignInView: View {
                             .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
                     }
                     .fullScreenCover(isPresented: $showSignUpView) {
-                        SignupView(viewModel: viewModel)
+                        SignUpView(viewModel: viewModel)
                     }
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
-struct SignupView: View {
+struct SignUpView: View {
     @State var isSecure = true
     @State var isTyping = false
     @State var showNewView = false
@@ -464,11 +465,15 @@ struct SignupView: View {
                     }
                 Button {
                     continueButton.toggle()
+                    showNewView = true
                 } label: {
                     Text("Continue")
                         .font(.system(size: 18, weight: .bold))
                         .foregroundColor(fontButtonColor)
                 }
+                .fullScreenCover(isPresented: $showNewView, content: {
+                    ReceiveOtpView(viewModel: viewModel)
+                })
                 .frame(width: UIScreen.main.bounds.width/1.1, height: 50)
                 .background(continueButtonColor)
                 .cornerRadius(10)
