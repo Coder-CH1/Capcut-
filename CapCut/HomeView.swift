@@ -392,24 +392,10 @@ struct SignInView: View {
                             .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
                     }
                     .fullScreenCover(isPresented: $showSignUpView) {
-                        SendOtpView(viewModel: UserViewModel())
+                        EmptyView()
                     }
                 }
             }
-        }
-    }
-}
-
-struct SendOtpView: View {
-    @State var continueButton = false
-    @State var continueButtonColor = Color.gray.opacity(0.2)
-    @State var fontButtonColor = Color.gray
-    @FocusState var isEmailFocused: Bool
-    @StateObject var viewModel = UserViewModel()
-    
-    var body: some View {
-        VStack {
-            Text("")
         }
     }
 }
