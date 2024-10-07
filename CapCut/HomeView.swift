@@ -433,6 +433,17 @@ struct SignupView: View {
                             .stroke(isEmailFocused ? Color(red: 0/255, green: 230/255, blue: 255/255) : .clear, lineWidth: 1)
                     )
                     .focused($isEmailFocused)
+                    .onChange(of: viewModel.email) { newValue in
+                        if !newValue.isEmpty {
+                            isTyping = true
+                            continueButtonColor = Color(red: 0/255, green: 230/255, blue: 255/255)
+                            fontButtonColor = .white
+                        } else {
+                            isTyping = false
+                            continueButtonColor = Color.gray.opacity(0.2)
+                            fontButtonColor = .gray
+                        }
+                    }
                 Button {
                     continueButton.toggle()
                 } label: {
