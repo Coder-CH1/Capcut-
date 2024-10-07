@@ -78,7 +78,7 @@ struct HomeViewContents: View {
                                     .foregroundColor(.black)
                                 
                             }
-                            .frame(width: 65, height: 65)
+                            .frame(width: UIScreen.main.bounds.width/6, height: UIScreen.main.bounds.height/13)
                             .background(.gray.opacity(0.1))
                             .cornerRadius(10)
                             Text("Remove background")
@@ -94,7 +94,7 @@ struct HomeViewContents: View {
                                     .font(.system(size: 25))
                                     .foregroundColor(.black)
                             }
-                            .frame(width: 65, height: 65)
+                            .frame(width: UIScreen.main.bounds.width/6, height: UIScreen.main.bounds.height/13)
                             .background(.gray.opacity(0.1))
                             .cornerRadius(10)
                             Text("Text to image")
@@ -109,7 +109,7 @@ struct HomeViewContents: View {
                                     .font(.system(size: 25))
                                     .foregroundColor(.black)
                             }
-                            .frame(width: 65, height: 65)
+                            .frame(width: UIScreen.main.bounds.width/6, height: UIScreen.main.bounds.height/13)
                             .background(.gray.opacity(0.1))
                             .cornerRadius(10)
                             Text("Photo editor")
@@ -124,7 +124,7 @@ struct HomeViewContents: View {
                                     .font(.system(size: 25))
                                     .foregroundColor(.black)
                             }
-                            .frame(width: 65, height: 65)
+                            .frame(width: UIScreen.main.bounds.width/6, height: UIScreen.main.bounds.height/13)
                             .background(.gray.opacity(0.1))
                             .cornerRadius(10)
                             Text("Image enhancer")
@@ -139,7 +139,7 @@ struct HomeViewContents: View {
                                     .font(.system(size: 25))
                                     .foregroundColor(.black)
                             }
-                            .frame(width: 65, height: 65)
+                            .frame(width: UIScreen.main.bounds.width/6, height: UIScreen.main.bounds.height/13)
                             .background(.gray.opacity(0.1))
                             .cornerRadius(10)
                             Text("Product photos")
@@ -150,7 +150,7 @@ struct HomeViewContents: View {
                 }
                 ZStack {
                     Color.black.opacity(0.7)
-                        .frame(width: UIScreen.main.bounds.width/1.1, height: 100)
+                        .frame(width: UIScreen.main.bounds.width/1.1, height: UIScreen.main.bounds.height/8)
                         .cornerRadius(5)
                     HStack(spacing: 20) {
                         Button {
@@ -160,7 +160,7 @@ struct HomeViewContents: View {
                                 .font(.system(size: 20))
                                 .foregroundColor(.white)
                         }
-                        .frame(width: 30, height: 30)
+                        .frame(width: UIScreen.main.bounds.width/10, height: UIScreen.main.bounds.height/22)
                         .background(.black)
                         .cornerRadius(5)
                         Text("New project")
@@ -782,7 +782,7 @@ struct TermsOfServiceModalView: View {
                 .cornerRadius(10)
                 .shadow(color: .clear,radius: 0, x: 0, y: 0)
             }
-            .frame(width: 300, height: 400)
+            .frame(width: UIScreen.main.bounds.width/1.3, height: UIScreen.main.bounds.height/2)
             .background(Color.white)
             .cornerRadius(20).shadow(radius: 20)
         }
