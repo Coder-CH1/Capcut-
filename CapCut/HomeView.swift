@@ -528,6 +528,7 @@ struct TopSignupView: View {
 struct ReceiveOtpView: View {
     @State var continueButton = false
     @State var showNewView = false
+    @State var showCreatePasswordView = false
     @State var code = Array(repeating: "", count: 6)
     @State var continueButtonColor = Color.gray.opacity(0.2)
     @State var fontButtonColor = Color.gray
@@ -590,10 +591,14 @@ struct ReceiveOtpView: View {
                 }
                 Button {
                     continueButton.toggle()
+                    showCreatePasswordView = true
                 } label: {
                     Text("Continue")
                         .font(.system(size: 18, weight: .bold))
                         .foregroundColor(fontButtonColor)
+                }
+                .fullScreenCover(isPresented: $showCreatePasswordView) {
+                    CreatePasswordView(viewModel: viewModel)
                 }
                 .frame(width: UIScreen.main.bounds.width/1.1, height: 50)
                 .background(continueButtonColor)
