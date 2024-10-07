@@ -229,8 +229,22 @@ struct UserRegistration: View {
                         RoundedRectangle(cornerRadius: 22)
                             .stroke(Color.gray, lineWidth: 1)
                     )
-                    .fullScreenCover(isPresented: $signInView) {
-                        SignInView(viewModel: UserViewModel())
+                    NavigationLink(destination: SignupView(viewModel: UserViewModel()), isActive: $signInView){
+                        
+                    }
+//                    .fullScreenCover(isPresented: $signInView) {
+//                        SignInView(viewModel: UserViewModel())
+//                    }
+                    .navigationBarBackButtonHidden(false)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            NavigationLink(destination: HomeViewContents()) {
+                                Image(systemName: "chevron.backward")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(Color.black)
+                                    
+                            }
+                        }
                     }
                     VStack {
                         Text("I have read and acknowledge the Capcut\n")
