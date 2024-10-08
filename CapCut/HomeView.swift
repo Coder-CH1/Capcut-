@@ -244,7 +244,6 @@ struct UserRegistration: View {
                                 Image(systemName: "chevron.backward")
                                     .font(.system(size: 20))
                                     .foregroundColor(Color.black)
-                                    
                             }
                         }
                     }
@@ -253,21 +252,13 @@ struct UserRegistration: View {
                             .foregroundColor(.black.opacity(0.5))
                         +
                         Text("Terms of Service")
-                            .onTapGesture {
-                                print("")
-                            }
                             .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
-                            
                         +
                         Text(" and")
                             .foregroundColor(.black.opacity(0.5))
                         +
                         Text(" Privacy Policy")
-                            .onTapGesture {
-                                print("")
-                            }
                             .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
-                            
                     }
                     .font(.system(size: 18, weight: .bold))
                     .lineSpacing(3)
@@ -496,19 +487,19 @@ struct SignUpView: View {
                         .foregroundColor(.black.opacity(0.5))
                     +
                     Text("Terms of\n Service")
-                        .onTapGesture {
-                            print("")
-                        }
                         .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
+//                        .onTapGesture {
+//                            print("")
+//                        }
                     +
                     Text(" and")
                         .foregroundColor(.black.opacity(0.5))
                     +
                     Text(" Privacy Policy")
-                        .onTapGesture {
-                            print("")
-                        }
                         .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
+//                        .onTapGesture {
+//                                print("")
+//                            }
                 }
                 .font(.system(size: 18, weight: .bold))
                 .lineSpacing(3)
@@ -776,28 +767,28 @@ struct TermsOfServiceModalView: View {
                         .foregroundColor(.black.opacity(0.9))
                     +
                     Text("Terms of Service")
-                        .onTapGesture {
-                            print("")
-                        }
                         .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
+//                        .onTapGesture {
+//                            print("")
+//                        }
                     +
                     Text("and\n acknowledge that you have read our\n")
                         .foregroundColor(.black.opacity(0.9))
                     +
                     Text("Privacy Policy")
-                        .onTapGesture {
-                            print("")
-                        }
                         .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
+//                        .onTapGesture {
+//                            print("")
+//                        }
                     +
                     Text("and")
                         .foregroundColor(.black.opacity(0.9))
                     +
                     Text("Cookies Policy")
-                        .onTapGesture {
-                            print("")
-                        }
                         .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
+//                        .onTapGesture {
+//                            print("")
+//                        }
                     +
                     Text("to\n learn how we collect, use, and share\n your data.")
                 }
