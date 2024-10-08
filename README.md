@@ -10,5 +10,5 @@
 - Photos
 - PhotosUi
 - AVKit
-- SideMenu
-- AVFoundation
+- CoreImage
+- CoreGraphics
