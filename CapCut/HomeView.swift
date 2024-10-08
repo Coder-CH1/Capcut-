@@ -308,6 +308,9 @@ struct SignInView: View {
                     .font(.system(size: 20, weight: .black))
                     .foregroundColor(.black)
                 Text("Help")
+                    .onTapGesture {
+                        print("")
+                    }
                     .font(.system(size: 20, weight: .black))
                     .foregroundColor(.gray)
             }
@@ -536,6 +539,9 @@ struct TopSignupView: View {
                 .font(.system(size: 20, weight: .black))
                 .foregroundColor(.black)
             Text("Help")
+                .onTapGesture {
+                    print("")
+                }
                 .font(.system(size: 20, weight: .black))
                 .foregroundColor(.gray)
         }
@@ -570,6 +576,9 @@ struct ReceiveOtpView: View {
                     .font(.system(size: 20, weight: .black))
                     .foregroundColor(.black)
                 Text("Help")
+                    .onTapGesture {
+                        print("")
+                    }
                     .font(.system(size: 20, weight: .black))
                     .foregroundColor(.gray)
             }
@@ -766,13 +775,13 @@ struct TermsOfServiceModalView: View {
                     Text("By tapping Agree and continue, you\n agree to Capcut's")
                         .foregroundColor(.black.opacity(0.9))
                     +
-                    Text(" Terms of Service")
+                    Text("Terms of Service")
                         .onTapGesture {
                             print("")
                         }
                         .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
                     +
-                    Text(" and\n acknowledge that you have read our\n")
+                    Text("and\n acknowledge that you have read our\n")
                         .foregroundColor(.black.opacity(0.9))
                     +
                     Text("Privacy Policy")
@@ -781,16 +790,16 @@ struct TermsOfServiceModalView: View {
                         }
                         .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
                     +
-                    Text(" and")
+                    Text("and")
                         .foregroundColor(.black.opacity(0.9))
                     +
-                    Text(" Cookies Policy")
+                    Text("Cookies Policy")
                         .onTapGesture {
                             print("")
                         }
                         .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
                     +
-                    Text(" to\n learn how we collect, use, and share\n your data.")
+                    Text("to\n learn how we collect, use, and share\n your data.")
                 }
                 .font(.system(size: 14, weight: .bold))
                 .lineSpacing(7)
