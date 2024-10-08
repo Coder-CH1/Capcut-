@@ -488,18 +488,12 @@ struct SignUpView: View {
                     +
                     Text("Terms of\n Service")
                         .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
-//                        .onTapGesture {
-//                            print("")
-//                        }
                     +
                     Text(" and")
                         .foregroundColor(.black.opacity(0.5))
                     +
                     Text(" Privacy Policy")
                         .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
-//                        .onTapGesture {
-//                                print("")
-//                            }
                 }
                 .font(.system(size: 18, weight: .bold))
                 .lineSpacing(3)
@@ -582,7 +576,11 @@ struct ReceiveOtpView: View {
                 HStack {
                     ForEach(0..<6, id: \.self) {
                         index in
-                        TextField("", text: $code[index])
+                        TextField("", text: $code[index], onEditingChanged: {_ in
+                            if code.count == index + 1 {
+                                
+                            }
+                        })
                             .padding()
                             .font(isDigitNumFocused ? .system(size: 20, weight: .bold) : .system(size: 15, weight: .regular))
                             .keyboardType(.numberPad)
@@ -591,6 +589,7 @@ struct ReceiveOtpView: View {
                             .cornerRadius(5)
                             .multilineTextAlignment(.center)
                             .focused($isDigitNumFocused)
+                            .textContentType(.oneTimeCode)
                             .overlay (
                                 RoundedRectangle(cornerRadius: 5)
                                     .stroke(code[index].isEmpty ? Color.clear : Color(red: 0/255, green: 230/255, blue: 255/255), lineWidth: 1)
