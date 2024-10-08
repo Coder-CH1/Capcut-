@@ -7,8 +7,8 @@
 - SwiftUi 
 - Supabase 
 - Swift Package Manager
-- AVFoundation
 - Photos
 - PhotosUi
 - AVKit
-- 
+- SideMenu
+- AVFoundation
