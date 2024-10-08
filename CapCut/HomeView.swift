@@ -276,17 +276,14 @@ struct SignInView: View {
     @State var showNewView = false
     @State var continueButton = false
     @State var showSignUpView = false
-    @State var isWrongEmail = false
-    @State var isRightEmail = false
-    @State var isValidate = false
-    @State var message: String = ""
+    @State var isValidate: Bool = false
     @State var fontButtonColor = Color.gray
     @State var continueButtonColor = Color.gray.opacity(0.2)
     @FocusState var isEmailFocused: Bool
     @FocusState var isPasswordFocused: Bool
     @StateObject var viewModel: UserViewModel
     @Environment(\.presentationMode) var presentationMode
-    func isEmail(valid: String) -> Bool {
+    func isEmailValidator(valid: String) -> Bool {
         let pattern = "[A-Z0-9a-Z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         return NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: valid)
     }
@@ -365,7 +362,13 @@ struct SignInView: View {
                                     }
                                 }
                         } else {
-                            TextField(" Enter password", text: $viewModel.password)
+                            TextField(" Enter password", text: $viewModel.password, onEditingChanged: { (isChanged) in
+                                if !isChanged {
+                                    if self.isEmailValidator(valid: self.viewModel.email) {
+                                        self.isValidate = true
+                                    }
+                                }
+                            })
                                 .padding()
                                 .keyboardType(.asciiCapable)
                                 .font(isPasswordFocused ? .system(size: 20, weight: .bold) : .system(size: 15, weight: .regular))
