@@ -323,7 +323,16 @@ struct SignInView: View {
                         .foregroundColor(.black)
                 }
                 VStack(spacing: 20) {
-                    TextField(" Enter email address", text: $viewModel.email)
+                    TextField(" Enter email address", text: $viewModel.email) //onEditingChanged: { (isChanged) in
+//                        if !isChanged {
+//                            if self.isEmailValidator(valid: self.viewModel.email) {
+//                                self.isValidate = true
+//                            } else {
+//                                self.isValidate = false
+//                                self.viewModel.email = ""
+//                            }
+//                        }
+//                    })
                         .padding()
                         .autocapitalization(.none)
                         .keyboardType(.emailAddress)
@@ -337,6 +346,11 @@ struct SignInView: View {
                                 .stroke(isEmailFocused ? Color(red: 0/255, green: 230/255, blue: 255/255) : .clear, lineWidth: 1)
                         )
                         .focused($isEmailFocused)
+//                    if self.isValidate {
+//                        Text("Email is not valid")
+//                            .font(.callout)
+//                            .foregroundColor(.red)
+//                    }
                     ZStack(alignment: .trailing) {
                         if isSecure {
                             SecureField(" Enter password", text: $viewModel.password)
@@ -363,15 +377,7 @@ struct SignInView: View {
                                     }
                                 }
                         } else {
-                            TextField(" Enter password", text: $viewModel.password, onEditingChanged: { (isChanged) in
-                                if !isChanged {
-                                    if self.isEmailValidator(valid: self.viewModel.email) {
-                                        self.isValidate = true
-                                    } else {
-                                        
-                                    }
-                                }
-                            })
+                            TextField(" Enter password", text: $viewModel.password)
                                 .padding()
                                 .keyboardType(.asciiCapable)
                                 .font(isPasswordFocused ? .system(size: 20, weight: .bold) : .system(size: 15, weight: .regular))
