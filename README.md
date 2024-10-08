@@ -10,3 +10,5 @@
 - Photos
 - PhotosUi
 - AVKit
+- CoreImage
+- CoreML
