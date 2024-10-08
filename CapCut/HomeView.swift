@@ -270,17 +270,26 @@ struct UserRegistration: View {
 }
 
 struct SignInView: View {
+    @State var show = false
     @State var isSecure = true
     @State var isTyping = false
     @State var showNewView = false
     @State var continueButton = false
     @State var showSignUpView = false
+    @State var isWrongEmail = false
+    @State var isRightEmail = false
+    @State var isValidate = false
+    @State var message: String = ""
     @State var fontButtonColor = Color.gray
     @State var continueButtonColor = Color.gray.opacity(0.2)
     @FocusState var isEmailFocused: Bool
     @FocusState var isPasswordFocused: Bool
     @StateObject var viewModel: UserViewModel
     @Environment(\.presentationMode) var presentationMode
+    func isEmail(valid: String) -> Bool {
+        let pattern = "[A-Z0-9a-Z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        return NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: valid)
+    }
     var body: some View {
         VStack {
             HStack(spacing: 100) {
