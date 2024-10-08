@@ -39,7 +39,7 @@ struct HomeViewContents: View {
                         userRegistration.toggle()
                     } label: {
                         Image(systemName: "person")
-                            .font(.system(size: 30))
+                            .font(.system(size: 25))
                             .foregroundColor(.black)
                     }
                     .fullScreenCover(isPresented: $userRegistration) {
@@ -49,6 +49,7 @@ struct HomeViewContents: View {
                     HStack(spacing: 30) {
                         Text("Pro")
                             .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.black)
                         Button {
                             print("")
                         } label: {
@@ -157,7 +158,7 @@ struct HomeViewContents: View {
                             
                         } label: {
                             Image(systemName: "plus")
-                                .font(.system(size: 20))
+                                .font(.system(size: 25))
                                 .foregroundColor(.white)
                         }
                         .frame(width: UIScreen.main.bounds.width/10, height: UIScreen.main.bounds.height/22)
@@ -185,7 +186,7 @@ struct HomeViewContents: View {
                     .frame(height: 20)
                 VStack(alignment: .center, spacing: 30) {
                     Image(systemName: "film")
-                        .font(.system(size: 40))
+                        .font(.system(size: 25))
                         .foregroundColor(.black.opacity(0.7))
                     Text("Your projects will appear\n here.\nStart creating now.")
                         .font(.system(size: 20, weight: .black))
@@ -207,7 +208,7 @@ struct UserRegistration: View {
                     Image("capcut")
                         .font(.system(size: 10))
                     Text("Capcut")
-                        .font(.system(size: 50, weight: .bold))
+                        .font(.system(size: 30, weight: .bold))
                         .foregroundColor(.black)
                 }
                 Spacer()
@@ -218,7 +219,7 @@ struct UserRegistration: View {
                     } label: {
                         HStack(spacing: 60) {
                             Image(systemName: "envelope.fill")
-                                .font(.system(size: 30))
+                                .font(.system(size: 25))
                                 .foregroundColor(.black)
                             Text("Sign in with email")
                                 .font(.system(size: 16, weight: .bold))
@@ -295,18 +296,18 @@ struct SignInView: View {
                     showNewView.toggle()
                 } label: {
                     Image(systemName: "chevron.backward")
-                        .font(.system(size: 20))
+                        .font(.system(size: 25))
                         .foregroundColor(.black)
                         .fullScreenCover(isPresented: $showNewView) {
                             UserRegistration()
                         }
                 }
                 Text("Sign in")
-                    .font(.system(size: 20, weight: .black))
+                    .font(.system(size: 25, weight: .black))
                     .foregroundColor(.black)
                 Text("Help")
                     .onTapGesture {
-                        print("")
+                        print("tap me")
                     }
                     .font(.system(size: 20, weight: .black))
                     .foregroundColor(.gray)
@@ -366,6 +367,8 @@ struct SignInView: View {
                                 if !isChanged {
                                     if self.isEmailValidator(valid: self.viewModel.email) {
                                         self.isValidate = true
+                                    } else {
+                                        
                                     }
                                 }
                             })
@@ -419,6 +422,8 @@ struct SignInView: View {
                 Spacer()
                 HStack {
                     Text("Don't have an account?")
+                        .font(.system(size: 16, weight: .regular))
+                        .foregroundColor(.black)
                     Button {
                         showSignUpView.toggle()
                     } label: {
@@ -537,7 +542,7 @@ struct TopSignupView: View {
                 .foregroundColor(.black)
             Text("Help")
                 .onTapGesture {
-                    print("")
+                    print("tap me")
                 }
                 .font(.system(size: 20, weight: .black))
                 .foregroundColor(.gray)
@@ -574,7 +579,7 @@ struct ReceiveOtpView: View {
                     .foregroundColor(.black)
                 Text("Help")
                     .onTapGesture {
-                        print("")
+                        print("tap me")
                     }
                     .font(.system(size: 20, weight: .black))
                     .foregroundColor(.gray)
@@ -764,7 +769,6 @@ struct CreatePasswordView_Previews: PreviewProvider {
 struct TermsOfServiceModalView: View {
     @Binding var agreeAndContinueButton: Bool
     var body: some View {
-        //VStack {
         ZStack {
             Color.black.opacity(0.4)
                 .edgesIgnoringSafeArea(.vertical)
@@ -779,27 +783,18 @@ struct TermsOfServiceModalView: View {
                     +
                     Text("Terms of Service")
                         .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
-//                        .onTapGesture {
-//                            print("")
-//                        }
                     +
                     Text("and\n acknowledge that you have read our\n")
                         .foregroundColor(.black.opacity(0.9))
                     +
                     Text("Privacy Policy")
                         .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
-//                        .onTapGesture {
-//                            print("")
-//                        }
                     +
                     Text("and")
                         .foregroundColor(.black.opacity(0.9))
                     +
                     Text("Cookies Policy")
                         .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
-//                        .onTapGesture {
-//                            print("")
-//                        }
                     +
                     Text("to\n learn how we collect, use, and share\n your data.")
                 }
@@ -833,7 +828,6 @@ struct TermsOfServiceModalView: View {
             .background(Color.white)
             .cornerRadius(20).shadow(radius: 20)
         }
-        //}
     }
 }
 
