@@ -2,7 +2,7 @@
 
 * Video editing project.
 
-# Features 
+# Features: 
 
 - SwiftUi 
 - Supabase 
