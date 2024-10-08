@@ -10,5 +10,3 @@
 - Photos
 - PhotosUi
 - AVKit
-- SideMenu
-- AVFoundation
