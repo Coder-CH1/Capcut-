@@ -323,16 +323,7 @@ struct SignInView: View {
                         .foregroundColor(.black)
                 }
                 VStack(spacing: 20) {
-                    TextField(" Enter email address", text: $viewModel.email) //onEditingChanged: { (isChanged) in
-//                        if !isChanged {
-//                            if self.isEmailValidator(valid: self.viewModel.email) {
-//                                self.isValidate = true
-//                            } else {
-//                                self.isValidate = false
-//                                self.viewModel.email = ""
-//                            }
-//                        }
-//                    })
+                    TextField(" Enter email address", text: $viewModel.email) 
                         .padding()
                         .autocapitalization(.none)
                         .keyboardType(.emailAddress)

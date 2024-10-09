@@ -10,7 +10,7 @@ import SwiftUISideMenu
 
 struct SideMenuTest: View {
     @State var showSideMenu = false
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -58,7 +58,7 @@ struct SideMenu: View {
                 .frame(height: 90)
             HStack {
                 Button {
-                    
+
                 } label: {
                     Image(systemName: "person.fill")
                         .font(.system(size: 60))
