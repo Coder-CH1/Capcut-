@@ -284,10 +284,6 @@ struct SignInView: View {
     @FocusState var isPasswordFocused: Bool
     @StateObject var viewModel: UserViewModel
     @Environment(\.presentationMode) var presentationMode
-    func isEmailValidator(valid: String) -> Bool {
-        let pattern = "[A-Z0-9a-Z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        return NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: valid)
-    }
     var body: some View {
         VStack {
             HStack(spacing: 100) {
