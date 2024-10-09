@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct HomeView: View {
     @State var showingModal = false
@@ -551,7 +552,7 @@ struct ReceiveOtpView: View {
     @State var fontButtonColor = Color.gray
     @StateObject var viewModel: UserViewModel
     @Environment(\.presentationMode) var presentationMode
-    @FocusState var isDigitNumFocused: Bool
+    @FocusState var focusedIndex: Int?
     var body: some View {
         VStack {
             HStack(spacing: 100) {
@@ -591,25 +592,31 @@ struct ReceiveOtpView: View {
                             }
                         })
                             .padding()
-                            .font(isDigitNumFocused ? .system(size: 20, weight: .bold) : .system(size: 15, weight: .regular))
+                            .font((focusedIndex != 0) ? .system(size: 20, weight: .bold) : .system(size: 15, weight: .regular))
                             .keyboardType(.numberPad)
                             .frame(width: 50, height: 50)
                             .background(.gray.opacity(0.2))
                             .cornerRadius(5)
                             .multilineTextAlignment(.center)
-                            .focused($isDigitNumFocused)
+                            .focused($focusedIndex, equals: index)
                             .textContentType(.oneTimeCode)
                             .overlay (
                                 RoundedRectangle(cornerRadius: 5)
                                     .stroke(code[index].isEmpty ? Color.clear : Color(red: 0/255, green: 230/255, blue: 255/255), lineWidth: 1)
                             )
                             .onChange(of: code[index]) { newValue in
-                                if !newValue.isEmpty {
+                                if !newValue.isEmpty || newValue.count == 1 {
                                     continueButtonColor = Color(red: 0/255, green: 230/255, blue: 255/255)
                                     fontButtonColor = .white
-                                } else {
+                                    if index < 5 {
+                                        focusedIndex = index + 1
+                                    }
+                                } else if newValue.isEmpty {
                                     continueButtonColor = Color.gray.opacity(0.2)
                                     fontButtonColor = .gray
+                                    if index > 0 {
+                                        focusedIndex = index - 1
+                                    }
                                 }
                             }
                     }
