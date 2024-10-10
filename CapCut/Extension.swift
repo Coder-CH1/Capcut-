@@ -47,7 +47,3 @@ extension String {
         return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: self)
     }
 }
-
-enum FocusPin {
-        case  pinOne, pinTwo, pinThree, pinFour, pinFive, pinSix
-    }
