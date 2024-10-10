@@ -5,6 +5,7 @@
 # Features: 
 
 - SwiftUi 
+- AppWrite
 - Swift Package Manager
 - Photos
 - PhotosUi
