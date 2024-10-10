@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import Appwrite
+import NIO
+import SwiftUI
 
 class UserViewModel: ObservableObject {
     @Published var email = ""

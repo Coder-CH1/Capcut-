@@ -18,6 +18,7 @@
 		041505C82CB3E6D800E2E063 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041505C72CB3E6D800E2E063 /* SplashView.swift */; };
 		0446E3222C4EA63C004E82A4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0446E3212C4EA63C004E82A4 /* HomeView.swift */; };
 		045339C82CB67C0500F51569 /* SwiftUISideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 045339C72CB67C0500F51569 /* SwiftUISideMenu */; };
+		048FBB5F2CB801F600550B67 /* Appwrite in Frameworks */ = {isa = PBXBuildFile; productRef = 048FBB5E2CB801F600550B67 /* Appwrite */; };
 		049590552CB2CA0F0057940B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049590542CB2CA0F0057940B /* UserViewModel.swift */; };
 		04DA5D7A2C525861004C6546 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DA5D792C525861004C6546 /* Extension.swift */; };
 /* End PBXBuildFile section */
@@ -62,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				048FBB5F2CB801F600550B67 /* Appwrite in Frameworks */,
 				045339C82CB67C0500F51569 /* SwiftUISideMenu in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -162,6 +164,7 @@
 			name = CapCut;
 			packageProductDependencies = (
 				045339C72CB67C0500F51569 /* SwiftUISideMenu */,
+				048FBB5E2CB801F600550B67 /* Appwrite */,
 			);
 			productName = CapCut;
 			productReference = 0401E45E2C427BB1006D6E2C /* CapCut.app */;
@@ -237,6 +240,7 @@
 			mainGroup = 0401E4552C427BB1006D6E2C;
 			packageReferences = (
 				045339C62CB67C0500F51569 /* XCRemoteSwiftPackageReference "swiftui-side-menu" */,
+				048FBB5D2CB801F600550B67 /* XCRemoteSwiftPackageReference "sdk-for-apple" */,
 			);
 			productRefGroup = 0401E45F2C427BB1006D6E2C /* Products */;
 			projectDirPath = "";
@@ -621,6 +625,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		048FBB5D2CB801F600550B67 /* XCRemoteSwiftPackageReference "sdk-for-apple" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/appwrite/sdk-for-apple.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -628,6 +640,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 045339C62CB67C0500F51569 /* XCRemoteSwiftPackageReference "swiftui-side-menu" */;
 			productName = SwiftUISideMenu;
+		};
+		048FBB5E2CB801F600550B67 /* Appwrite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 048FBB5D2CB801F600550B67 /* XCRemoteSwiftPackageReference "sdk-for-apple" */;
+			productName = Appwrite;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
