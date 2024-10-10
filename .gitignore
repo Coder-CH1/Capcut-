@@ -17,6 +17,7 @@ xcuserdata/
 timeline.xctimeline
 playground.xcworkspace
 Config.xcconfig
+.env
 
 # Swift Package Manager
 #
