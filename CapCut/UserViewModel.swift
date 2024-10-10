@@ -11,6 +11,7 @@ import NIO
 import SwiftUI
 
 class UserViewModel: ObservableObject {
+    let client = Client()
     @Published var email = ""
     @Published var password = ""
     @Published var dateOfBirth = ""
@@ -23,9 +24,7 @@ class UserViewModel: ObservableObject {
     let projectId = Bundle.main.object(forInfoDictionaryKey: "APPWRITE_PROJECT_ID") as? String
     let apiKey = Bundle.main.object(forInfoDictionaryKey: "APPWRITE_API_KEY") as? String
     
-    func signIn() {
-        guard !email.isEmpty && !password.isEmpty else {
-            return
-        }
-    }
+    func register() {}
+    func login() {}
+    func logout() {}
 }
