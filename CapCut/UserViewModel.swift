@@ -37,7 +37,7 @@ class UserViewModel: ObservableObject {
     
     func register() async {
         do {
-           let user = try await account.create(userId: "", email: email, password: password)
+           let user = try await account.create(userId: "USER_ID", email: email, password: password, name: name)
             self.errorMessage = "User registered: \(user.email)"
         } catch let error as AppwriteError {
             self.errorMessage = error.message
@@ -49,7 +49,10 @@ class UserViewModel: ObservableObject {
     func login() async {
         
         do {
-            let session = try await account.createSession(userId: email, secret: password)
+            let session = try await account.createEmailPasswordSession(
+                email: email,
+                password: password
+            )
             self.errorMessage = "Logged in successfully: \(session.userId)"
         } catch let error as AppwriteError  {
             self.errorMessage = error.message

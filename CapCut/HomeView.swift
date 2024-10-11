@@ -479,15 +479,15 @@ struct SignUpView: View {
                         }
                     }
                 Button {
-                    Task {
-                        await viewModel.register()
-                        if viewModel.errorMessage.isEmpty {
-                            continueButton.toggle()
-                            showNewView = true
-                        } else {
-                            print(viewModel.errorMessage)
-                        }
-                    }
+//                    Task {
+//                        await viewModel.register()
+//                        if viewModel.errorMessage.isEmpty {
+//                            continueButton.toggle()
+//                            showNewView = true
+//                        } else {
+//                            print(viewModel.errorMessage)
+//                        }
+//                    }
                 } label: {
                     Text("Continue")
                         .font(.system(size: 18, weight: .bold))
