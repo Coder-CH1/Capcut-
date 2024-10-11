@@ -71,8 +71,7 @@ class UserViewModel: ObservableObject {
     
     func logout() async {
         do {
-            let sessionId = "current"
-            let user = try await account.deleteSession(sessionId: sessionId)
+        _  = try await account.deleteSession(sessionId: "current")
             self.errorMessage = "Logged out successfully"
         } catch let error as AppwriteError {
             self.errorMessage = error.message
