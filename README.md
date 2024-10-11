@@ -4,7 +4,8 @@
 
 # Features: 
 
-- SwiftUi 
+- SwiftUi(User Interface)
+- AppWrite(User Authentication and Database Management)
 - Swift Package Manager
 - Photos
 - PhotosUi
