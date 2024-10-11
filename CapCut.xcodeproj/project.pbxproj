@@ -54,6 +54,7 @@
 		041505C52CB3755D00E2E063 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		041505C72CB3E6D800E2E063 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		0446E3212C4EA63C004E82A4 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		0450E5452CB973BE00960EE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		049590542CB2CA0F0057940B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		04DA5D792C525861004C6546 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -108,6 +109,7 @@
 		0401E4602C427BB1006D6E2C /* CapCut */ = {
 			isa = PBXGroup;
 			children = (
+				0450E5452CB973BE00960EE3 /* Info.plist */,
 				0401E4612C427BB1006D6E2C /* CapCutApp.swift */,
 				0401E4632C427BB1006D6E2C /* ContentView.swift */,
 				0446E3212C4EA63C004E82A4 /* HomeView.swift */,
@@ -452,6 +454,7 @@
 				DEVELOPMENT_TEAM = SFJ8H3MDYC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CapCut/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -481,6 +484,7 @@
 				DEVELOPMENT_TEAM = SFJ8H3MDYC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CapCut/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
