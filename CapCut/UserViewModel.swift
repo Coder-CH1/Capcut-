@@ -20,9 +20,7 @@ class UserViewModel: ObservableObject {
     
     @Published var email = ""
     @Published var password = ""
-    @Published var dateOfBirth = ""
-    @Published var nickname = ""
-    @Published var digitNumber = ""
+    @Published var name = ""
     @Published var errorMessage = ""
     @Published var otpSent: Bool = false
     
@@ -47,6 +45,27 @@ class UserViewModel: ObservableObject {
             self.errorMessage = "Error occured."
         }
     }
-    func login() {}
-    func logout() {}
+    func login() async {
+        do {
+            let user = try await account.createSession(userId: email, secret: "")
+        } catch {
+            
+        }
+    }
+    
+    func getUser() async {
+        do {
+            let user = try await account.get()
+        } catch {
+            
+        }
+    }
+    
+    func logout() async {
+        do {
+            let user = try await account.deleteSession(sessionId: "")
+        } catch {
+            
+        }
+    }
 }
