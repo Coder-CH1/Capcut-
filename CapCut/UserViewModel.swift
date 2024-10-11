@@ -45,6 +45,7 @@ class UserViewModel: ObservableObject {
             self.errorMessage = "Error occured."
         }
     }
+    
     func login() async {
         
         do {
@@ -79,4 +80,5 @@ class UserViewModel: ObservableObject {
             self.errorMessage = "Error occured."
         }
     }
+    
 }
