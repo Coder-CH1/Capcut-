@@ -17,6 +17,8 @@
 		041505C62CB3755D00E2E063 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041505C52CB3755D00E2E063 /* SideMenuView.swift */; };
 		041505C82CB3E6D800E2E063 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041505C72CB3E6D800E2E063 /* SplashView.swift */; };
 		0446E3222C4EA63C004E82A4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0446E3212C4EA63C004E82A4 /* HomeView.swift */; };
+		0450E5472CB9768400960EE3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0450E5452CB973BE00960EE3 /* Info.plist */; };
+		0450E5482CB9768400960EE3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0450E5452CB973BE00960EE3 /* Info.plist */; };
 		045339C82CB67C0500F51569 /* SwiftUISideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 045339C72CB67C0500F51569 /* SwiftUISideMenu */; };
 		048FBB5F2CB801F600550B67 /* Appwrite in Frameworks */ = {isa = PBXBuildFile; productRef = 048FBB5E2CB801F600550B67 /* Appwrite */; };
 		049590552CB2CA0F0057940B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049590542CB2CA0F0057940B /* UserViewModel.swift */; };
@@ -269,6 +271,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0450E5472CB9768400960EE3 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +279,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0450E5482CB9768400960EE3 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
