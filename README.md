@@ -1,8 +1,8 @@
-## Capcut -
+# Capcut -
 
 * Video editing project.
 
-## Features: 
+# Features: 
 
 - SwiftUi(User Interface)
 - AppWrite(User Authentication and Database Management)
@@ -11,5 +11,4 @@
 - Photos
 - PhotosUi
 - AVKit
-- CoreImage
-- CoreGraphics
+- AVFoundation
