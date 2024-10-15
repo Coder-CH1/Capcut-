@@ -480,10 +480,10 @@ struct SignUpView: View {
                     }
                 Button {
                     showNewView = true
-                    Task {
-                        await viewModel.sendOtp()
-                        showNewView = false
-                    }
+//                    Task {
+//                        await viewModel.sendOtp()
+//                        showNewView = false
+//                    }
                 } label: {
                     Text("Continue")
                         .font(.system(size: 18, weight: .bold))
