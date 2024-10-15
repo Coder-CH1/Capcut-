@@ -479,15 +479,11 @@ struct SignUpView: View {
                         }
                     }
                 Button {
-//                    Task {
-//                        await viewModel.register()
-//                        if viewModel.errorMessage.isEmpty {
-//                            continueButton.toggle()
-//                            showNewView = true
-//                        } else {
-//                            print(viewModel.errorMessage)
-//                        }
-//                    }
+                    showNewView = true
+                    Task {
+                        await viewModel.sendOtp()
+                        showNewView = false
+                    }
                 } label: {
                     Text("Continue")
                         .font(.system(size: 18, weight: .bold))
@@ -629,8 +625,15 @@ struct ReceiveOtpView: View {
                     }
                 }
                 Button {
-                    continueButton.toggle()
-                    showCreatePasswordView = true
+                    Task {
+                        await viewModel.verifyToken()
+                        if viewModel.isTokenVerified {
+                            continueButton.toggle()
+                            showCreatePasswordView = true
+                        } else {
+                            showCreatePasswordView = false
+                        }
+                    }
                 } label: {
                     Text("Continue")
                         .font(.system(size: 18, weight: .bold))
