@@ -11,4 +11,3 @@
 - Photos
 - PhotosUi
 - AVKit
-- AVFoundation
