@@ -17,6 +17,7 @@ class UserViewModel: ObservableObject {
     @Published var name = ""
     @Published var password = ""
     @Published var errorMessage = ""
+    @Published var sessionToken: String?
     @Published var navigateToHome = false
     @Published var isTokenVerified = false
     @Published var otpSent: Bool = false
@@ -34,8 +35,9 @@ class UserViewModel: ObservableObject {
     
     func sendOtp() async {
         do {
-            _ = try await account.createEmailToken(userId: ID.unique(), email: email)
+         let tokenResponse = try await account.createEmailToken(userId: ID.unique(), email: email)
             await MainActor.run {
+                self.sessionToken = tokenResponse.userId
                 otpSent = true
                 errorMessage = "Otp sent to \(email)"
             }
@@ -47,8 +49,14 @@ class UserViewModel: ObservableObject {
     }
     
     func verifyToken() async {
+        guard let userId = sessionToken else {
+            await MainActor.run {
+                errorMessage = "No session token available"
+            }
+            return
+        }
         do {
-            _ = try await account.createSession(userId: ID.unique(), secret: token)
+            _ = try await account.createSession(userId: userId, secret: token)
             await MainActor.run {
                 isTokenVerified = true
                 errorMessage = "Token verified successfully"

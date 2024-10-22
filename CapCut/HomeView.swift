@@ -242,7 +242,7 @@ struct UserRegistration: View {
                     .navigationBarBackButtonHidden(false)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
-                            NavigationLink(destination: HomeViewContents()) {
+                            NavigationLink(destination:        HomeViewContents()) {
                                 Image(systemName: "chevron.backward")
                                     .font(.system(size: 20))
                                     .foregroundColor(Color.black)
