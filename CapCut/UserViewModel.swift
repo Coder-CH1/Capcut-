@@ -12,49 +12,51 @@ import SwiftUI
 
 class UserViewModel: ObservableObject {
     
-    let endpoint: String?
-    let projectId: String?
-    let apiKey: String?
-    let client: Client
-    let account: Account
-    
     @Published var email = ""
-    @Published var password = ""
-    @Published var name = ""
-    @Published var errorMessage = ""
     @Published var token = ""
+    @Published var name = ""
+    @Published var password = ""
+    @Published var errorMessage = ""
+    @Published var navigateToHome = false
     @Published var isTokenVerified = false
     @Published var otpSent: Bool = false
     
-    init() {
-        self.endpoint = Bundle.main.object(forInfoDictionaryKey: "APPWRITE_ENDPOINT") as? String
-        self.projectId = Bundle.main.object(forInfoDictionaryKey: "APPWRITE_PROJECT_ID") as? String
-        self.apiKey = Bundle.main.object(forInfoDictionaryKey: "APPWRITE_API_KEY") as? String
-
+    var client: Client
+    var account: Account
+    
+    init(){
         self.client = Client()
-            .setEndpoint(endpoint ?? "")
-            .setProject(projectId ?? "")
-            .setSelfSigned()
+                .setEndpoint("https://cloud.appwrite.io/v1")
+                .setProject("6707cbf30012504010d3")
+                .setSelfSigned()
         self.account = Account(client)
     }
     
     func sendOtp() async {
         do {
             _ = try await account.createEmailToken(userId: ID.unique(), email: email)
-            otpSent = true
-            errorMessage = "Otp sent to \(email)"
+            await MainActor.run {
+                otpSent = true
+                errorMessage = "Otp sent to \(email)"
+            }
         } catch {
-            errorMessage = "Error occured"
+            await MainActor.run {
+                errorMessage = "Error occured"
+            }
         }
     }
     
     func verifyToken() async {
         do {
             _ = try await account.createSession(userId: ID.unique(), secret: token)
-            isTokenVerified = true
-            errorMessage = "Token verified successfully"
+            await MainActor.run {
+                isTokenVerified = true
+                errorMessage = "Token verified successfully"
+            }
         } catch {
-           errorMessage = "Error occured"
+            await MainActor.run {
+                errorMessage = "Error occured"
+            }
         }
     }
     
@@ -64,9 +66,13 @@ class UserViewModel: ObservableObject {
                     email: email,
                     password: password
                 )
-                self.errorMessage = "Logged in successfully: \(session.userId)"
+                await MainActor.run {
+                    self.errorMessage = "Logged in successfully: \(session.userId)"
+                }
             } catch {
-                self.errorMessage = "Error occured"
+                await MainActor.run {
+                    self.errorMessage = "Error occured"
+                }
             }
         }
 
@@ -74,18 +80,26 @@ class UserViewModel: ObservableObject {
     func getUser() async {
         do {
             let user = try await account.get()
-            self.errorMessage = "User email: \(user.email)"
+            await MainActor.run {
+                self.errorMessage = "User email: \(user.email)"
+            }
         } catch {
-            self.errorMessage = "Error occured."
+            await MainActor.run {
+                self.errorMessage = "Error occured."
+            }
         }
     }
     
     func logout() async {
         do {
         _  = try await account.deleteSession(sessionId: "current")
-            self.errorMessage = "Logged out successfully"
+            await MainActor.run {
+                self.errorMessage = "Logged out successfully"
+            }
         } catch {
-            self.errorMessage = "Error occured."
+            await MainActor.run {
+                self.errorMessage = "Error occured."
+            }
         }
     }
     

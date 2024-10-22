@@ -479,11 +479,13 @@ struct SignUpView: View {
                         }
                     }
                 Button {
-                    showNewView = true
-//                    Task {
-//                        await viewModel.sendOtp()
-//                        showNewView = false
-//                    }
+                    
+                    Task {
+                        await viewModel.sendOtp()
+                        if viewModel.otpSent {
+                            showNewView = true
+                        }
+                    }
                 } label: {
                     Text("Continue")
                         .font(.system(size: 18, weight: .bold))
@@ -549,7 +551,6 @@ struct TopSignupView: View {
 struct ReceiveOtpView: View {
     @State var continueButton = false
     @State var showNewView = false
-    @State var showCreatePasswordView = false
     @State var code = Array(repeating: "", count: 6)
     @State var continueButtonColor = Color.gray.opacity(0.2)
     @State var fontButtonColor = Color.gray
@@ -561,7 +562,7 @@ struct ReceiveOtpView: View {
             HStack(spacing: 100) {
                 Button {
                     presentationMode.wrappedValue.dismiss()
-                    showNewView.toggle()
+                    viewModel.navigateToHome.toggle()
                 } label: {
                     Image(systemName: "chevron.backward")
                         .font(.system(size: 20))
@@ -628,10 +629,7 @@ struct ReceiveOtpView: View {
                     Task {
                         await viewModel.verifyToken()
                         if viewModel.isTokenVerified {
-                            continueButton.toggle()
-                            showCreatePasswordView = true
-                        } else {
-                            showCreatePasswordView = false
+                            viewModel.navigateToHome = true
                         }
                     }
                 } label: {
@@ -639,8 +637,8 @@ struct ReceiveOtpView: View {
                         .font(.system(size: 18, weight: .bold))
                         .foregroundColor(fontButtonColor)
                 }
-                .fullScreenCover(isPresented: $showCreatePasswordView) {
-                    CreatePasswordView(viewModel: viewModel)
+                .fullScreenCover(isPresented: $showNewView) {
+                    HomeView()
                 }
                 .frame(width: UIScreen.main.bounds.width/1.1, height: 50)
                 .background(continueButtonColor)
