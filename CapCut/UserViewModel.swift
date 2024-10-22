@@ -21,6 +21,12 @@ class UserViewModel: ObservableObject {
     @Published var navigateToHome = false
     @Published var isTokenVerified = false
     @Published var otpSent: Bool = false
+    @Published var showNewView = false
+    @Published var continueButton = false
+    @Published var isSecure = true
+    @Published var isTyping = false
+    @Published var showSignUpView = false
+    @Published var isValidate: Bool = false
     
     var client: Client
     var account: Account
@@ -56,7 +62,7 @@ class UserViewModel: ObservableObject {
             return
         }
         do {
-            _ = try await account.createSession(userId: userId, secret: token)
+            _ = try await account.createSession(userId: userId, secret: "[SECRET]")
             await MainActor.run {
                 isTokenVerified = true
                 errorMessage = "Token verified successfully"

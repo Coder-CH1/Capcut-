@@ -549,7 +549,6 @@ struct TopSignupView: View {
 }
 
 struct ReceiveOtpView: View {
-    @State var continueButton = false
     @State var showNewView = false
     @State var code = Array(repeating: "", count: 6)
     @State var continueButtonColor = Color.gray.opacity(0.2)
@@ -568,7 +567,7 @@ struct ReceiveOtpView: View {
                         .font(.system(size: 20))
                         .foregroundColor(.black)
                 }
-                .fullScreenCover(isPresented: $showNewView) {
+                .fullScreenCover(isPresented: $viewModel.showNewView) {
                     SignInView(viewModel: UserViewModel())
                 }
                 Text("Sign up")
