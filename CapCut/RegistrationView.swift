@@ -208,7 +208,7 @@ struct SignInView: View {
                         Task {
                             await viewModel.register()
                             if viewModel.isRegistered {
-                                //showNewView = true
+                                //viewModel.showNewView = true
                             } else {
                                 print("User registration failed\(viewModel.errorMessage)")
                             }
