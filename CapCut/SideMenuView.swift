@@ -5,90 +5,144 @@
 //  Created by Mac on 06/10/2024.
 //
 
+//import SwiftUI
+//import SwiftUISideMenu
+//
+//struct SideMenuTest: View {
+//    @State var showSideMenu = false
+//
+//    var body: some View {
+//        VStack {
+//            HStack {
+//            Button(action: {
+//                withAnimation {
+//                    self.showSideMenu.toggle()
+//                }
+//            }) {
+//                Image(systemName: "person")
+//                    .imageScale(.large)
+//                    .foregroundColor(.black)
+//                }
+//            .padding(.leading, -170)
+//            }
+//            Spacer()
+//        }.sideMenu(isShowing: $showSideMenu) {
+//            SideMenu(showSideMenu: $showSideMenu)
+//        }
+//    }
+//}
+//
+//
+//struct SideMenuTest_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SideMenuTest()
+//    }
+//}
+//
+//
+//struct SideMenu: View {
+//    @Binding var showSideMenu: Bool
+//    var body: some View {
+//        VStack(alignment: .leading) {
+//            Button(action: {
+//                withAnimation {
+//                    self.showSideMenu = false
+//                }
+//            }) {
+//                HStack {
+//                    Image(systemName: "xmark")
+//                        .foregroundColor(.white)
+//                }
+//            }
+//            Spacer()
+//                .frame(height: 90)
+//            HStack {
+//                Button {
+//
+//                } label: {
+//                    Image(systemName: "person.fill")
+//                        .font(.system(size: 60))
+//                        .background(.white)
+//                }
+//                Spacer()
+//                VStack(alignment: .leading) {
+//                    Text("nickname")
+//                        .font(.system(size: 14, weight: .medium))
+//                        .foregroundColor(.white)
+//                    Text("ID number")
+//                        .font(.system(size: 15, weight: .bold))
+//                        .foregroundColor(.gray)
+//                }
+//            }
+//            Spacer()
+//                .frame(height: 50)
+//            Rectangle()
+//                .fill(.white)
+//                .frame(height: 1)
+//            Text("Help Center")
+//                .font(.system(size: 14, weight: .medium))
+//                .foregroundColor(.white)
+//            Text("Manage Account")
+//                .font(.system(size: 14, weight: .medium))
+//                .foregroundColor(.white)
+//            Spacer()
+//        }.padding()
+//            .frame(maxWidth: .infinity, alignment: .leading)
+//            .background(Color.black)
+//            .edgesIgnoringSafeArea(.all)
+//    }
+//}
 import SwiftUI
-import SwiftUISideMenu
+import Appwrite
 
-struct SideMenuTest: View {
-    @State var showSideMenu = false
+class ViewModel: ObservableObject {
+    @Published var email: String = ""
+    @Published var password: String = ""
+}
+
+struct ContentView: View {
+    @ObservedObject var viewModel = ViewModel()
+    //let appwrite: Appwrite
 
     var body: some View {
         VStack {
-            HStack {
-            Button(action: {
-                withAnimation {
-                    self.showSideMenu.toggle()
+            TextField(
+                "Email",
+                text: $viewModel.email
+            )
+            SecureField(
+                "Password",
+                text: $viewModel.password
+            )
+            Button(
+                action: { Task {
+//                    try await appwrite.onRegister(
+//                        viewModel.email,
+//                        viewModel.password
+//                    )
+                }},
+                label: {
+                    Text("Register")
                 }
-            }) {
-                Image(systemName: "person")
-                    .imageScale(.large)
-                    .foregroundColor(.black)
+            )
+            Button(
+                action: { Task {
+//                    try! await appwrite.onLogin(
+//                        viewModel.email,
+//                        viewModel.password
+//                    )
+                }},
+                label: {
+                    Text("Login")
                 }
-            .padding(.leading, -170)
-            }
-            Spacer()
-        }.sideMenu(isShowing: $showSideMenu) {
-            SideMenu(showSideMenu: $showSideMenu)
+            )
         }
+        .padding()
     }
 }
 
-
-struct SideMenuTest_Previews: PreviewProvider {
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SideMenuTest()
-    }
-}
-
-
-struct SideMenu: View {
-    @Binding var showSideMenu: Bool
-    var body: some View {
-        VStack(alignment: .leading) {
-            Button(action: {
-                withAnimation {
-                    self.showSideMenu = false
-                }
-            }) {
-                HStack {
-                    Image(systemName: "xmark")
-                        .foregroundColor(.white)
-                }
-            }
-            Spacer()
-                .frame(height: 90)
-            HStack {
-                Button {
-
-                } label: {
-                    Image(systemName: "person.fill")
-                        .font(.system(size: 60))
-                        .background(.white)
-                }
-                Spacer()
-                VStack(alignment: .leading) {
-                    Text("nickname")
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(.white)
-                    Text("ID number")
-                        .font(.system(size: 15, weight: .bold))
-                        .foregroundColor(.gray)
-                }
-            }
-            Spacer()
-                .frame(height: 50)
-            Rectangle()
-                .fill(.white)
-                .frame(height: 1)
-            Text("Help Center")
-                .font(.system(size: 14, weight: .medium))
-                .foregroundColor(.white)
-            Text("Manage Account")
-                .font(.system(size: 14, weight: .medium))
-                .foregroundColor(.white)
-            Spacer()
-        }.padding()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.black)
-            .edgesIgnoringSafeArea(.all)
+        ContentView()
     }
 }

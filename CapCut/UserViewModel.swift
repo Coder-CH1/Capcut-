@@ -33,17 +33,20 @@ class UserViewModel: ObservableObject {
     
     init(){
         self.client = Client()
-                .setEndpoint("https://cloud.appwrite.io/v1")
-                .setProject("6707cbf30012504010d3")
-                .setSelfSigned()
+            .setEndpoint("https://cloud.appwrite.io/v1")
+            .setProject("6707cbf30012504010d3")
+            .setSelfSigned()
         self.account = Account(client)
     }
     
-    func sendOtp() async {
+    func register() async {
         do {
-         let tokenResponse = try await account.createEmailToken(userId: ID.unique(), email: email)
+            let sessionToken = try await account.create(
+                userId: ID.unique(),
+                email: email,
+                password: password
+            )
             await MainActor.run {
-                self.sessionToken = tokenResponse.userId
                 otpSent = true
                 errorMessage = "Otp sent to \(email)"
             }
@@ -54,42 +57,21 @@ class UserViewModel: ObservableObject {
         }
     }
     
-    func verifyToken() async {
-        guard let userId = sessionToken else {
-            await MainActor.run {
-                errorMessage = "No session token available"
-            }
-            return
-        }
+    func login() async {
         do {
-            _ = try await account.createSession(userId: userId, secret: "[SECRET]")
+            let session = try await account.createEmailPasswordSession(
+                email: email,
+                password: password
+            )
             await MainActor.run {
-                isTokenVerified = true
-                errorMessage = "Token verified successfully"
+                self.errorMessage = "Logged in successfully: \(session.userId)"
             }
         } catch {
             await MainActor.run {
-                errorMessage = "Error occured"
+                self.errorMessage = "Error occured"
             }
         }
     }
-    
-    func login() async {
-            do {
-                let session = try await account.createEmailPasswordSession(
-                    email: email,
-                    password: password
-                )
-                await MainActor.run {
-                    self.errorMessage = "Logged in successfully: \(session.userId)"
-                }
-            } catch {
-                await MainActor.run {
-                    self.errorMessage = "Error occured"
-                }
-            }
-        }
-
     
     func getUser() async {
         do {
@@ -106,7 +88,7 @@ class UserViewModel: ObservableObject {
     
     func logout() async {
         do {
-        _  = try await account.deleteSession(sessionId: "current")
+            _  = try await account.deleteSession(sessionId: "current")
             await MainActor.run {
                 self.errorMessage = "Logged out successfully"
             }
