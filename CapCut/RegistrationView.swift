@@ -43,7 +43,7 @@ struct RegistrationView: View {
                         RoundedRectangle(cornerRadius: 22)
                             .stroke(Color.gray, lineWidth: 1)
                     )
-                    NavigationLink(destination: SignInView(isLoggedIn: isLoggedIn, viewModel: UserViewModel()), isActive: $signInView){
+                    NavigationLink(destination: SignInView(isLoggedIn: $isLoggedIn, viewModel: UserViewModel()), isActive: $signInView){
                         
                     }
                     .navigationBarTitleDisplayMode(.inline)
@@ -91,7 +91,7 @@ struct SignInView: View {
     @State var showSignUpView = false
     @State var fontButtonColor = Color.gray
     @State var continueButtonColor = Color.gray.opacity(0.2)
-    @State var isLoggedIn = false
+    @Binding var isLoggedIn: Bool
     @FocusState var isEmailFocused: Bool
     @FocusState var isPasswordFocused: Bool
     @StateObject var viewModel: UserViewModel
@@ -208,6 +208,7 @@ struct SignInView: View {
                         Task {
                             await viewModel.register()
                             if viewModel.isRegistered {
+                                isLoggedIn = true
                                 //viewModel.showNewView = true
                             } else {
                                 print("User registration failed\(viewModel.errorMessage)")
@@ -227,6 +228,7 @@ struct SignInView: View {
                             await viewModel.login()
                             if viewModel.isLoggedIn {
                                 viewModel.showNewView = true
+                                isLoggedIn = true
                             } else {
                                 print("Login user failed\(viewModel.errorMessage)")
                             }
@@ -275,7 +277,7 @@ struct TopSignupView: View {
                     .foregroundColor(.black)
             }
             .fullScreenCover(isPresented: $showNewView) {
-                SignInView(isLoggedIn: isLoggedIn, viewModel: UserViewModel())
+                SignInView(isLoggedIn: $isLoggedIn, viewModel: UserViewModel())
             }
             Text("Sign up")
                 .font(.system(size: 20, weight: .black))
