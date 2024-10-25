@@ -55,10 +55,16 @@ struct HomeViewContents: View {
                             .font(.system(size: 25))
                             .foregroundColor(.black)
                     }
-                    NavigationLink(destination: RegistrationView(isLoggedIn: $isLoggedIn), isActive: $showRegistration) {
-                        EmptyView()
+                    .fullScreenCover(isPresented: $showRegistration) {
+                        RegistrationView(isLoggedIn: $isLoggedIn)
+                            .onDisappear {
+                                if isLoggedIn {
+                                    Task {
+                                        await userViewModel.getUser()
+                                    }
+                                }
+                            }
                     }
-                    .hidden()
                     .onChange(of: isLoggedIn) { newValue in
                         if newValue {
                             Task {
