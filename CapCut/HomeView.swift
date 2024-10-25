@@ -320,7 +320,7 @@ struct SignInView: View {
                         .foregroundColor(.black)
                 }
                 VStack(spacing: 20) {
-                    TextField(" Enter email address", text: $viewModel.email) 
+                    TextField(" Enter email address", text: $viewModel.email)
                         .padding()
                         .autocapitalization(.none)
                         .keyboardType(.emailAddress)
@@ -397,7 +397,7 @@ struct SignInView: View {
                         Task {
                             await viewModel.register()
                             if viewModel.isRegistered {
-                                showNewView = true
+                                //showNewView = true
                             } else {
                                 print("User registration failed\(viewModel.errorMessage)")
                             }
@@ -424,10 +424,14 @@ struct SignInView: View {
                         Text("Sign in")
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(fontButtonColor)
+                            .fullScreenCover(isPresented: $showNewView) {
+                                HomeView()
+                            }
                     }
                     .frame(width: UIScreen.main.bounds.width/1.1, height: 50)
                     .background(continueButtonColor)
                     .cornerRadius(10)
+                    
                     
                     Button {
                         print("")
@@ -436,22 +440,6 @@ struct SignInView: View {
                             .font(.system(size: 16, weight: .bold))
                             .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
                     }
-                }
-            }
-            Spacer()
-            HStack {
-                Text("Don't have an account?")
-                    .font(.system(size: 16, weight: .regular))
-                    .foregroundColor(.black)
-                Button {
-                    showSignUpView.toggle()
-                } label: {
-                    Text("Sign up")
-                        .font(.system(size: 16, weight: .bold))
-                        .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
-                }
-                .fullScreenCover(isPresented: $showSignUpView) {
-                    HomeView()
                 }
             }
         }
