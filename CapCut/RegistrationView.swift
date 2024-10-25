@@ -87,12 +87,8 @@ struct RegistrationView_Previews: PreviewProvider {
 
 struct SignInView: View {
     @State var show = false
-    @State var isSecure = true
-    @State var isTyping = false
     @State var previousView = false
-    @State var continueButton = false
     @State var showSignUpView = false
-    @State var isValidate: Bool = false
     @State var fontButtonColor = Color.gray
     @State var continueButtonColor = Color.gray.opacity(0.2)
     @Binding var isLoggedIn: Bool
@@ -151,7 +147,7 @@ struct SignInView: View {
                         )
                         .focused($isEmailFocused)
                     ZStack(alignment: .trailing) {
-                        if isSecure {
+                        if viewModel.isSecure {
                             SecureField(" Enter password", text: $viewModel.password)
                                 .padding()
                                 .keyboardType(.asciiCapable)
@@ -167,11 +163,11 @@ struct SignInView: View {
                                 .focused($isPasswordFocused)
                                 .onChange(of: viewModel.password) { newValue in
                                     if !newValue.isEmpty {
-                                        isTyping = true
+                                        viewModel.isTyping = true
                                         continueButtonColor = Color(red: 0/255, green: 230/255, blue: 255/255)
                                         fontButtonColor = .white
                                     } else {
-                                        isTyping = false
+                                        viewModel.isTyping = false
                                         continueButtonColor = Color.gray.opacity(0.2)
                                         fontButtonColor = .gray
                                     }
@@ -192,17 +188,17 @@ struct SignInView: View {
                                 .focused($isPasswordFocused)
                                 .onChange(of: viewModel.password) { newValue in
                                     if !newValue.isEmpty {
-                                        isTyping = true
+                                        viewModel.isTyping = true
                                     } else {
-                                        isTyping = false
+                                        viewModel.isTyping = false
                                     }
                                 }
                         }
                         Button  {
-                            isSecure.toggle()
+                            viewModel.isSecure.toggle()
                         } label: {
-                            if isTyping {
-                                Image(systemName: isSecure ? "eyebrow" : "eye")
+                            if viewModel.isTyping {
+                                Image(systemName: viewModel.isSecure ? "eyebrow" : "eye")
                                     .foregroundColor(.black)
                                     .padding(.trailing, 10)
                             }
