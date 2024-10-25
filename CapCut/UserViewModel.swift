@@ -20,7 +20,8 @@ class UserViewModel: ObservableObject {
     @Published var sessionToken: String?
     @Published var navigateToHome = false
     @Published var isTokenVerified = false
-    @Published var otpSent: Bool = false
+    @Published var isRegistered: Bool = false
+    @Published var isLoggedIn: Bool = false
     @Published var showNewView = false
     @Published var continueButton = false
     @Published var isSecure = true
@@ -47,8 +48,8 @@ class UserViewModel: ObservableObject {
                 password: password
             )
             await MainActor.run {
-                otpSent = true
-                errorMessage = "Otp sent to \(email)"
+                isRegistered = true
+                errorMessage = "User registered successfully \(email)"
             }
         } catch {
             await MainActor.run {
@@ -64,6 +65,7 @@ class UserViewModel: ObservableObject {
                 password: password
             )
             await MainActor.run {
+                isLoggedIn = true
                 self.errorMessage = "Logged in successfully: \(session.userId)"
             }
         } catch {

@@ -394,9 +394,14 @@ struct SignInView: View {
                         }
                     }
                     Button {
-                        continueButton.toggle()
+                        Task {
+                                await viewModel.register()
+                                if viewModel.isRegistered {
+                                showNewView = true
+                                        }
+                                    }
                     } label: {
-                        Text("Sign in")
+                        Text("Sign up")
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(fontButtonColor)
                     }
@@ -405,9 +410,14 @@ struct SignInView: View {
                     .cornerRadius(10)
                     
                     Button {
-                        continueButton.toggle()
+                        Task {
+                                await viewModel.login()
+                                if viewModel.isLoggedIn {
+                                showNewView = true
+                                        }
+                                    }
                     } label: {
-                        Text("Sign up")
+                        Text("Sign in")
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(fontButtonColor)
                     }
