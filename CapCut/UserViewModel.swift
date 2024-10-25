@@ -42,7 +42,7 @@ class UserViewModel: ObservableObject {
     
     func register() async {
         do {
-            let sessionToken = try await account.create(
+            _  = try await account.create(
                 userId: ID.unique(),
                 email: email,
                 password: password
@@ -53,7 +53,7 @@ class UserViewModel: ObservableObject {
             }
         } catch {
             await MainActor.run {
-                errorMessage = "Error occured"
+                errorMessage = "Error occured \(error.localizedDescription)"
             }
         }
     }
@@ -70,7 +70,7 @@ class UserViewModel: ObservableObject {
             }
         } catch {
             await MainActor.run {
-                self.errorMessage = "Error occured"
+                self.errorMessage = "Error occured\(error.localizedDescription)"
             }
         }
     }
@@ -83,7 +83,7 @@ class UserViewModel: ObservableObject {
             }
         } catch {
             await MainActor.run {
-                self.errorMessage = "Error occured."
+                self.errorMessage = "Error occured \(error.localizedDescription)."
             }
         }
     }
@@ -96,7 +96,7 @@ class UserViewModel: ObservableObject {
             }
         } catch {
             await MainActor.run {
-                self.errorMessage = "Error occured."
+                self.errorMessage = "Error occured \(error.localizedDescription)."
             }
         }
     }

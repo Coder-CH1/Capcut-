@@ -395,11 +395,13 @@ struct SignInView: View {
                     }
                     Button {
                         Task {
-                                await viewModel.register()
-                                if viewModel.isRegistered {
+                            await viewModel.register()
+                            if viewModel.isRegistered {
                                 showNewView = true
-                                        }
-                                    }
+                            } else {
+                                print("User registration failed\(viewModel.errorMessage)")
+                            }
+                        }
                     } label: {
                         Text("Sign up")
                             .font(.system(size: 18, weight: .bold))
@@ -411,11 +413,13 @@ struct SignInView: View {
                     
                     Button {
                         Task {
-                                await viewModel.login()
-                                if viewModel.isLoggedIn {
+                            await viewModel.login()
+                            if viewModel.isLoggedIn {
                                 showNewView = true
-                                        }
-                                    }
+                            } else {
+                                print("Login user failed\(viewModel.errorMessage)")
+                            }
+                        }
                     } label: {
                         Text("Sign in")
                             .font(.system(size: 18, weight: .bold))
@@ -434,26 +438,26 @@ struct SignInView: View {
                     }
                 }
             }
-                Spacer()
-                HStack {
-                    Text("Don't have an account?")
-                        .font(.system(size: 16, weight: .regular))
-                        .foregroundColor(.black)
-                    Button {
-                        showSignUpView.toggle()
-                    } label: {
-                        Text("Sign up")
-                            .font(.system(size: 16, weight: .bold))
-                            .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
-                    }
-                    .fullScreenCover(isPresented: $showSignUpView) {
-                       HomeView()
-                    }
+            Spacer()
+            HStack {
+                Text("Don't have an account?")
+                    .font(.system(size: 16, weight: .regular))
+                    .foregroundColor(.black)
+                Button {
+                    showSignUpView.toggle()
+                } label: {
+                    Text("Sign up")
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
+                }
+                .fullScreenCover(isPresented: $showSignUpView) {
+                    HomeView()
                 }
             }
-            .navigationBarBackButtonHidden(true)
         }
+        .navigationBarBackButtonHidden(true)
     }
+}
 
 
 struct TopSignupView: View {
