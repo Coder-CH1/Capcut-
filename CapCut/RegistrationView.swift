@@ -43,7 +43,7 @@ struct RegistrationView: View {
                         RoundedRectangle(cornerRadius: 22)
                             .stroke(Color.gray, lineWidth: 1)
                     )
-                    NavigationLink(destination: SignInView(isLoggedIn: $isLoggedIn, viewModel: UserViewModel()), isActive: $signInView){
+                    NavigationLink(destination: SignInView(showRegistration: $isLoggedIn, viewModel: UserViewModel()), isActive: $signInView){
                         
                     }
                     .navigationBarTitleDisplayMode(.inline)
@@ -91,7 +91,7 @@ struct SignInView: View {
     @State var showSignUpView = false
     @State var fontButtonColor = Color.gray
     @State var continueButtonColor = Color.gray.opacity(0.2)
-    @Binding var isLoggedIn: Bool
+    @Binding var showRegistration: Bool
     @FocusState var isEmailFocused: Bool
     @FocusState var isPasswordFocused: Bool
     @StateObject var viewModel: UserViewModel
@@ -107,7 +107,7 @@ struct SignInView: View {
                         .font(.system(size: 25))
                         .foregroundColor(.black)
                         .fullScreenCover(isPresented: $previousView) {
-                            RegistrationView(isLoggedIn: $isLoggedIn)
+                            RegistrationView(isLoggedIn: $showRegistration)
                         }
                 }
                 Text("Sign in")
@@ -208,7 +208,7 @@ struct SignInView: View {
                         Task {
                             await viewModel.register()
                             if viewModel.isRegistered {
-                                isLoggedIn = true
+                                showRegistration = true
                                 //viewModel.showNewView = true
                             } else {
                                 print("User registration failed\(viewModel.errorMessage)")
@@ -228,7 +228,7 @@ struct SignInView: View {
                             await viewModel.login()
                             if viewModel.isLoggedIn {
                                 viewModel.showNewView = true
-                                isLoggedIn = true
+                                showRegistration = true
                             } else {
                                 print("Login user failed\(viewModel.errorMessage)")
                             }
@@ -238,7 +238,7 @@ struct SignInView: View {
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(fontButtonColor)
                             .fullScreenCover(isPresented: $viewModel.showNewView) {
-                                HomeView(isLoggedIn: $isLoggedIn)
+                                HomeView(isLoggedIn: $showRegistration)
                             }
                     }
                     .frame(width: UIScreen.main.bounds.width/1.1, height: 50)
@@ -277,7 +277,7 @@ struct TopSignupView: View {
                     .foregroundColor(.black)
             }
             .fullScreenCover(isPresented: $showNewView) {
-                SignInView(isLoggedIn: $isLoggedIn, viewModel: UserViewModel())
+                SignInView(showRegistration: $isLoggedIn, viewModel: UserViewModel())
             }
             Text("Sign up")
                 .font(.system(size: 20, weight: .black))
