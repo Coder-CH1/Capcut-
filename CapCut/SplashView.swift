@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct SplashView: View {
-    
+    @State var isLoggedIn = false
     @State var isActive: Bool = false
     
     var body: some View {
         
         ZStack{
             if self.isActive{
-                HomeView()
+                HomeView(isLoggedIn: $isLoggedIn)
             } else {
                 Color.white.ignoresSafeArea()
                 HStack (spacing: 0){

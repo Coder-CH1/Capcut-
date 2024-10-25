@@ -10,7 +10,7 @@ import SwiftUISideMenu
 
 struct HomeView: View {
     @State var showingModal = false
-    @State var isLoggedIn = false
+    @Binding var isLoggedIn: Bool
     var body: some View {
         ZStack {
             VStack {
@@ -26,7 +26,7 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(isLoggedIn: .constant(true))
     }
 }
 
@@ -42,17 +42,29 @@ struct HomeViewContents: View {
                 HStack {
                     Button {
                         if isLoggedIn {
-                            showSideMenu.toggle()
+                            withAnimation {
+                                showSideMenu.toggle()
+                                showRegistration = false
+                            }
                         } else {
                             showRegistration.toggle()
+                            showSideMenu = false
                         }
                     } label: {
                         Image(systemName: "person")
                             .font(.system(size: 25))
                             .foregroundColor(.black)
                     }
-                    .fullScreenCover(isPresented: $showRegistration) {
-                        RegistrationView(isLoggedIn: $isLoggedIn)
+                    NavigationLink(destination: RegistrationView(isLoggedIn: $isLoggedIn), isActive: $showRegistration) {
+                        EmptyView()
+                    }
+                    .hidden()
+                    .onChange(of: isLoggedIn) { newValue in
+                        if newValue {
+                            Task {
+                                await userViewModel.getUser()
+                            }
+                        }
                     }
                     Spacer()
                     HStack(spacing: 30) {
@@ -206,7 +218,7 @@ struct HomeViewContents: View {
         .navigationBarBackButtonHidden(true)
         .offset(y: -120)
         .sideMenu(isShowing: $showSideMenu) {
-            SideMenu(showSideMenu: $showSideMenu, userViewModel: UserViewModel())
+        SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
         }
     }
 }
@@ -278,37 +290,37 @@ struct TermsOfServiceModalView: View {
     }
 }
 
-struct SideMenuTest: View {
-    @StateObject var userViewModel = UserViewModel()
-    @State var showSideMenu = false
-
-    var body: some View {
-        VStack {
-            HStack {
-            Button(action: {
-                withAnimation {
-                    self.showSideMenu.toggle()
-                }
-            }) {
-                Image(systemName: "person")
-                    .imageScale(.large)
-                    .foregroundColor(.black)
-                }
-            .padding(.leading, -170)
-            }
-            Spacer()
-        }.sideMenu(isShowing: $showSideMenu) {
-            SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
-        }
-    }
-}
-
-
-struct SideMenuTest_Previews: PreviewProvider {
-    static var previews: some View {
-        SideMenuTest()
-    }
-}
+//struct SideMenuTest: View {
+//    @StateObject var userViewModel = UserViewModel()
+//    @State var showSideMenu = false
+//
+//    var body: some View {
+//        VStack {
+//            HStack {
+//            Button(action: {
+//                withAnimation {
+//                    self.showSideMenu.toggle()
+//                }
+//            }) {
+//                Image(systemName: "person")
+//                    .imageScale(.large)
+//                    .foregroundColor(.black)
+//                }
+//            .padding(.leading, -170)
+//            }
+//            Spacer()
+//        }.sideMenu(isShowing: $showSideMenu) {
+//            SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
+//        }
+//    }
+//}
+//
+//
+//struct SideMenuTest_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SideMenuTest()
+//    }
+//}
 
 
 struct SideMenu: View {
