@@ -45,18 +45,20 @@ struct HomeViewContents: View {
                             withAnimation {
                                 showSideMenu.toggle()
                                 showRegistration = false
+                                if showSideMenu {
+                                    showRegistration = false
+                                }
                             }
                         } else {
                             showRegistration.toggle()
-                            showSideMenu = false
+                            if showRegistration {
+                                showSideMenu = false
+                            }
                         }
                     } label: {
                         Image(systemName: "person")
                             .font(.system(size: 25))
                             .foregroundColor(.black)
-                    }
-                    .fullScreenCover(isPresented: $showRegistration) {
-                        RegistrationView(isLoggedIn: $isLoggedIn)
                     }
                     Spacer()
                     HStack(spacing: 30) {
@@ -210,7 +212,10 @@ struct HomeViewContents: View {
         .navigationBarBackButtonHidden(true)
         .offset(y: -120)
         .sideMenu(isShowing: $showSideMenu) {
-        SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
+            SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
+        .fullScreenCover(isPresented: $showRegistration) {
+                    RegistrationView(isLoggedIn: $showRegistration)
+            }
         }
     }
 }
@@ -281,39 +286,6 @@ struct TermsOfServiceModalView: View {
         }
     }
 }
-
-//struct SideMenuTest: View {
-//    @StateObject var userViewModel = UserViewModel()
-//    @State var showSideMenu = false
-//
-//    var body: some View {
-//        VStack {
-//            HStack {
-//            Button(action: {
-//                withAnimation {
-//                    self.showSideMenu.toggle()
-//                }
-//            }) {
-//                Image(systemName: "person")
-//                    .imageScale(.large)
-//                    .foregroundColor(.black)
-//                }
-//            .padding(.leading, -170)
-//            }
-//            Spacer()
-//        }.sideMenu(isShowing: $showSideMenu) {
-//            SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
-//        }
-//    }
-//}
-//
-//
-//struct SideMenuTest_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SideMenuTest()
-//    }
-//}
-
 
 struct SideMenu: View {
     @Binding var showSideMenu: Bool
