@@ -206,15 +206,15 @@ struct HomeViewContents: View {
         .navigationBarBackButtonHidden(true)
         .offset(y: -120)
         .sideMenu(isShowing: $showSideMenu) {
-            SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
+            if isLoggedIn {
+                SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
+            }
+        }
         .fullScreenCover(isPresented: $showRegistration) {
                     RegistrationView(isLoggedIn: $isLoggedIn)
-            }
         }
     }
 }
-
-
 
 struct TermsOfServiceModalView: View {
     @Binding var agreeAndContinueButton: Bool
