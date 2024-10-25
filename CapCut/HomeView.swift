@@ -57,20 +57,6 @@ struct HomeViewContents: View {
                     }
                     .fullScreenCover(isPresented: $showRegistration) {
                         RegistrationView(isLoggedIn: $isLoggedIn)
-                            .onDisappear {
-                                if isLoggedIn {
-                                    Task {
-                                        await userViewModel.getUser()
-                                    }
-                                }
-                            }
-                    }
-                    .onChange(of: isLoggedIn) { newValue in
-                        if newValue {
-                            Task {
-                                await userViewModel.getUser()
-                            }
-                        }
                     }
                     Spacer()
                     HStack(spacing: 30) {
