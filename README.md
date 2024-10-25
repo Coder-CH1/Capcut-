@@ -1,6 +1,6 @@
 # Capcut
 
-* Video editing project.
+- Video editing project.
 
 # Features: 
 
@@ -11,5 +11,4 @@
 - Photos
 - PhotosUi
 - AVKit
-- AVFoundation
 #
