@@ -45,15 +45,9 @@ struct HomeViewContents: View {
                             withAnimation {
                                 showSideMenu.toggle()
                                 showRegistration = false
-                                if showSideMenu {
-                                    showRegistration = false
-                                }
                             }
                         } else {
                             showRegistration.toggle()
-                            if showRegistration {
-                                showSideMenu = false
-                            }
                         }
                     } label: {
                         Image(systemName: "person")
@@ -214,7 +208,7 @@ struct HomeViewContents: View {
         .sideMenu(isShowing: $showSideMenu) {
             SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
         .fullScreenCover(isPresented: $showRegistration) {
-                    RegistrationView(isLoggedIn: $showRegistration)
+                    RegistrationView(isLoggedIn: $isLoggedIn)
             }
         }
     }
