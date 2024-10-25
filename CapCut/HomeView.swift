@@ -54,6 +54,9 @@ struct HomeViewContents: View {
                             .font(.system(size: 25))
                             .foregroundColor(.black)
                     }
+                    .fullScreenCover(isPresented: $showRegistration) {
+                                RegistrationView(isLoggedIn: $isLoggedIn)
+                        }
                     Spacer()
                     HStack(spacing: 30) {
                         Text("Pro")
@@ -206,12 +209,7 @@ struct HomeViewContents: View {
         .navigationBarBackButtonHidden(true)
         .offset(y: -120)
         .sideMenu(isShowing: $showSideMenu) {
-            if isLoggedIn {
-                SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
-            }
-        }
-        .fullScreenCover(isPresented: $showRegistration) {
-                    RegistrationView(isLoggedIn: $isLoggedIn)
+            SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
         }
     }
 }
