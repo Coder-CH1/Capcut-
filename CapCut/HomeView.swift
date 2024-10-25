@@ -51,7 +51,7 @@ struct HomeViewContents: View {
                             .foregroundColor(.black)
                     }
                     .fullScreenCover(isPresented: $showRegistration) {
-                        RegistrationView()
+                        RegistrationView(isLoggedIn: $isLoggedIn)
                     }
                     Spacer()
                     HStack(spacing: 30) {
