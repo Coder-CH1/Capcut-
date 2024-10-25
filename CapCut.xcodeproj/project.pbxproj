@@ -20,6 +20,9 @@
 		045339C82CB67C0500F51569 /* SwiftUISideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 045339C72CB67C0500F51569 /* SwiftUISideMenu */; };
 		048FBB5F2CB801F600550B67 /* Appwrite in Frameworks */ = {isa = PBXBuildFile; productRef = 048FBB5E2CB801F600550B67 /* Appwrite */; };
 		049590552CB2CA0F0057940B /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049590542CB2CA0F0057940B /* UserViewModel.swift */; };
+		04B231432CCBD06D00D163E2 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B231422CCBD06D00D163E2 /* RegistrationView.swift */; };
+		04B231442CCBD14400D163E2 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B231422CCBD06D00D163E2 /* RegistrationView.swift */; };
+		04B231452CCBD14700D163E2 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B231422CCBD06D00D163E2 /* RegistrationView.swift */; };
 		04DA5D7A2C525861004C6546 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DA5D792C525861004C6546 /* Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +59,7 @@
 		041C3E152CC7A7EE00733257 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0446E3212C4EA63C004E82A4 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		049590542CB2CA0F0057940B /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		04B231422CCBD06D00D163E2 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		04DA5D792C525861004C6546 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +117,7 @@
 				0401E4612C427BB1006D6E2C /* CapCutApp.swift */,
 				0401E4632C427BB1006D6E2C /* ContentView.swift */,
 				0446E3212C4EA63C004E82A4 /* HomeView.swift */,
+				04B231422CCBD06D00D163E2 /* RegistrationView.swift */,
 				041505C72CB3E6D800E2E063 /* SplashView.swift */,
 				041505C52CB3755D00E2E063 /* SideMenuView.swift */,
 				049590542CB2CA0F0057940B /* UserViewModel.swift */,
@@ -293,6 +298,7 @@
 				0401E4622C427BB1006D6E2C /* CapCutApp.swift in Sources */,
 				049590552CB2CA0F0057940B /* UserViewModel.swift in Sources */,
 				04DA5D7A2C525861004C6546 /* Extension.swift in Sources */,
+				04B231432CCBD06D00D163E2 /* RegistrationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0401E4732C427BB3006D6E2C /* CapCutTests.swift in Sources */,
+				04B231442CCBD14400D163E2 /* RegistrationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +315,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04B231452CCBD14700D163E2 /* RegistrationView.swift in Sources */,
 				0401E47F2C427BB3006D6E2C /* CapCutUITestsLaunchTests.swift in Sources */,
 				0401E47D2C427BB3006D6E2C /* CapCutUITests.swift in Sources */,
 			);
