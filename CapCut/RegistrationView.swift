@@ -247,7 +247,7 @@ struct SignInView: View {
                     .background(continueButtonColor)
                     .cornerRadius(10)
                     
-                    
+                    Spacer()
                     Button {
                         print("")
                     } label: {
