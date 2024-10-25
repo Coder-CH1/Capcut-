@@ -14,7 +14,6 @@
 		0401E4732C427BB3006D6E2C /* CapCutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401E4722C427BB3006D6E2C /* CapCutTests.swift */; };
 		0401E47D2C427BB3006D6E2C /* CapCutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401E47C2C427BB3006D6E2C /* CapCutUITests.swift */; };
 		0401E47F2C427BB3006D6E2C /* CapCutUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0401E47E2C427BB3006D6E2C /* CapCutUITestsLaunchTests.swift */; };
-		041505C62CB3755D00E2E063 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041505C52CB3755D00E2E063 /* SideMenuView.swift */; };
 		041505C82CB3E6D800E2E063 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041505C72CB3E6D800E2E063 /* SplashView.swift */; };
 		0446E3222C4EA63C004E82A4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0446E3212C4EA63C004E82A4 /* HomeView.swift */; };
 		045339C82CB67C0500F51569 /* SwiftUISideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 045339C72CB67C0500F51569 /* SwiftUISideMenu */; };
@@ -54,7 +53,6 @@
 		0401E4782C427BB3006D6E2C /* CapCutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapCutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0401E47C2C427BB3006D6E2C /* CapCutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapCutUITests.swift; sourceTree = "<group>"; };
 		0401E47E2C427BB3006D6E2C /* CapCutUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapCutUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		041505C52CB3755D00E2E063 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		041505C72CB3E6D800E2E063 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		041C3E152CC7A7EE00733257 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0446E3212C4EA63C004E82A4 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -119,7 +117,6 @@
 				0446E3212C4EA63C004E82A4 /* HomeView.swift */,
 				04B231422CCBD06D00D163E2 /* RegistrationView.swift */,
 				041505C72CB3E6D800E2E063 /* SplashView.swift */,
-				041505C52CB3755D00E2E063 /* SideMenuView.swift */,
 				049590542CB2CA0F0057940B /* UserViewModel.swift */,
 				0401E4652C427BB2006D6E2C /* Assets.xcassets */,
 				0401E4672C427BB2006D6E2C /* Preview Content */,
@@ -291,7 +288,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				041505C62CB3755D00E2E063 /* SideMenuView.swift in Sources */,
 				0446E3222C4EA63C004E82A4 /* HomeView.swift in Sources */,
 				041505C82CB3E6D800E2E063 /* SplashView.swift in Sources */,
 				0401E4642C427BB1006D6E2C /* ContentView.swift in Sources */,

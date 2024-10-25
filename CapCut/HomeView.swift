@@ -35,6 +35,7 @@ struct HomeViewContents: View {
     @State var showMessage = true
     @State var showSideMenu = false
     @State var showRegistration = false
+    @StateObject var userViewModel = UserViewModel()
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -205,7 +206,7 @@ struct HomeViewContents: View {
         .navigationBarBackButtonHidden(true)
         .offset(y: -120)
         .sideMenu(isShowing: $showSideMenu) {
-            SideMenu(showSideMenu: $showSideMenu)
+            SideMenu(showSideMenu: $showSideMenu, userViewModel: UserViewModel())
         }
     }
 }
@@ -278,6 +279,7 @@ struct TermsOfServiceModalView: View {
 }
 
 struct SideMenuTest: View {
+    @StateObject var userViewModel = UserViewModel()
     @State var showSideMenu = false
 
     var body: some View {
@@ -296,7 +298,7 @@ struct SideMenuTest: View {
             }
             Spacer()
         }.sideMenu(isShowing: $showSideMenu) {
-            SideMenu(showSideMenu: $showSideMenu)
+            SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
         }
     }
 }
@@ -311,6 +313,7 @@ struct SideMenuTest_Previews: PreviewProvider {
 
 struct SideMenu: View {
     @Binding var showSideMenu: Bool
+    @ObservedObject var userViewModel: UserViewModel
     var body: some View {
         VStack(alignment: .leading) {
             Button(action: {
