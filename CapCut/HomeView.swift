@@ -338,10 +338,10 @@ struct SideMenu: View {
                 }
                 Spacer()
                 VStack(alignment: .leading) {
-                    Text("nickname")
+                    Text(userViewModel.name.isEmpty ? "Nickname" : userViewModel.name)
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.white)
-                    Text("ID number")
+                    Text(userViewModel.email.isEmpty ? "ID number" : userViewModel.email)
                         .font(.system(size: 15, weight: .bold))
                         .foregroundColor(.gray)
                 }

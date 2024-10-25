@@ -64,6 +64,7 @@ class UserViewModel: ObservableObject {
                 email: email,
                 password: password
             )
+            await getUser()
             await MainActor.run {
                 isLoggedIn = true
                 self.errorMessage = "Logged in successfully: \(session.userId)"
