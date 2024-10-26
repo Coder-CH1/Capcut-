@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    @State var showingModal = false
+    @Binding var showingModal: Bool
     @State var signInView = false
     @Binding var isLoggedIn: Bool
     var body: some View {
@@ -82,7 +82,7 @@ struct RegistrationView: View {
 
 struct RegistrationView_Previews: PreviewProvider {
     static var previews: some View {
-        RegistrationView(isLoggedIn: .constant(false))
+        RegistrationView(showingModal: .constant(false), isLoggedIn: .constant(false))
     }
 }
 
@@ -90,6 +90,7 @@ struct SignInView: View {
     @State var show = false
     @State var previousView = false
     @State var showSignUpView = false
+    @State var showingModal = false
     @State var fontButtonColor = Color.gray
     @State var continueButtonColor = Color.gray.opacity(0.2)
     @Binding var isLoggedIn: Bool
@@ -108,7 +109,7 @@ struct SignInView: View {
                         .font(.system(size: 25))
                         .foregroundColor(.black)
                         .fullScreenCover(isPresented: $previousView) {
-                            RegistrationView(isLoggedIn: $isLoggedIn)
+                            RegistrationView(showingModal: $showingModal, isLoggedIn: $isLoggedIn)
                         }
                 }
                 Text("Sign in")
@@ -366,6 +367,7 @@ struct ResetPasswordView_Previews: PreviewProvider {
 }
 
 struct ResetPasswordTopView: View {
+    @State var showingModal = false
     @State var showNewView = false
     @Binding var isLoggedIn: Bool
     @Environment(\.presentationMode) var presentationMode
@@ -379,7 +381,7 @@ struct ResetPasswordTopView: View {
                     .font(.system(size: 20))
                     .foregroundColor(.black)
                     .fullScreenCover(isPresented: $showNewView) {
-                        RegistrationView(isLoggedIn: $isLoggedIn)
+                        RegistrationView(showingModal: $showingModal, isLoggedIn: $isLoggedIn)
                     }
             }
             Text("Reset")

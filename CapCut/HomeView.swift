@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftUISideMenu
 
 struct HomeView: View {
-    @State var showingModal = true
+    @State var showingModal: Bool = !UserDefaults.standard.bool(forKey: "termsAccepted")
     @Binding var isLoggedIn: Bool
     var body: some View {
         ZStack {
@@ -17,8 +17,11 @@ struct HomeView: View {
                 HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal)
                 Spacer()
             }
-            if !showingModal {
+            if showingModal {
                 TermsOfServiceModalView(agreeAndContinueButton: $showingModal)
+                    .onDisappear {
+                        UserDefaults.standard.set(true, forKey: "termsAccepted")
+                    }
             }
         }
     }
@@ -45,7 +48,6 @@ struct HomeViewContents: View {
                         if isLoggedIn {
                             withAnimation {
                                 showSideMenu.toggle()
-                                showRegistration = false
                                 showingModal = false
                             }
                         } else {
@@ -57,7 +59,7 @@ struct HomeViewContents: View {
                             .foregroundColor(.black)
                     }
                     .fullScreenCover(isPresented: $showRegistration) {
-                        RegistrationView(isLoggedIn: $isLoggedIn)
+                        RegistrationView(showingModal: $showingModal, isLoggedIn: $isLoggedIn)
                     }
                     Spacer()
                     HStack(spacing: 30) {
@@ -262,7 +264,7 @@ struct TermsOfServiceModalView: View {
                         .multilineTextAlignment(.center)
                 }
                 Button(action: {
-                    agreeAndContinueButton.toggle()
+                    agreeAndContinueButton = false
                 }) {
                     Text("Agree and continue")
                         .font(.system(size: 16, weight: .black))
