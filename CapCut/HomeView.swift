@@ -55,8 +55,8 @@ struct HomeViewContents: View {
                             .foregroundColor(.black)
                     }
                     .fullScreenCover(isPresented: $showRegistration) {
-                                RegistrationView(isLoggedIn: $isLoggedIn)
-                        }
+                        RegistrationView(isLoggedIn: $isLoggedIn)
+                    }
                     Spacer()
                     HStack(spacing: 30) {
                         Text("Pro")
@@ -205,12 +205,12 @@ struct HomeViewContents: View {
                         .foregroundColor(Color.black.opacity(0.7))
                 }
             }
+            .sideMenu(isShowing: $showSideMenu) {
+                SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
+            }
         }
         .navigationBarBackButtonHidden(true)
         .offset(y: -120)
-        .sideMenu(isShowing: $showSideMenu) {
-            SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
-        }
     }
 }
 
