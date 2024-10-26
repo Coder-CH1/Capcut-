@@ -91,6 +91,7 @@ struct SignInView: View {
     @State var previousView = false
     @State var showSignUpView = false
     @State var showingModal = false
+    @State var sideMenu = false
     @State var fontButtonColor = Color.gray
     @State var continueButtonColor = Color.gray.opacity(0.2)
     @Binding var isLoggedIn: Bool
@@ -240,7 +241,7 @@ struct SignInView: View {
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(fontButtonColor)
                             .fullScreenCover(isPresented: $viewModel.showNewView) {
-                                HomeView(isLoggedIn: $isLoggedIn)
+                                HomeView(isLoggedIn: $isLoggedIn, showSideMenu: $sideMenu)
                             }
                     }
                     .frame(width: UIScreen.main.bounds.width/1.1, height: 50)

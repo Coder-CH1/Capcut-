@@ -10,12 +10,12 @@ import SwiftUI
 struct SplashView: View {
     @State var isLoggedIn = false
     @State var isActive: Bool = false
-    
+    @State var sideMenu = false
     var body: some View {
         
         ZStack{
             if self.isActive{
-                HomeView(isLoggedIn: $isLoggedIn)
+                HomeView(isLoggedIn: $isLoggedIn, showSideMenu: $sideMenu)
             } else {
                 Color.white.ignoresSafeArea()
                 HStack (spacing: 0){

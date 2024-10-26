@@ -11,6 +11,8 @@ import SwiftUISideMenu
 struct HomeView: View {
     @State var showingModal: Bool = !UserDefaults.standard.bool(forKey: "termsAccepted")
     @Binding var isLoggedIn: Bool
+    @Binding var showSideMenu: Bool
+    @StateObject var userViewModel = UserViewModel()
     var body: some View {
         ZStack {
             VStack {
@@ -24,12 +26,15 @@ struct HomeView: View {
                     }
             }
         }
+        .sideMenu(isShowing: $showSideMenu) {
+            SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
+        }
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(isLoggedIn: .constant(true))
+        HomeView(isLoggedIn: .constant(true), showSideMenu: .constant(true))
     }
 }
 
@@ -331,8 +336,8 @@ struct SideMenu: View {
                 .foregroundColor(.white)
             Spacer()
         }.padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-            .background(Color.red)
-            //.ignoresSafeArea()
+            .frame(maxWidth: .infinity, maxHeight: .maximum(800, 800), alignment: .leading)
+            .background(Color.black)
+            .ignoresSafeArea()
     }
 }
