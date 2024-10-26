@@ -9,12 +9,12 @@ import SwiftUI
 import SwiftUISideMenu
 
 struct HomeView: View {
-    @State var showingModal = false
+    @State var showingModal = true
     @Binding var isLoggedIn: Bool
     var body: some View {
         ZStack {
             VStack {
-                HomeViewContents(isLoggedIn: $isLoggedIn)
+                HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal)
                 Spacer()
             }
             if !showingModal {
@@ -32,6 +32,7 @@ struct HomeView_Previews: PreviewProvider {
 
 struct HomeViewContents: View {
     @Binding var isLoggedIn: Bool
+    @Binding var showingModal: Bool
     @State var showMessage = true
     @State var showSideMenu = false
     @State var showRegistration = false
@@ -45,6 +46,7 @@ struct HomeViewContents: View {
                             withAnimation {
                                 showSideMenu.toggle()
                                 showRegistration = false
+                                showingModal = false
                             }
                         } else {
                             showRegistration.toggle()

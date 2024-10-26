@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RegistrationView: View {
+    @State var showingModal = false
     @State var signInView = false
     @Binding var isLoggedIn: Bool
     var body: some View {
@@ -50,7 +51,7 @@ struct RegistrationView: View {
                     .navigationBarBackButtonHidden(false)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
-                            NavigationLink(destination:        HomeViewContents(isLoggedIn: $isLoggedIn)) {
+                            NavigationLink(destination:        HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal)) {
                                 Image(systemName: "chevron.backward")
                                     .font(.system(size: 20))
                                     .foregroundColor(Color.black)
