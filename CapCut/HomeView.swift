@@ -214,7 +214,7 @@ struct HomeViewContents: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .offset(y: -200)
+        .offset(y: -140)
     }
 }
 
@@ -331,9 +331,8 @@ struct SideMenu: View {
                 .foregroundColor(.white)
             Spacer()
         }.padding()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .frame(height: UIScreen.main.bounds.height)
-            .background(Color.black)
-            .edgesIgnoringSafeArea(.all)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+            .background(Color.red)
+            //.ignoresSafeArea()
     }
 }
