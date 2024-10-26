@@ -9,8 +9,8 @@ import SwiftUI
 import SwiftUISideMenu
 
 struct HomeView: View {
-    @State var showingModal: Bool = !UserDefaults.standard.bool(forKey: "termsAccepted")
     @Binding var isLoggedIn: Bool
+    @State var showingModal: Bool = !UserDefaults.standard.bool(forKey: "termsAccepted")
     @Binding var showSideMenu: Bool
     @StateObject var userViewModel = UserViewModel()
     var body: some View {
@@ -26,15 +26,18 @@ struct HomeView: View {
                     }
             }
         }
-        .sideMenu(isShowing: $showSideMenu) {
-            SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
-        }
+        //if showSideMenu {
+            .sideMenu(isShowing: $showSideMenu) {
+                SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
+            }
+        //}
     }
+        //.edgesIgnoringSafeArea(.all)
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(isLoggedIn: .constant(true), showSideMenu: .constant(true))
+        HomeView(isLoggedIn: .constant(true), showSideMenu: .constant(false))
     }
 }
 
@@ -336,8 +339,8 @@ struct SideMenu: View {
                 .foregroundColor(.white)
             Spacer()
         }.padding()
-            .frame(maxWidth: .infinity, maxHeight: .maximum(800, 800), alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .background(Color.black)
-            .ignoresSafeArea()
+            .edgesIgnoringSafeArea(.all)
     }
 }
