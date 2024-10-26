@@ -1,15 +1,15 @@
 # Capcut
 
-* Video editing project.
+- Video editing project.
 
-# Features: 
+## Features: 
 
 - SwiftUi(User Interface)
 - AppWrite(User Authentication and Database Management)
-- MVVM(Model, View, ViewModel) Design Pattern.
+- MVVM(Model, View, ViewModel).
 - Swift Package Manager
 - Photos
 - PhotosUi
 - AVKit
-- AVFoundation
-#
+
+##
