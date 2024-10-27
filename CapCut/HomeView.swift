@@ -26,13 +26,10 @@ struct HomeView: View {
                     }
             }
         }
-        //if showSideMenu {
             .sideMenu(isShowing: $showSideMenu) {
                 SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
-            }
-        //}
+        }
     }
-        //.edgesIgnoringSafeArea(.all)
 }
 
 struct HomeView_Previews: PreviewProvider {
