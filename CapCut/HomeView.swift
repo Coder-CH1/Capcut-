@@ -335,7 +335,8 @@ struct SideMenu: View {
                 .font(.system(size: 14, weight: .medium))
                 .foregroundColor(.white)
             Spacer()
-        }.padding()
+        }
+        .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(Color.black)
             .edgesIgnoringSafeArea(.all)

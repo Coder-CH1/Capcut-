@@ -60,7 +60,7 @@ class UserViewModel: ObservableObject {
     
     func login() async {
         do {
-            let session = try await account.getSession(sessionId: "current")
+            _ = try await account.getSession(sessionId: "current")
             await MainActor.run {
                 isLoggedIn = true
                 errorMessage = "User already logged in"
