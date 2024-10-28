@@ -65,24 +65,25 @@ class UserViewModel: ObservableObject {
                     isLoggedIn = true
                     errorMessage = "User already logged in"
                     self.sessionToken = session.userId
+                    return
                 }
             }
-        }
-        
-        do {
-            let session = try await account.createEmailPasswordSession(
-                email: email,
-                password: password
-            )
-            await getUser()
-            await MainActor.run {
-                isLoggedIn = true
-                self.errorMessage = "Logged in successfully: \(session.userId)"
-            }
-            UserDefaults.standard.set(session.userId, forKey: "sessionToken")
-        } catch {
-            await MainActor.run {
-                self.errorMessage = "Error occured\(error.localizedDescription)"
+            
+            do {
+                let session = try await account.createEmailPasswordSession(
+                    email: email,
+                    password: password
+                )
+                await getUser()
+                await MainActor.run {
+                    isLoggedIn = true
+                    self.errorMessage = "Logged in successfully: \(session.userId)"
+                }
+                UserDefaults.standard.set(session.userId, forKey: "sessionToken")
+            } catch {
+                await MainActor.run {
+                    self.errorMessage = "Error occured\(error.localizedDescription)"
+                }
             }
         }
     }
