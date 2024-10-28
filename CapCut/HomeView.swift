@@ -26,10 +26,10 @@ struct HomeView: View {
                     }
             }
         }
-        //if showSideMenu {
             .sideMenu(isShowing: $showSideMenu) {
                 SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
                 .edgesIgnoringSafeArea(.all)
+               
         }
     }
 }
@@ -294,16 +294,16 @@ struct SideMenu: View {
     @Binding var showSideMenu: Bool
     @ObservedObject var userViewModel: UserViewModel
     var body: some View {
-        //GeometryReader { g in
         VStack(alignment: .leading) {
             Button(action: {
                 withAnimation {
-                    self.showSideMenu = false
+                    showSideMenu = false
+                    print("button closed")
                 }
             }) {
                 HStack {
                     Image(systemName: "xmark")
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                 }
             }
             .padding(.top, 20)
@@ -342,7 +342,7 @@ struct SideMenu: View {
         }
         .padding()
         .frame(maxWidth: .infinity ,maxHeight: .infinity, alignment: .leading)
-        .background(Color.black)
+        .background(Color.white)
         .edgesIgnoringSafeArea(.all)
     }
 }
