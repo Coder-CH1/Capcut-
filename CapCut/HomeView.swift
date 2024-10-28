@@ -216,9 +216,6 @@ struct HomeViewContents: View {
                         .foregroundColor(Color.black.opacity(0.7))
                 }
             }
-//            .sideMenu(isShowing: $showSideMenu) {
-//                SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
-//            }
         }
         .navigationBarBackButtonHidden(true)
         .offset(y: -140)
@@ -297,7 +294,7 @@ struct SideMenu: View {
         VStack(alignment: .leading) {
             Button(action: {
                 withAnimation {
-                    showSideMenu = false
+                    //showSideMenu = false
                     print("button closed")
                 }
             }) {
