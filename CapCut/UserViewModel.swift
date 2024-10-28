@@ -60,14 +60,12 @@ class UserViewModel: ObservableObject {
     
     func login() async {
         do {
-            _ = try await account.getSession(sessionId: "current")
-            await MainActor.run {
-                isLoggedIn = true
-                errorMessage = "User already logged in"
-            }
-        } catch {
-            await MainActor.run {
-                errorMessage = "Error occured"
+            if let session = try? await account.getSession(sessionId: "current") {
+                await MainActor.run {
+                    isLoggedIn = true
+                    errorMessage = "User already logged in"
+                    self.sessionToken = session.userId
+                }
             }
         }
         
@@ -81,6 +79,7 @@ class UserViewModel: ObservableObject {
                 isLoggedIn = true
                 self.errorMessage = "Logged in successfully: \(session.userId)"
             }
+            UserDefaults.standard.set(session.userId, forKey: "sessionToken")
         } catch {
             await MainActor.run {
                 self.errorMessage = "Error occured\(error.localizedDescription)"
