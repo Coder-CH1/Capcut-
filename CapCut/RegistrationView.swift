@@ -11,6 +11,7 @@ struct RegistrationView: View {
     @Binding var showingModal: Bool
     @State var signInView = false
     @Binding var isLoggedIn: Bool
+    @State var sideMenu = false
     var body: some View {
         NavigationView {
             VStack {
@@ -51,7 +52,7 @@ struct RegistrationView: View {
                     .navigationBarBackButtonHidden(false)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
-                            NavigationLink(destination:        HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal)) {
+                            NavigationLink(destination:        HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal, showSideMenu: $sideMenu)) {
                                 Image(systemName: "chevron.backward")
                                     .font(.system(size: 20))
                                     .foregroundColor(Color.black)

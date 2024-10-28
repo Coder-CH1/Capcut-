@@ -10,13 +10,13 @@ import SwiftUISideMenu
 
 struct HomeView: View {
     @Binding var isLoggedIn: Bool
-    @State var showingModal: Bool = !UserDefaults.standard.bool(forKey: "termsAccepted")
     @Binding var showSideMenu: Bool
+    @State var showingModal: Bool = !UserDefaults.standard.bool(forKey: "termsAccepted")
     @StateObject var userViewModel = UserViewModel()
     var body: some View {
         ZStack {
             VStack {
-                HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal)
+                HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal, showSideMenu: $showSideMenu)
                 Spacer()
             }
             if showingModal {
@@ -43,8 +43,8 @@ struct HomeView_Previews: PreviewProvider {
 struct HomeViewContents: View {
     @Binding var isLoggedIn: Bool
     @Binding var showingModal: Bool
+    @Binding var showSideMenu: Bool
     @State var showMessage = true
-    @State var showSideMenu = false
     @State var showRegistration = false
     @StateObject var userViewModel = UserViewModel()
     var body: some View {
