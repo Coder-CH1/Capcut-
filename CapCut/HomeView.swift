@@ -26,8 +26,10 @@ struct HomeView: View {
                     }
             }
         }
+        //if showSideMenu {
             .sideMenu(isShowing: $showSideMenu) {
                 SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
+                .edgesIgnoringSafeArea(.all)
         }
     }
 }
@@ -214,9 +216,9 @@ struct HomeViewContents: View {
                         .foregroundColor(Color.black.opacity(0.7))
                 }
             }
-            .sideMenu(isShowing: $showSideMenu) {
-                SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
-            }
+//            .sideMenu(isShowing: $showSideMenu) {
+//                SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
+//            }
         }
         .navigationBarBackButtonHidden(true)
         .offset(y: -140)
@@ -292,6 +294,7 @@ struct SideMenu: View {
     @Binding var showSideMenu: Bool
     @ObservedObject var userViewModel: UserViewModel
     var body: some View {
+        //GeometryReader { g in
         VStack(alignment: .leading) {
             Button(action: {
                 withAnimation {
@@ -303,11 +306,12 @@ struct SideMenu: View {
                         .foregroundColor(.white)
                 }
             }
+            .padding(.top, 20)
             Spacer()
                 .frame(height: 90)
             HStack {
                 Button {
-
+                    
                 } label: {
                     Image(systemName: "person.fill")
                         .font(.system(size: 60))
@@ -337,8 +341,8 @@ struct SideMenu: View {
             Spacer()
         }
         .padding()
-        .frame(maxWidth: .infinity,maxHeight: .infinity, alignment: .leading)
-            .background(Color.black)
-            .edgesIgnoringSafeArea(.all)
+        .frame(maxWidth: .infinity ,maxHeight: .infinity, alignment: .leading)
+        .background(Color.black)
+        .edgesIgnoringSafeArea(.all)
     }
 }
