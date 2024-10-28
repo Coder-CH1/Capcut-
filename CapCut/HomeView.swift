@@ -292,18 +292,8 @@ struct SideMenu: View {
     @ObservedObject var userViewModel: UserViewModel
     var body: some View {
         VStack(alignment: .leading) {
-            Button(action: {
-                withAnimation {
-                    //showSideMenu = false
-                    print("button closed")
-                }
-            }) {
-                HStack {
-                    Image(systemName: "xmark")
-                        .foregroundColor(.black)
-                }
-            }
-            .padding(.top, 20)
+            
+            //.padding(.top, 20)
             Spacer()
                 .frame(height: 90)
             HStack {
@@ -337,6 +327,16 @@ struct SideMenu: View {
                 .foregroundColor(.white)
             Spacer()
         }
+        .gesture(
+            DragGesture()
+                .onEnded({ value in
+                    if value.translation.width < -50 {
+                        withAnimation {
+                            showSideMenu = false
+                        }
+                    }
+                })
+        )
         .padding()
         .frame(maxWidth: .infinity ,maxHeight: .infinity, alignment: .leading)
         .background(Color.white)
