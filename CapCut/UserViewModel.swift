@@ -45,19 +45,20 @@ class UserViewModel: ObservableObject {
         if let token = UserDefaults.standard.string(forKey: "sessionToken") {
             self.sessionToken = token
             await checkSession()
+        } else {
+            await MainActor.run {
+                isLoggedIn = false
+            }
         }
     }
     
     //MARK: - CHECK USER SESSION -
     func checkSession() async {
         do {
-            if let session = try? await account.getSession(sessionId: "current") {
-                await MainActor.run {
-                    isLoggedIn = true
-                    errorMessage = "User already logged in"
-                    self.sessionToken = session.userId
-                    return
-                }
+            let session = try await account.getSession(sessionId: "current")
+            await MainActor.run {
+                isLoggedIn = true
+                self.sessionToken = session.userId
             }
         } catch {
             await MainActor.run {
