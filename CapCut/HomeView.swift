@@ -293,13 +293,8 @@ struct SideMenu: View {
     @ObservedObject var userViewModel: UserViewModel
     var body: some View {
         VStack(alignment: .leading) {
-            
-            //.padding(.top, 20)
-            Spacer()
-                .frame(height: 90)
             HStack {
                 Button {
-                    
                 } label: {
                     Image(systemName: "person.fill")
                         .font(.system(size: 60))
@@ -316,27 +311,27 @@ struct SideMenu: View {
                 }
             }
             Spacer()
-                .frame(height: 50)
+                .frame(height: 150)
             Rectangle()
-                .fill(.white)
+                .fill(.black)
                 .frame(height: 1)
             Text("Help Center")
                 .font(.system(size: 14, weight: .medium))
-                .foregroundColor(.white)
+                .foregroundColor(.black)
             Text("Manage Account")
                 .font(.system(size: 14, weight: .medium))
-                .foregroundColor(.white)
-            
+                .foregroundColor(.black)
+            Spacer()
+                .frame(height: 350)
             Button {
                 UserDefaults.standard.set(false, forKey: "isLoggedIn")
                 isLoggedIn = false
                 showSideMenu = false
             } label: {
                 Text("Logout")
-                    .font(.system(size: 24, weight: .medium))
-                    .foregroundColor(.white)
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(.black)
             }
-            //Spacer()
         }
         .gesture(
             DragGesture()
