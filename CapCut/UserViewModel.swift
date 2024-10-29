@@ -40,6 +40,34 @@ class UserViewModel: ObservableObject {
         self.account = Account(client)
     }
     
+    //MARK: - PERSIST USER SESSION/LOGIN SESSION -
+    func checkStoredSession() async {
+        if let token = UserDefaults.standard.string(forKey: "sessionToken") {
+            self.sessionToken = token
+            await checkSession()
+        }
+    }
+    
+    //MARK: - CHECK USER SESSION -
+    func checkSession() async {
+        do {
+            if let session = try? await account.getSession(sessionId: "current") {
+                await MainActor.run {
+                    isLoggedIn = true
+                    errorMessage = "User already logged in"
+                    self.sessionToken = session.userId
+                    return
+                }
+            }
+        } catch {
+            await MainActor.run {
+                self.isLoggedIn = false
+                self.errorMessage = "No active session"
+            }
+        }
+    }
+    
+    //MARK: - REGISTER USER -
     func register() async {
         do {
             _  = try await account.create(
@@ -58,37 +86,39 @@ class UserViewModel: ObservableObject {
         }
     }
     
+    //MARK: - LOGIN USER -
     func login() async {
+        await checkSession()
+        if isLoggedIn {
+            await MainActor.run {
+                self.errorMessage = "User is already logged in"
+            }
+            return
+        }
+        
         do {
-            if let session = try? await account.getSession(sessionId: "current") {
-                await MainActor.run {
-                    isLoggedIn = true
-                    errorMessage = "User already logged in"
-                    self.sessionToken = session.userId
-                    return
-                }
+            let session = try await account.createEmailPasswordSession(
+                email: email,
+                password: password
+            )
+            
+            await getUser()
+            
+            await MainActor.run {
+                isLoggedIn = true
+                self.errorMessage = "Logged in successfully: \(session.userId)"
             }
             
-                let session = try await account.createEmailPasswordSession(
-                    email: email,
-                    password: password
-                )
-            
-                await getUser()
-            
-                await MainActor.run {
-                    isLoggedIn = true
-                    self.errorMessage = "Logged in successfully: \(session.userId)"
-                }
-            
-                UserDefaults.standard.set(session.userId, forKey: "sessionToken")
-            } catch {
-                await MainActor.run {
-                    self.errorMessage = "Error occured\(error.localizedDescription)"
+            UserDefaults.standard.set(session.userId, forKey: "sessionToken")
+        } catch {
+            await MainActor.run {
+                isLoggedIn = false
+                self.errorMessage = "Error occured\(error.localizedDescription)"
             }
         }
     }
     
+    //MARK: - FETCHING USER -
     func getUser() async {
         do {
             let user = try await account.get()
@@ -102,9 +132,11 @@ class UserViewModel: ObservableObject {
         }
     }
     
+    //MARK: - LOGING USER OUT -
     func logout() async {
         do {
             _  = try await account.deleteSession(sessionId: "current")
+            UserDefaults.standard.removeObject(forKey: "sessionToken")
             await MainActor.run {
                 self.errorMessage = "Logged out successfully"
             }
@@ -114,5 +146,4 @@ class UserViewModel: ObservableObject {
             }
         }
     }
-    
 }

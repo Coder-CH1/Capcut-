@@ -9,9 +9,10 @@ import SwiftUI
 
 struct RegistrationView: View {
     @Binding var showingModal: Bool
-    @State var signInView = false
     @Binding var isLoggedIn: Bool
+    @State var signInView = false
     @State var sideMenu = false
+    @StateObject var viewModel = UserViewModel()
     var body: some View {
         NavigationView {
             VStack {
@@ -76,6 +77,12 @@ struct RegistrationView: View {
                     .lineSpacing(3)
                     .multilineTextAlignment(.center)
                 }
+            }
+        }
+        .onAppear {
+            Task {
+                await viewModel.checkSession()
+                isLoggedIn = viewModel.isLoggedIn
             }
         }
     }
@@ -213,7 +220,7 @@ struct SignInView: View {
                             await viewModel.register()
                             if viewModel.isRegistered {
                                 isLoggedIn = true
-                                //viewModel.showNewView = true
+                                UserDefaults.standard.set(true, forKey: "isLoggedIn")
                             } else {
                                 print("User registration failed\(viewModel.errorMessage)")
                             }
@@ -233,6 +240,7 @@ struct SignInView: View {
                             if viewModel.isLoggedIn {
                                 viewModel.showNewView = true
                                 isLoggedIn = true
+                                UserDefaults.standard.set(true, forKey: "isLoggedIn")
                             } else {
                                 print("Login user failed\(viewModel.errorMessage)")
                             }

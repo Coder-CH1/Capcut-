@@ -26,10 +26,10 @@ struct HomeView: View {
                     }
             }
         }
-            .sideMenu(isShowing: $showSideMenu) {
-                SideMenu(showSideMenu: $showSideMenu, userViewModel: userViewModel)
+        .sideMenu(isShowing: $showSideMenu) {
+            SideMenu(isLoggedIn: $isLoggedIn, showSideMenu: $showSideMenu, userViewModel: userViewModel)
                 .edgesIgnoringSafeArea(.all)
-               
+            
         }
     }
 }
@@ -288,6 +288,7 @@ struct TermsOfServiceModalView: View {
 }
 
 struct SideMenu: View {
+    @Binding var isLoggedIn: Bool
     @Binding var showSideMenu: Bool
     @ObservedObject var userViewModel: UserViewModel
     var body: some View {
@@ -325,7 +326,17 @@ struct SideMenu: View {
             Text("Manage Account")
                 .font(.system(size: 14, weight: .medium))
                 .foregroundColor(.white)
-            Spacer()
+            
+            Button {
+                UserDefaults.standard.set(false, forKey: "isLoggedIn")
+                isLoggedIn = false
+                showSideMenu = false
+            } label: {
+                Text("Logout")
+                    .font(.system(size: 24, weight: .medium))
+                    .foregroundColor(.white)
+            }
+            //Spacer()
         }
         .gesture(
             DragGesture()

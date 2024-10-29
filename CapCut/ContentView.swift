@@ -8,43 +8,43 @@
 import SwiftUI
 
 struct CellsContentView: View {
-        @State private var showingModal = false
-
-        var body: some View {
-            ZStack {
-                VStack(spacing: 20) {
-                    Button(action: {
-                        self.showingModal = true
-                    }) {
-                        Text("Show popup")
-                    }
-                    Spacer()
+    @State private var showingModal = false
+    
+    var body: some View {
+        ZStack {
+            VStack(spacing: 20) {
+                Button(action: {
+                    self.showingModal = true
+                }) {
+                    Text("Show popup")
                 }
-                if $showingModal.wrappedValue {
-                    ZStack {
-Color.black.opacity(0.4)
-                            .edgesIgnoringSafeArea(.vertical)
-                        VStack(spacing: 20) {
-                Text("Popup")
-                                .bold().padding()
-                                .frame(maxWidth: .infinity)
-                                .background(Color.orange)
-                                .foregroundColor(Color.white)
-                            Spacer()
-                            Button(action: {
-                                self.showingModal = false
-                            }) {
-                                Text("Close")
-                            }.padding()
-                        }
-                        .frame(width: 300, height: 200)
-                        .background(Color.white)
-                        .cornerRadius(20).shadow(radius: 20)
+                Spacer()
+            }
+            if $showingModal.wrappedValue {
+                ZStack {
+                    Color.black.opacity(0.4)
+                        .edgesIgnoringSafeArea(.vertical)
+                    VStack(spacing: 20) {
+                        Text("Popup")
+                            .bold().padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.orange)
+                            .foregroundColor(Color.white)
+                        Spacer()
+                        Button(action: {
+                            self.showingModal = false
+                        }) {
+                            Text("Close")
+                        }.padding()
                     }
+                    .frame(width: 300, height: 200)
+                    .background(Color.white)
+                    .cornerRadius(20).shadow(radius: 20)
                 }
             }
         }
     }
+}
 
 struct CellsContentView_Previews: PreviewProvider {
     static var previews: some View {
