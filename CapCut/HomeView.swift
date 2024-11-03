@@ -7,12 +7,16 @@
 
 import SwiftUI
 import SwiftUISideMenu
+import Photos
+import PhotosUI
+import AVKit
 
 struct HomeView: View {
     @Binding var isLoggedIn: Bool
     @Binding var showSideMenu: Bool
     @State var showingModal: Bool = !UserDefaults.standard.bool(forKey: "termsAccepted")
     @StateObject var userViewModel = UserViewModel()
+    @State var selectedVideoAsset: PHAsset?
     var body: some View {
         ZStack {
             VStack {
@@ -24,6 +28,11 @@ struct HomeView: View {
                     .onDisappear {
                         UserDefaults.standard.set(true, forKey: "termsAccepted")
                     }
+            }
+            if let selectedVideoAsset = selectedVideoAsset {
+                VideoPlayerView(asset: selectedVideoAsset)
+                    .transition(.slide)
+                    .zIndex(1)
             }
         }
         .sideMenu(isShowing: $showSideMenu) {
@@ -347,5 +356,44 @@ struct SideMenu: View {
         .frame(maxWidth: .infinity ,maxHeight: .infinity, alignment: .leading)
         .background(Color.white)
         .edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct VideoPlayerView: View {
+    var asset: PHAsset
+    @State var player: AVPlayer = AVPlayer()
+    @State var loadingError: String?
+    var body: some View {
+        VStack {
+            if let error = loadingError {
+                Text("Error loading video: \(error)")
+                    .foregroundColor(.red)
+                    .padding()
+            } else {
+                VideoPlayer(player: player)
+                    .onAppear() {
+                        loadVideo()
+                    }
+                    .onDisappear() {
+                        player.pause()
+                    }
+            }
+        }
+    }
+    func loadVideo() {
+        let options = PHVideoRequestOptions()
+        options.isNetworkAccessAllowed = true
+        
+        PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, audioMix, info in
+            DispatchQueue.main.async {
+                if let error = info?[PHImageResultIsDegradedKey] as? Bool, error {
+                    loadingError = ""
+                } else if let avAsset = avAsset {
+                    player = AVPlayer(playerItem: AVPlayerItem(asset: avAsset))
+                } else {
+                    loadingError = ""
+                }
+            }
+        }
     }
 }

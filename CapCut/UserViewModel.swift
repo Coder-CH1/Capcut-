@@ -9,6 +9,8 @@ import Foundation
 import Appwrite
 import NIO
 import SwiftUI
+import Photos
+import AVFoundation
 
 class UserViewModel: ObservableObject {
     
@@ -28,6 +30,7 @@ class UserViewModel: ObservableObject {
     @Published var isTyping = false
     @Published var showSignUpView = false
     @Published var isValidate: Bool = false
+    @Published var videos: [PHAsset] = []
     
     var client: Client
     var account: Account
@@ -38,6 +41,8 @@ class UserViewModel: ObservableObject {
             .setProject("6707cbf30012504010d3")
             .setSelfSigned()
         self.account = Account(client)
+        
+        requestPhotosLibrary()
     }
     
     //MARK: - PERSIST USER SESSION/LOGIN SESSION -
@@ -144,6 +149,32 @@ class UserViewModel: ObservableObject {
         } catch {
             await MainActor.run {
                 self.errorMessage = "Error occured \(error.localizedDescription)."
+            }
+        }
+    }
+    
+    func requestPhotosLibrary() {
+        PHPhotoLibrary.requestAuthorization { status in
+            if status == .authorized {
+                self.fetchVideos()
+            } else {
+                DispatchQueue.main.async {
+                    self.errorMessage = ""
+                }
+            }
+        }
+    }
+    
+    func fetchVideos() {
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.predicate = NSPredicate(format: "mediaType == %d", PHAssetMediaType.video.rawValue)
+        let fetchResult = PHAsset.fetchAssets(with: .video, options: fetchOptions)
+        fetchResult.enumerateObjects { (asset, _, _)  in
+            self.videos.append(asset)
+        }
+        DispatchQueue.main.async {
+            if self.videos.isEmpty {
+                self.errorMessage = "No videos found"
             }
         }
     }
