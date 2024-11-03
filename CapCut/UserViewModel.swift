@@ -30,7 +30,7 @@ class UserViewModel: ObservableObject {
     @Published var isTyping = false
     @Published var showSignUpView = false
     @Published var isValidate: Bool = false
-    @Published var videos: [PHAsset] = []
+    @Published var selectedVideoAsset: [PHAsset] = []
     
     var client: Client
     var account: Account
@@ -42,7 +42,7 @@ class UserViewModel: ObservableObject {
             .setSelfSigned()
         self.account = Account(client)
         
-        requestPhotosLibrary()
+        self.requestPhotosLibrary()
     }
     
     //MARK: - PERSIST USER SESSION/LOGIN SESSION -
@@ -170,10 +170,10 @@ class UserViewModel: ObservableObject {
         fetchOptions.predicate = NSPredicate(format: "mediaType == %d", PHAssetMediaType.video.rawValue)
         let fetchResult = PHAsset.fetchAssets(with: .video, options: fetchOptions)
         fetchResult.enumerateObjects { (asset, _, _)  in
-            self.videos.append(asset)
+            self.selectedVideoAsset.append(asset)
         }
         DispatchQueue.main.async {
-            if self.videos.isEmpty {
+            if self.selectedVideoAsset.isEmpty {
                 self.errorMessage = "No videos found"
             }
         }

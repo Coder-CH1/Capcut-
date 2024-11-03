@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftUISideMenu
 import Photos
+import PhotosUI
 import AVKit
 
 struct HomeView: View {
@@ -15,7 +16,6 @@ struct HomeView: View {
     @Binding var showSideMenu: Bool
     @State var showingModal: Bool = !UserDefaults.standard.bool(forKey: "termsAccepted")
     @StateObject var userViewModel = UserViewModel()
-    @State var selectedVideoAsset: PHAsset?
     var body: some View {
         ZStack {
             VStack {
@@ -28,11 +28,11 @@ struct HomeView: View {
                         UserDefaults.standard.set(true, forKey: "termsAccepted")
                     }
             }
-            if let selectedVideoAsset = selectedVideoAsset {
-                VideoPlayerView(asset: selectedVideoAsset)
-                    .transition(.slide)
-                    .zIndex(1)
-            }
+            //if let selectedVideoAsset = selectedVideoAsset {
+//                VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset)
+//                    .transition(.slide)
+//                    .zIndex(1)
+            //}
         }
         .sideMenu(isShowing: $showSideMenu) {
             SideMenu(isLoggedIn: $isLoggedIn, showSideMenu: $showSideMenu, userViewModel: userViewModel)
@@ -55,6 +55,8 @@ struct HomeViewContents: View {
     @State var showMessage = true
     @State var showRegistration = false
     @StateObject var userViewModel = UserViewModel()
+    @State var showVideoPicker = false
+    @State var selectedVideoAsset: PHAsset?
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -186,7 +188,7 @@ struct HomeViewContents: View {
                         .cornerRadius(5)
                     HStack(spacing: 20) {
                         Button {
-                            
+                            showVideoPicker.toggle()
                         } label: {
                             Image(systemName: "plus")
                                 .font(.system(size: 25))
@@ -358,41 +360,42 @@ struct SideMenu: View {
     }
 }
 
-struct VideoPlayerView: View {
-    var asset: PHAsset
-    @State var player: AVPlayer = AVPlayer()
-    @State var loadingError: String?
-    var body: some View {
-        VStack {
-            if let error = loadingError {
-                Text("Error loading video: \(error)")
-                    .foregroundColor(.red)
-                    .padding()
-            } else {
-                VideoPlayer(player: player)
-                    .onAppear() {
-                        loadVideo()
-                    }
-                    .onDisappear() {
-                        player.pause()
-                    }
-            }
-        }
+struct VideoPicker: UIViewControllerRepresentable {
+    //@Binding var selectedImage: [VideoPicker]
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
     }
     
-    func loadVideo() {
-        let options = PHVideoRequestOptions()
-        options.isNetworkAccessAllowed = true
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var selectedVideoAsset: PHAsset?
+    
+    func makeUIViewController(context: Context) -> some PHPickerViewController {
+        var config = PHPickerConfiguration(photoLibrary: .shared())
+        config.filter = .videos
+        config.selectionLimit = 1
         
-        PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, audioMix, info in
-            DispatchQueue.main.async {
-                if let error = info?[PHImageResultIsDegradedKey] as? Bool, error {
-                    loadingError = ""
-                } else if let avAsset = avAsset {
-                    player = AVPlayer(playerItem: AVPlayerItem(asset: avAsset))
-                } else {
-                    loadingError = ""
-                }
+        let picker = PHPickerViewController(configuration: config)
+        picker.delegate = context.coordinator
+        return picker
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
+    
+    class Coordinator: NSObject, PHPickerViewControllerDelegate {
+        var parent: VideoPicker
+        
+        init(_ parent: VideoPicker) {
+            self.parent = parent
+        }
+        
+        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+            picker.dismiss(animated: true)
+            
+            guard let result = results.first else { return }
+            
+            if result.assetIdentifier != nil {
+                let asset = PHAsset.fetchAssets(withLocalIdentifiers: [result.assetIdentifier!], options: nil).firstObject
+                parent.selectedVideoAsset = asset
             }
         }
     }
