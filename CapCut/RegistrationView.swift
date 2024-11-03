@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Photos
 
 struct RegistrationView: View {
     @Binding var showingModal: Bool
@@ -13,6 +14,7 @@ struct RegistrationView: View {
     @State var signInView = false
     @State var sideMenu = false
     @StateObject var viewModel = UserViewModel()
+    @State var selectedVideoAsset: PHAsset?
     var body: some View {
         NavigationView {
             VStack {
@@ -53,7 +55,7 @@ struct RegistrationView: View {
                     .navigationBarBackButtonHidden(false)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
-                            NavigationLink(destination:        HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal, showSideMenu: $sideMenu)) {
+                            NavigationLink(destination:        HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal, showSideMenu: $sideMenu, selectedVideoAsset: $selectedVideoAsset)) {
                                 Image(systemName: "chevron.backward")
                                     .font(.system(size: 20))
                                     .foregroundColor(Color.black)

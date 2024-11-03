@@ -16,10 +16,12 @@ struct HomeView: View {
     @Binding var showSideMenu: Bool
     @State var showingModal: Bool = !UserDefaults.standard.bool(forKey: "termsAccepted")
     @StateObject var userViewModel = UserViewModel()
+    @State var showVideoPicker = false
+    @State var selectedVideoAsset: PHAsset?
     var body: some View {
         ZStack {
             VStack {
-                HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal, showSideMenu: $showSideMenu)
+                HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal, showSideMenu: $showSideMenu, selectedVideoAsset: $selectedVideoAsset)
                 Spacer()
             }
             if showingModal {
@@ -28,16 +30,15 @@ struct HomeView: View {
                         UserDefaults.standard.set(true, forKey: "termsAccepted")
                     }
             }
-            //if let selectedVideoAsset = selectedVideoAsset {
-//                VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset)
-//                    .transition(.slide)
-//                    .zIndex(1)
-            //}
+                
         }
         .sideMenu(isShowing: $showSideMenu) {
             SideMenu(isLoggedIn: $isLoggedIn, showSideMenu: $showSideMenu, userViewModel: userViewModel)
                 .edgesIgnoringSafeArea(.all)
             
+        }
+        .fullScreenCover(isPresented: $showVideoPicker) {
+            VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset)
         }
     }
 }
@@ -56,7 +57,7 @@ struct HomeViewContents: View {
     @State var showRegistration = false
     @StateObject var userViewModel = UserViewModel()
     @State var showVideoPicker = false
-    @State var selectedVideoAsset: PHAsset?
+    @Binding var selectedVideoAsset: PHAsset?
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -361,13 +362,13 @@ struct SideMenu: View {
 }
 
 struct VideoPicker: UIViewControllerRepresentable {
-    //@Binding var selectedImage: [VideoPicker]
+    @Binding var selectedVideoAsset: PHAsset?
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
     
     @Environment(\.presentationMode) var presentationMode
-    @Binding var selectedVideoAsset: PHAsset?
+    //@Binding var selectedVideoAsset: PHAsset?
     
     func makeUIViewController(context: Context) -> some PHPickerViewController {
         var config = PHPickerConfiguration(photoLibrary: .shared())

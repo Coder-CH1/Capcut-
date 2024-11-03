@@ -30,7 +30,7 @@ class UserViewModel: ObservableObject {
     @Published var isTyping = false
     @Published var showSignUpView = false
     @Published var isValidate: Bool = false
-    @Published var selectedVideoAsset: [PHAsset] = []
+    @Published var selectedVideoAsset: PHAsset?
     
     var client: Client
     var account: Account
@@ -42,7 +42,7 @@ class UserViewModel: ObservableObject {
             .setSelfSigned()
         self.account = Account(client)
         
-        self.requestPhotosLibrary()
+        //self.requestPhotosLibrary()
     }
     
     //MARK: - PERSIST USER SESSION/LOGIN SESSION -
@@ -153,29 +153,29 @@ class UserViewModel: ObservableObject {
         }
     }
     
-    func requestPhotosLibrary() {
-        PHPhotoLibrary.requestAuthorization { status in
-            if status == .authorized {
-                self.fetchVideos()
-            } else {
-                DispatchQueue.main.async {
-                    self.errorMessage = ""
-                }
-            }
-        }
-    }
-    
-    func fetchVideos() {
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.predicate = NSPredicate(format: "mediaType == %d", PHAssetMediaType.video.rawValue)
-        let fetchResult = PHAsset.fetchAssets(with: .video, options: fetchOptions)
-        fetchResult.enumerateObjects { (asset, _, _)  in
-            self.selectedVideoAsset.append(asset)
-        }
-        DispatchQueue.main.async {
-            if self.selectedVideoAsset.isEmpty {
-                self.errorMessage = "No videos found"
-            }
-        }
-    }
+//    func requestPhotosLibrary() {
+//        PHPhotoLibrary.requestAuthorization { status in
+//            if status == .authorized {
+//                self.fetchVideos()
+//            } else {
+//                DispatchQueue.main.async {
+//                    self.errorMessage = ""
+//                }
+//            }
+//        }
+//    }
+//
+//    func fetchVideos() {
+//        let fetchOptions = PHFetchOptions()
+//        fetchOptions.predicate = NSPredicate(format: "mediaType == %d", PHAssetMediaType.video.rawValue)
+//        let fetchResult = PHAsset.fetchAssets(with: .video, options: fetchOptions)
+//        fetchResult.enumerateObjects { (asset, _, _)  in
+//            self.selectedVideoAsset.append(asset)
+//        }
+//        DispatchQueue.main.async {
+//            if self.selectedVideoAsset.isEmpty {
+//                self.errorMessage = "No videos found"
+//            }
+//        }
+//    }
 }
