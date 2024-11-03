@@ -73,7 +73,7 @@ struct RegistrationView: View {
                         Text(" Privacy Policy")
                             .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
                     }
-                    .font(.system(size: 18, weight: .bold))
+                    .font(.system(size: 16, weight: .bold))
                     .lineSpacing(3)
                     .multilineTextAlignment(.center)
                 }
@@ -147,7 +147,7 @@ struct SignInView: View {
                         .autocapitalization(.none)
                         .keyboardType(.emailAddress)
                         .disableAutocorrection(true)
-                        .font(isEmailFocused ? .system(size: 20, weight: .bold) : .system(size: 15, weight: .regular))
+                        .font(isEmailFocused ? .system(size: 15, weight: .regular) : .system(size: 15, weight: .regular))
                         .foregroundColor(viewModel.email.isValidEmail ? .black : .red)
                         .padding()
                         .frame(width: UIScreen.main.bounds.width/1.1, height: 50)
@@ -162,7 +162,7 @@ struct SignInView: View {
                             SecureField(" Enter password", text: $viewModel.password)
                                 .padding()
                                 .keyboardType(.asciiCapable)
-                                .font(isPasswordFocused ? .system(size: 20, weight: .bold) : .system(size: 15, weight: .regular))
+                                .font(isPasswordFocused ? .system(size: 15, weight: .regular) : .system(size: 15, weight: .regular))
                                 .foregroundColor(viewModel.password.isValidPassword ? .black : .red)
                                 .padding()
                                 .frame(width: UIScreen.main.bounds.width/1.1, height: 50)
@@ -262,7 +262,7 @@ struct SignInView: View {
                         print("")
                     } label: {
                         Text("Forgot password?")
-                            .font(.system(size: 16, weight: .bold))
+                            .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(Color(red: 0/255, green: 230/255, blue: 255/255))
                     }
                 }

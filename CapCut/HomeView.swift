@@ -8,7 +8,6 @@
 import SwiftUI
 import SwiftUISideMenu
 import Photos
-import PhotosUI
 import AVKit
 
 struct HomeView: View {
@@ -221,7 +220,7 @@ struct HomeViewContents: View {
                         .font(.system(size: 25))
                         .foregroundColor(.black.opacity(0.7))
                     Text("Your projects will appear\n here.\nStart creating now.")
-                        .font(.system(size: 20, weight: .black))
+                        .font(.system(size: 18, weight: .black))
                         .foregroundColor(Color.black.opacity(0.7))
                 }
             }
@@ -380,6 +379,7 @@ struct VideoPlayerView: View {
             }
         }
     }
+    
     func loadVideo() {
         let options = PHVideoRequestOptions()
         options.isNetworkAccessAllowed = true
