@@ -13,12 +13,12 @@ struct SplashView: View {
     @State var isActive: Bool = false
     @State var sideMenu = false
     @State var selectedVideoAsset: [PHAsset?]
-    @State var player: AVPlayer
+    @State var players: [String: AVPlayer]
     var body: some View {
         
         ZStack{
             if self.isActive{
-                HomeView(isLoggedIn: $isLoggedIn, showSideMenu: $sideMenu, selectedVideoAsset: selectedVideoAsset, player: player)
+                HomeView(isLoggedIn: $isLoggedIn, showSideMenu: $sideMenu, selectedVideoAsset: selectedVideoAsset, player: players)
             } else {
                 Color.white.ignoresSafeArea()
                 HStack (spacing: 0){
@@ -42,7 +42,7 @@ struct SplashView: View {
     
     struct SplashView_Previews: PreviewProvider {
         static var previews: some View {
-            SplashView(selectedVideoAsset: [PHAsset()], player: AVPlayer())
+            SplashView(selectedVideoAsset: [PHAsset()], players: ["": AVPlayer()])
         }
     }
 }

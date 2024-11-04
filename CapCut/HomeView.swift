@@ -244,6 +244,7 @@ struct HomeViewContents: View {
         }
         .navigationBarBackButtonHidden(true)
         .offset(y: -140)
+        
     }
 }
 
