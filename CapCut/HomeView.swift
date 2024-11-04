@@ -222,7 +222,7 @@ struct HomeViewContents: View {
                     }
                 }
                 Spacer()
-                    .frame(height: 20) 
+                    .frame(height: 50)
                 if selectedVideoAsset.isEmpty {
                     PlaceholderView()
                 } else {
@@ -246,7 +246,6 @@ struct HomeViewContents: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .offset(y: -140)
     }
 }
 

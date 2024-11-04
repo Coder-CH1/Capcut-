@@ -41,8 +41,6 @@ class UserViewModel: ObservableObject {
             .setProject("6707cbf30012504010d3")
             .setSelfSigned()
         self.account = Account(client)
-        
-//        requestPhotosLibrary()
     }
     
     //MARK: - PERSIST USER SESSION/LOGIN SESSION -
