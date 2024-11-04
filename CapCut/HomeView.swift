@@ -39,7 +39,7 @@ struct HomeView: View {
             
         }
         .fullScreenCover(isPresented: $showVideoPicker) {
-            VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset)
+            VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset, userViewModel: userViewModel)
         }
     }
 }
@@ -204,7 +204,7 @@ struct HomeViewContents: View {
                             .font(.system(size: 24, weight: .black))
                             .foregroundColor(.black)
                             .fullScreenCover(isPresented: $showVideoPicker) {
-                                VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset)
+                                VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset, userViewModel: userViewModel)
                             }
                     }
                 }
@@ -412,7 +412,7 @@ struct SideMenu: View {
 struct VideoPicker: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
     @Binding var selectedVideoAsset: [PHAsset]
-    
+    @ObservedObject var userViewModel: UserViewModel
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
@@ -445,6 +445,7 @@ struct VideoPicker: UIViewControllerRepresentable {
                     if let asset = asset {
                         DispatchQueue.main.async {
                             self.parent.selectedVideoAsset.append(asset)
+                            self.parent.userViewModel.loadVideoAssets(selectedVideoAsset: self.parent.selectedVideoAsset)
                         }
                     }
                 }
