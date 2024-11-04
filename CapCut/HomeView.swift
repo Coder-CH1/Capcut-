@@ -226,7 +226,7 @@ struct HomeViewContents: View {
                 if selectedVideoAsset.isEmpty {
                     PlaceholderView()
                 } else {
-                    ScrollView(showsIndicators: false) {
+                    ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 10) {
                             ForEach(selectedVideoAsset.compactMap{$0}, id: \.localIdentifier) { asset in
                                 VideoPlayerView(asset: asset, player: Binding(
