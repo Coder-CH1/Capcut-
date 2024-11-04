@@ -18,11 +18,11 @@ struct HomeView: View {
     @StateObject var userViewModel = UserViewModel()
     @State var showVideoPicker = false
     @State var selectedVideoAsset: [PHAsset?]
-    @State var player: AVPlayer
+    @State var player: [String: AVPlayer]
     var body: some View {
         ZStack {
             VStack {
-                HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal, showSideMenu: $showSideMenu, selectedVideoAsset: $selectedVideoAsset, player: $player)
+                HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal, showSideMenu: $showSideMenu, selectedVideoAsset: $selectedVideoAsset, players: $player)
                 Spacer()
             }
             if showingModal {
@@ -46,7 +46,7 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(isLoggedIn: .constant(true), showSideMenu: .constant(false), selectedVideoAsset: [PHAsset()], player: AVPlayer())
+        HomeView(isLoggedIn: .constant(true), showSideMenu: .constant(false), selectedVideoAsset: [PHAsset()], player: ["": AVPlayer()])
     }
 }
 
@@ -59,7 +59,7 @@ struct HomeViewContents: View {
     @StateObject var userViewModel = UserViewModel()
     @State var showVideoPicker = false
     @Binding var selectedVideoAsset: [PHAsset?]
-    @Binding var player: AVPlayer
+    @Binding var players: [String: AVPlayer]
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -79,7 +79,7 @@ struct HomeViewContents: View {
                             .foregroundColor(.black)
                     }
                     .fullScreenCover(isPresented: $showRegistration) {
-                        RegistrationView(showingModal: $showingModal, isLoggedIn: $isLoggedIn, player: player, selectedVideoAsset: selectedVideoAsset)
+                        RegistrationView(showingModal: $showingModal, isLoggedIn: $isLoggedIn, players: players, selectedVideoAsset: selectedVideoAsset)
                     }
                     Spacer()
                     HStack(spacing: 30) {
@@ -223,25 +223,59 @@ struct HomeViewContents: View {
                 }
                 Spacer()
                     .frame(height: 20) 
-                            if let player = player {
-                                VideoPlayer(player: player)
+                if selectedVideoAsset.isEmpty {
+                    PlaceholderView()
+                } else {
+                    ScrollView(showsIndicators: false) {
+                        VStack(spacing: 10) {
+                            ForEach(selectedVideoAsset.compactMap{$0}, id: \.localIdentifier) { asset in
+                                VideoPlayerView(asset: asset, player: Binding(
+                                    get: {players[asset.localIdentifier]},
+                                    set: {players[asset.localIdentifier] = $0}
+                                ))
                                     .frame(height: 200)
                                     .cornerRadius(10)
                                     .padding()
-                            } else {
-                                VStack(alignment: .center, spacing: 30) {
-                                    Image(systemName: "film")
-                                        .font(.system(size: 25))
-                                        .foregroundColor(.black.opacity(0.7))
-                                    Text("Your projects will appear\n here.\nStart creating now.")
-                                        .font(.system(size: 18, weight: .black))
-                                        .foregroundColor(Color.black.opacity(0.7))
+                            }
+                        }
                     }
                 }
             }
         }
         .navigationBarBackButtonHidden(true)
         .offset(y: -140)
+    }
+}
+
+struct VideoPlayerView: View {
+    var asset: PHAsset
+    @Binding var player: AVPlayer?
+    
+    var body: some View {
+        if let player = player {
+            VideoPlayer(player: player)
+                .onAppear() {
+                    player.play()
+            }
+                .onDisappear() {
+                    player.pause()
+            }
+        } else {
+            PlaceholderView()
+        }
+    }
+}
+
+struct PlaceholderView: View {
+    var body: some View {
+        VStack(alignment: .center, spacing: 30) {
+            Image(systemName: "film")
+                .font(.system(size: 25))
+                .foregroundColor(.black.opacity(0.7))
+            Text("Your projects will appear\n here.\nStart creating now.")
+                .font(.system(size: 18, weight: .black))
+                .foregroundColor(Color.black.opacity(0.7))
+}
     }
 }
 

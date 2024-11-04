@@ -13,7 +13,7 @@ struct RegistrationView: View {
     @Binding var isLoggedIn: Bool
     @State var signInView = false
     @State var sideMenu = false
-    @State var player: AVPlayer
+    @State var players: [String: AVPlayer]
     @StateObject var viewModel = UserViewModel()
     @State var selectedVideoAsset: [PHAsset?]
     
@@ -50,14 +50,14 @@ struct RegistrationView: View {
                         RoundedRectangle(cornerRadius: 22)
                             .stroke(Color.gray, lineWidth: 1)
                     )
-                    NavigationLink(destination: SignInView(isLoggedIn: $isLoggedIn, viewModel: UserViewModel(), selectedVideoAsset: selectedVideoAsset, player: player), isActive: $signInView){
+                    NavigationLink(destination: SignInView(isLoggedIn: $isLoggedIn, viewModel: UserViewModel(), selectedVideoAsset: selectedVideoAsset, player: players), isActive: $signInView){
                         
                     }
                     .navigationBarTitleDisplayMode(.inline)
                     .navigationBarBackButtonHidden(false)
                     .toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
-                            NavigationLink(destination:      HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal, showSideMenu: $sideMenu, selectedVideoAsset: $selectedVideoAsset, player: $player)) {
+                            NavigationLink(destination:      HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal, showSideMenu: $sideMenu, selectedVideoAsset: $selectedVideoAsset, players: $players)) {
                                 Image(systemName: "chevron.backward")
                                     .font(.system(size: 20))
                                     .foregroundColor(Color.black)
@@ -94,7 +94,7 @@ struct RegistrationView: View {
 
 struct RegistrationView_Previews: PreviewProvider {
     static var previews: some View {
-        RegistrationView(showingModal: .constant(false), isLoggedIn: .constant(false), player: AVPlayer(), selectedVideoAsset: [PHAsset()])
+        RegistrationView(showingModal: .constant(false), isLoggedIn: .constant(false), player: [AVPlayer()], selectedVideoAsset: [PHAsset()])
     }
 }
 
@@ -112,7 +112,7 @@ struct SignInView: View {
     @StateObject var viewModel: UserViewModel
     @Environment(\.presentationMode) var presentationMode
     @State var selectedVideoAsset: [PHAsset?]
-    @State var player: AVPlayer
+    @State var players: [String: AVPlayer]
     var body: some View {
         VStack {
             HStack(spacing: 100) {
@@ -285,7 +285,7 @@ struct TopSignupView: View {
     @Binding var isLoggedIn: Bool
     @Environment(\.presentationMode) var presentationMode
     @State var selectedVideoAsset: [PHAsset?]
-    @State var player: AVPlayer
+    @State var player: [AVPlayer]
     var body: some View {
         HStack(spacing: 100) {
             Button {
@@ -392,7 +392,7 @@ struct ResetPasswordTopView: View {
     @Binding var isLoggedIn: Bool
     @Environment(\.presentationMode) var presentationMode
     @State var selectedVideoAsset: [PHAsset?]
-    @State var player: AVPlayer
+    @State var player: [AVPlayer]
     var body: some View {
         HStack(spacing: 100) {
             Button {
