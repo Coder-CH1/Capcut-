@@ -15,7 +15,7 @@ struct RegistrationView: View {
     @State var sideMenu = false
     @State var players: [String: AVPlayer]
     @StateObject var viewModel = UserViewModel()
-    @State var selectedVideoAsset: [PHAsset?]
+    @State var selectedVideoAsset: [PHAsset]
     
     var body: some View {
         NavigationView {
@@ -111,7 +111,7 @@ struct SignInView: View {
     @FocusState var isPasswordFocused: Bool
     @StateObject var viewModel: UserViewModel
     @Environment(\.presentationMode) var presentationMode
-    @State var selectedVideoAsset: [PHAsset?]
+    @State var selectedVideoAsset: [PHAsset]
     @State var players: [String: AVPlayer]
     var body: some View {
         VStack {
@@ -284,7 +284,7 @@ struct TopSignupView: View {
     @State var showNewView = false
     @Binding var isLoggedIn: Bool
     @Environment(\.presentationMode) var presentationMode
-    @State var selectedVideoAsset: [PHAsset?]
+    @State var selectedVideoAsset: [PHAsset]
     @State var player: [String: AVPlayer]
     var body: some View {
         HStack(spacing: 100) {
@@ -391,7 +391,7 @@ struct ResetPasswordTopView: View {
     @State var showNewView = false
     @Binding var isLoggedIn: Bool
     @Environment(\.presentationMode) var presentationMode
-    @State var selectedVideoAsset: [PHAsset?]
+    @State var selectedVideoAsset: [PHAsset]
     @State var players: [String: AVPlayer]
     var body: some View {
         HStack(spacing: 100) {

@@ -17,7 +17,7 @@ struct HomeView: View {
     @State var showingModal: Bool = !UserDefaults.standard.bool(forKey: "termsAccepted")
     @StateObject var userViewModel = UserViewModel()
     @State var showVideoPicker = false
-    @State var selectedVideoAsset: [PHAsset?]
+    @State var selectedVideoAsset: [PHAsset]
     @State var player: [String: AVPlayer]
     var body: some View {
         ZStack {

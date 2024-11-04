@@ -12,7 +12,7 @@ struct SplashView: View {
     @State var isLoggedIn = false
     @State var isActive: Bool = false
     @State var sideMenu = false
-    @State var selectedVideoAsset: [PHAsset?]
+    @State var selectedVideoAsset: [PHAsset]
     @State var players: [String: AVPlayer]
     var body: some View {
         
