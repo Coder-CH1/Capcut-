@@ -58,7 +58,7 @@ struct HomeViewContents: View {
     @State var showRegistration = false
     @StateObject var userViewModel = UserViewModel()
     @State var showVideoPicker = false
-    @Binding var selectedVideoAsset: [PHAsset?]
+    @Binding var selectedVideoAsset: [PHAsset]
     @Binding var players: [String: AVPlayer]
     var body: some View {
         NavigationView {
@@ -410,12 +410,12 @@ struct SideMenu: View {
 }
 
 struct VideoPicker: UIViewControllerRepresentable {
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var selectedVideoAsset: [PHAsset]
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
-    
-    @Environment(\.presentationMode) var presentationMode
-    @Binding var selectedVideoAsset: [PHAsset]
     
     func makeUIViewController(context: Context) -> some PHPickerViewController {
         var config = PHPickerConfiguration(photoLibrary: .shared())
@@ -443,7 +443,9 @@ struct VideoPicker: UIViewControllerRepresentable {
                 if let assetIdentifier = result.assetIdentifier {
                     let asset = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier], options: nil).firstObject
                     if let asset = asset {
-                        parent.selectedVideoAsset.append(asset)
+                        DispatchQueue.main.async {
+                            self.parent.selectedVideoAsset.append(asset)
+                        }
                     }
                 }
             }
