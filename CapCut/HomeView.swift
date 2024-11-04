@@ -362,7 +362,7 @@ struct SideMenu: View {
 }
 
 struct VideoPicker: UIViewControllerRepresentable {
-    @Binding var selectedVideoAsset: PHAsset?
+    @Binding var selectedVideoAsset: [PHAsset]
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
@@ -392,11 +392,13 @@ struct VideoPicker: UIViewControllerRepresentable {
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
             picker.dismiss(animated: true)
             
-            guard let result = results.first else { return }
-            
-            if result.assetIdentifier != nil {
-                let asset = PHAsset.fetchAssets(withLocalIdentifiers: [result.assetIdentifier!], options: nil).firstObject
-                parent.selectedVideoAsset = asset
+            for result in results {
+                if let assetIdentifier = result.assetIdentifier {
+                    let asset = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier], options: nil).firstObject
+                    if let asset = asset {
+                        parent.selectedVideoAsset.append(asset)
+                    }
+                }
             }
         }
     }
