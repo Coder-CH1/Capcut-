@@ -13,5 +13,6 @@
 - PhotosUi
 - AVKit
 - AVFoundation
+- SwiftUiSideMenu
 
 #
