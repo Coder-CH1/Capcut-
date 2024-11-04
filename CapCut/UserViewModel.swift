@@ -43,7 +43,7 @@ class UserViewModel: ObservableObject {
         self.account = Account(client)
     }
     
-//MARK: - PERSIST USER SESSION/LOGIN SESSION -
+    //MARK: - PERSIST USER SESSION/LOGIN SESSION -
     func checkStoredSession() async {
         if let token = UserDefaults.standard.string(forKey: "sessionToken") {
             self.sessionToken = token
@@ -55,7 +55,7 @@ class UserViewModel: ObservableObject {
         }
     }
     
-//MARK: - CHECK USER SESSION -
+    //MARK: - CHECK USER SESSION -
     func checkSession() async {
         do {
             let session = try await account.getSession(sessionId: "current")
@@ -71,7 +71,7 @@ class UserViewModel: ObservableObject {
         }
     }
     
-//MARK: - REGISTER USER -
+    //MARK: - REGISTER USER -
     func register() async {
         do {
             _  = try await account.create(
@@ -90,7 +90,7 @@ class UserViewModel: ObservableObject {
         }
     }
     
-//MARK: - LOGIN USER -
+    //MARK: - LOGIN USER -
     func login() async {
         await checkSession()
         if isLoggedIn {
@@ -122,7 +122,7 @@ class UserViewModel: ObservableObject {
         }
     }
     
-//MARK: - FETCHING USER -
+    //MARK: - FETCHING USER -
     func getUser() async {
         do {
             let user = try await account.get()
@@ -136,7 +136,7 @@ class UserViewModel: ObservableObject {
         }
     }
     
-//MARK: - LOGING USER OUT -
+    //MARK: - LOGING USER OUT -
     func logout() async {
         do {
             _  = try await account.deleteSession(sessionId: "current")
@@ -150,8 +150,8 @@ class UserViewModel: ObservableObject {
             }
         }
     }
-
-//MARK: - Method to request permission to access the Photos Library -
+    
+    //MARK: - Method to request permission to access the Photos Library -
     func requestPhotosLibrary() {
         PHPhotoLibrary.requestAuthorization { status in
             if status == .authorized {
@@ -163,19 +163,19 @@ class UserViewModel: ObservableObject {
             }
         }
     }
-  
-//MARK: - Method to load Video assets from the users photo library into the app -
+    
+    //MARK: - Method to load Video assets from the users photo library into the app -
     func loadVideoAssets(selectedVideoAsset: [PHAsset?]) {
         for asset in selectedVideoAsset {
             guard let asset = asset else {continue}
-           let options = PHVideoRequestOptions()
+            let options = PHVideoRequestOptions()
             options.isNetworkAccessAllowed = true
             
             PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, audioTracks, info in
                 DispatchQueue.main.async { [self] in
-                            if let urlAsset = avAsset as? AVURLAsset {
-                                let player = AVPlayer(url: urlAsset.url)
-                                players[asset.localIdentifier] = player
+                    if let urlAsset = avAsset as? AVURLAsset {
+                        let player = AVPlayer(url: urlAsset.url)
+                        players[asset.localIdentifier] = player
                     }
                 }
             }

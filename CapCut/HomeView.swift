@@ -31,7 +31,7 @@ struct HomeView: View {
                         UserDefaults.standard.set(true, forKey: "termsAccepted")
                     }
             }
-                
+            
         }
         .sideMenu(isShowing: $showSideMenu) {
             SideMenu(isLoggedIn: $isLoggedIn, showSideMenu: $showSideMenu, userViewModel: userViewModel)
@@ -233,9 +233,9 @@ struct HomeViewContents: View {
                                     get: {players[asset.localIdentifier]},
                                     set: {players[asset.localIdentifier] = $0}
                                 ))
-                                    .frame(height: 200)
-                                    .cornerRadius(10)
-                                    .padding()
+                                .frame(height: 200)
+                                .cornerRadius(10)
+                                .padding()
                             }
                         }
                     }
@@ -258,10 +258,10 @@ struct VideoPlayerView: View {
             VideoPlayer(player: player)
                 .onAppear() {
                     player.play()
-            }
+                }
                 .onDisappear() {
                     player.pause()
-            }
+                }
         } else {
             PlaceholderView()
         }
@@ -277,7 +277,7 @@ struct PlaceholderView: View {
             Text("Your projects will appear\n here.\nStart creating now.")
                 .font(.system(size: 18, weight: .black))
                 .foregroundColor(Color.black.opacity(0.7))
-}
+        }
     }
 }
 
