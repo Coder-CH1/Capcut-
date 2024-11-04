@@ -241,10 +241,12 @@ struct HomeViewContents: View {
                     }
                 }
             }
+            .onAppear() {
+                userViewModel.requestPhotosLibrary()
+            }
         }
         .navigationBarBackButtonHidden(true)
         .offset(y: -140)
-        
     }
 }
 

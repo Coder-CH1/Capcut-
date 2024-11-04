@@ -10,7 +10,7 @@ import Appwrite
 import NIO
 import SwiftUI
 import Photos
-import AVFoundation
+import AVKit
 
 class UserViewModel: ObservableObject {
     
@@ -31,7 +31,7 @@ class UserViewModel: ObservableObject {
     @Published var showSignUpView = false
     @Published var isValidate: Bool = false
     @Published var selectedVideoAsset: [PHAsset] = []
-    
+    @Published var players: [String: AVPlayer] = [:]
     var client: Client
     var account: Account
     
@@ -42,7 +42,7 @@ class UserViewModel: ObservableObject {
             .setSelfSigned()
         self.account = Account(client)
         
-        //self.requestPhotosLibrary()
+//        requestPhotosLibrary()
     }
     
     //MARK: - PERSIST USER SESSION/LOGIN SESSION -
@@ -156,7 +156,7 @@ class UserViewModel: ObservableObject {
     func requestPhotosLibrary() {
         PHPhotoLibrary.requestAuthorization { status in
             if status == .authorized {
-                self.fetchVideos()
+                self.loadVideoAssets(selectedVideoAsset: self.selectedVideoAsset)
             } else {
                 DispatchQueue.main.async {
                     self.errorMessage = ""
@@ -164,17 +164,20 @@ class UserViewModel: ObservableObject {
             }
         }
     }
-
-    func fetchVideos() {
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.predicate = NSPredicate(format: "mediaType == %d", PHAssetMediaType.video.rawValue)
-        let fetchResult = PHAsset.fetchAssets(with: .video, options: fetchOptions)
-        fetchResult.enumerateObjects { (asset, _, _)  in
-            self.selectedVideoAsset.append(asset)
-        }
-        DispatchQueue.main.async {
-            if self.selectedVideoAsset.isEmpty {
-                self.errorMessage = "No videos found"
+    
+    func loadVideoAssets(selectedVideoAsset: [PHAsset?]) {
+        for asset in selectedVideoAsset {
+            guard let asset = asset else {continue}
+           let options = PHVideoRequestOptions()
+            options.isNetworkAccessAllowed = true
+            
+            PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, audioTracks, info in
+                DispatchQueue.main.async { [self] in
+                            if let urlAsset = avAsset as? AVURLAsset {
+                                let player = AVPlayer(url: urlAsset.url)
+                                players[asset.localIdentifier] = player
+                    }
+                }
             }
         }
     }
