@@ -449,9 +449,6 @@ struct VideoPicker: UIViewControllerRepresentable {
                         DispatchQueue.main.async {
                             self.parent.selectedVideoAsset.append(asset)
                             self.parent.userViewModel.loadVideoAssets(selectedVideoAsset: self.parent.selectedVideoAsset)
-//                            let videoPlayerView = VideoPlayerView(asset: asset, player: nil)
-//                            let uiHosting = UIHostingController(rootView: videoPlayerView)
-//                            picker.present(uiHosting, animated: true)
                         }
                     }
                 }
