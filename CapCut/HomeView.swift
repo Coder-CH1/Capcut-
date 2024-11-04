@@ -447,14 +447,17 @@ struct VideoPicker: UIViewControllerRepresentable {
                 if let assetIdentifier = result.assetIdentifier {
                     let asset = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier], options: nil).firstObject
                     if let asset = asset {
+                        DispatchQueue.main.async {
                             selectedAssets.append(asset)
-//                            self.parent.userViewModel.loadVideoAssets(selectedVideoAsset: self.parent.selectedVideoAsset)
+                            self.parent.selectedVideoAsset.append(contentsOf: selectedAssets)
+                            self.parent.userViewModel.loadVideoAssets(selectedVideoAsset: self.parent.selectedVideoAsset)
+                            self.parent.presentationMode.wrappedValue.dismiss()
+                        }
                     }
                 }
             }
             DispatchQueue.main.async {
-                self.parent.selectedVideoAsset.append(contentsOf: selectedAssets)
-                self.parent.userViewModel.loadVideoAssets(selectedVideoAsset: self.parent.selectedVideoAsset)
+                
             }
         }
     }
