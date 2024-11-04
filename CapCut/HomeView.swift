@@ -439,6 +439,9 @@ struct VideoPicker: UIViewControllerRepresentable {
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
             picker.dismiss(animated: true)
             
+            if results.isEmpty {
+                return
+            }
             for result in results {
                 if let assetIdentifier = result.assetIdentifier {
                     let asset = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier], options: nil).firstObject
@@ -446,6 +449,9 @@ struct VideoPicker: UIViewControllerRepresentable {
                         DispatchQueue.main.async {
                             self.parent.selectedVideoAsset.append(asset)
                             self.parent.userViewModel.loadVideoAssets(selectedVideoAsset: self.parent.selectedVideoAsset)
+//                            let videoPlayerView = VideoPlayerView(asset: asset, player: nil)
+//                            let uiHosting = UIHostingController(rootView: videoPlayerView)
+//                            picker.present(uiHosting, animated: true)
                         }
                     }
                 }
