@@ -201,6 +201,9 @@ struct HomeViewContents: View {
                         Text("New project")
                             .font(.system(size: 24, weight: .black))
                             .foregroundColor(.black)
+                            .fullScreenCover(isPresented: $showVideoPicker) {
+                                VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset)
+                            }
                     }
                 }
                 HStack(spacing: 220) {
