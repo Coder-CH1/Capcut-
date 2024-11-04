@@ -6,16 +6,18 @@
 //
 
 import SwiftUI
+import Photos
 
 struct SplashView: View {
     @State var isLoggedIn = false
     @State var isActive: Bool = false
     @State var sideMenu = false
+    @State var selectedVideoAsset: [PHAsset?]
     var body: some View {
         
         ZStack{
             if self.isActive{
-                HomeView(isLoggedIn: $isLoggedIn, showSideMenu: $sideMenu)
+                HomeView(isLoggedIn: $isLoggedIn, showSideMenu: $sideMenu, selectedVideoAsset: selectedVideoAsset)
             } else {
                 Color.white.ignoresSafeArea()
                 HStack (spacing: 0){
@@ -39,7 +41,7 @@ struct SplashView: View {
     
     struct SplashView_Previews: PreviewProvider {
         static var previews: some View {
-            SplashView()
+            SplashView(selectedVideoAsset: [PHAsset()])
         }
     }
 }

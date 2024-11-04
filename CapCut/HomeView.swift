@@ -17,11 +17,12 @@ struct HomeView: View {
     @State var showingModal: Bool = !UserDefaults.standard.bool(forKey: "termsAccepted")
     @StateObject var userViewModel = UserViewModel()
     @State var showVideoPicker = false
-    @State var selectedVideoAsset: PHAsset?
+    @State var selectedVideoAsset: [PHAsset?]
+    @State var player: AVPlayer
     var body: some View {
         ZStack {
             VStack {
-                HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal, showSideMenu: $showSideMenu, selectedVideoAsset: $selectedVideoAsset)
+                HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal, showSideMenu: $showSideMenu, selectedVideoAsset: $selectedVideoAsset, player: player)
                 Spacer()
             }
             if showingModal {
@@ -45,7 +46,7 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(isLoggedIn: .constant(true), showSideMenu: .constant(false))
+        HomeView(isLoggedIn: .constant(true), showSideMenu: .constant(false), selectedVideoAsset: [PHAsset()], player: AVPlayer())
     }
 }
 
@@ -57,7 +58,8 @@ struct HomeViewContents: View {
     @State var showRegistration = false
     @StateObject var userViewModel = UserViewModel()
     @State var showVideoPicker = false
-    @Binding var selectedVideoAsset: PHAsset?
+    @Binding var selectedVideoAsset: [PHAsset?]
+    @State var player: AVPlayer
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -77,7 +79,7 @@ struct HomeViewContents: View {
                             .foregroundColor(.black)
                     }
                     .fullScreenCover(isPresented: $showRegistration) {
-                        RegistrationView(showingModal: $showingModal, isLoggedIn: $isLoggedIn)
+                        RegistrationView(showingModal: $showingModal, isLoggedIn: $isLoggedIn, selectedVideoAsset: selectedVideoAsset)
                     }
                     Spacer()
                     HStack(spacing: 30) {
@@ -221,13 +223,20 @@ struct HomeViewContents: View {
                 }
                 Spacer()
                     .frame(height: 20)
-                VStack(alignment: .center, spacing: 30) {
-                    Image(systemName: "film")
-                        .font(.system(size: 25))
-                        .foregroundColor(.black.opacity(0.7))
-                    Text("Your projects will appear\n here.\nStart creating now.")
-                        .font(.system(size: 18, weight: .black))
-                        .foregroundColor(Color.black.opacity(0.7))
+                            if let player = player {
+                                VideoPlayer(player: player)
+                                    .frame(height: 200)
+                                    .cornerRadius(10)
+                                    .padding()
+                            } else {
+                                VStack(alignment: .center, spacing: 30) {
+                                    Image(systemName: "film")
+                                        .font(.system(size: 25))
+                                        .foregroundColor(.black.opacity(0.7))
+                                    Text("Your projects will appear\n here.\nStart creating now.")
+                                        .font(.system(size: 18, weight: .black))
+                                        .foregroundColor(Color.black.opacity(0.7))
+                    }
                 }
             }
         }

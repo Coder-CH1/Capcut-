@@ -14,7 +14,7 @@ struct RegistrationView: View {
     @State var signInView = false
     @State var sideMenu = false
     @StateObject var viewModel = UserViewModel()
-    @State var selectedVideoAsset: PHAsset?
+    @State var selectedVideoAsset: [PHAsset?]
     var body: some View {
         NavigationView {
             VStack {
@@ -48,7 +48,7 @@ struct RegistrationView: View {
                         RoundedRectangle(cornerRadius: 22)
                             .stroke(Color.gray, lineWidth: 1)
                     )
-                    NavigationLink(destination: SignInView(isLoggedIn: $isLoggedIn, viewModel: UserViewModel()), isActive: $signInView){
+                    NavigationLink(destination: SignInView(isLoggedIn: $isLoggedIn, viewModel: UserViewModel(), selectedVideoAsset: selectedVideoAsset), isActive: $signInView){
                         
                     }
                     .navigationBarTitleDisplayMode(.inline)
@@ -92,7 +92,7 @@ struct RegistrationView: View {
 
 struct RegistrationView_Previews: PreviewProvider {
     static var previews: some View {
-        RegistrationView(showingModal: .constant(false), isLoggedIn: .constant(false))
+        RegistrationView(showingModal: .constant(false), isLoggedIn: .constant(false), selectedVideoAsset: [PHAsset()])
     }
 }
 
@@ -109,6 +109,7 @@ struct SignInView: View {
     @FocusState var isPasswordFocused: Bool
     @StateObject var viewModel: UserViewModel
     @Environment(\.presentationMode) var presentationMode
+    @State var selectedVideoAsset: [PHAsset?]
     var body: some View {
         VStack {
             HStack(spacing: 100) {
@@ -120,7 +121,7 @@ struct SignInView: View {
                         .font(.system(size: 25))
                         .foregroundColor(.black)
                         .fullScreenCover(isPresented: $previousView) {
-                            RegistrationView(showingModal: $showingModal, isLoggedIn: $isLoggedIn)
+                            RegistrationView(showingModal: $showingModal, isLoggedIn: $isLoggedIn, selectedVideoAsset: selectedVideoAsset)
                         }
                 }
                 Text("Sign in")
@@ -252,7 +253,7 @@ struct SignInView: View {
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(fontButtonColor)
                             .fullScreenCover(isPresented: $viewModel.showNewView) {
-                                HomeView(isLoggedIn: $isLoggedIn, showSideMenu: $sideMenu)
+                                HomeView(isLoggedIn: $isLoggedIn, showSideMenu: $sideMenu, selectedVideoAsset: selectedVideoAsset)
                             }
                     }
                     .frame(width: UIScreen.main.bounds.width/1.1, height: 50)
@@ -280,6 +281,7 @@ struct TopSignupView: View {
     @State var showNewView = false
     @Binding var isLoggedIn: Bool
     @Environment(\.presentationMode) var presentationMode
+    @State var selectedVideoAsset: [PHAsset?]
     var body: some View {
         HStack(spacing: 100) {
             Button {
@@ -291,7 +293,7 @@ struct TopSignupView: View {
                     .foregroundColor(.black)
             }
             .fullScreenCover(isPresented: $showNewView) {
-                SignInView(isLoggedIn: $isLoggedIn, viewModel: UserViewModel())
+                SignInView(isLoggedIn: $isLoggedIn, viewModel: UserViewModel(), selectedVideoAsset: selectedVideoAsset)
             }
             Text("Sign up")
                 .font(.system(size: 20, weight: .black))
@@ -315,9 +317,10 @@ struct ResetPasswordView: View {
     @Binding var isLoggedIn: Bool
     @FocusState var isEmailFocused: Bool
     @StateObject var viewModel: UserViewModel
+    @State var selectedVideoAsset: [PHAsset?]
     var body: some View {
         VStack {
-            ResetPasswordTopView(isLoggedIn: $isLoggedIn)
+            ResetPasswordTopView(isLoggedIn: $isLoggedIn, selectedVideoAsset: selectedVideoAsset)
             Spacer()
                 .frame(height: 100)
             VStack(alignment: .leading, spacing: 10) {
@@ -374,7 +377,7 @@ struct ResetPasswordView: View {
 
 struct ResetPasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        ResetPasswordView(isLoggedIn: .constant(false), viewModel: UserViewModel())
+        ResetPasswordView(isLoggedIn: .constant(false), viewModel: UserViewModel(), selectedVideoAsset: [PHAsset()])
     }
 }
 
@@ -383,6 +386,7 @@ struct ResetPasswordTopView: View {
     @State var showNewView = false
     @Binding var isLoggedIn: Bool
     @Environment(\.presentationMode) var presentationMode
+    @State var selectedVideoAsset: [PHAsset?]
     var body: some View {
         HStack(spacing: 100) {
             Button {
@@ -393,7 +397,7 @@ struct ResetPasswordTopView: View {
                     .font(.system(size: 20))
                     .foregroundColor(.black)
                     .fullScreenCover(isPresented: $showNewView) {
-                        RegistrationView(showingModal: $showingModal, isLoggedIn: $isLoggedIn)
+                        RegistrationView(showingModal: $showingModal, isLoggedIn: $isLoggedIn, selectedVideoAsset: selectedVideoAsset)
                     }
             }
             Text("Reset")

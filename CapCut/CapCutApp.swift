@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import Photos
 
 @main
 struct CapCutApp: App {
     var body: some Scene {
         WindowGroup {
-            SplashView()
+            SplashView(selectedVideoAsset: [PHAsset()])
         }
     }
 }
