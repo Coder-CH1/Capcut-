@@ -321,7 +321,7 @@ struct ResetPasswordView: View {
     @Binding var isLoggedIn: Bool
     @FocusState var isEmailFocused: Bool
     @StateObject var viewModel: UserViewModel
-    @State var selectedVideoAsset: [PHAsset?]
+    @State var selectedVideoAsset: [PHAsset]
     @State var players: [String: AVPlayer]
     var body: some View {
         VStack {
