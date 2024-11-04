@@ -22,7 +22,7 @@ struct HomeView: View {
     var body: some View {
         ZStack {
             VStack {
-                HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal, showSideMenu: $showSideMenu, selectedVideoAsset: $selectedVideoAsset, player: player)
+                HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal, showSideMenu: $showSideMenu, selectedVideoAsset: $selectedVideoAsset, player: $player)
                 Spacer()
             }
             if showingModal {
@@ -59,7 +59,7 @@ struct HomeViewContents: View {
     @StateObject var userViewModel = UserViewModel()
     @State var showVideoPicker = false
     @Binding var selectedVideoAsset: [PHAsset?]
-    @State var player: AVPlayer
+    @Binding var player: AVPlayer
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -79,7 +79,7 @@ struct HomeViewContents: View {
                             .foregroundColor(.black)
                     }
                     .fullScreenCover(isPresented: $showRegistration) {
-                        RegistrationView(showingModal: $showingModal, isLoggedIn: $isLoggedIn, selectedVideoAsset: selectedVideoAsset)
+                        RegistrationView(showingModal: $showingModal, isLoggedIn: $isLoggedIn, player: player, selectedVideoAsset: selectedVideoAsset)
                     }
                     Spacer()
                     HStack(spacing: 30) {
@@ -222,7 +222,7 @@ struct HomeViewContents: View {
                     }
                 }
                 Spacer()
-                    .frame(height: 20)
+                    .frame(height: 20) 
                             if let player = player {
                                 VideoPlayer(player: player)
                                     .frame(height: 200)

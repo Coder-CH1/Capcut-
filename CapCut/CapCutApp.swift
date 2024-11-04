@@ -12,7 +12,7 @@ import Photos
 struct CapCutApp: App {
     var body: some Scene {
         WindowGroup {
-            SplashView(selectedVideoAsset: [PHAsset()])
+            SplashView(selectedVideoAsset: [PHAsset()], player: AVPlayer())
         }
     }
 }
