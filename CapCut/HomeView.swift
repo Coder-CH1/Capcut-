@@ -410,13 +410,12 @@ struct SideMenu: View {
 }
 
 struct VideoPicker: UIViewControllerRepresentable {
-    @Binding var selectedVideoAsset: [PHAsset]
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
     
     @Environment(\.presentationMode) var presentationMode
-    //@Binding var selectedVideoAsset: PHAsset?
+    @Binding var selectedVideoAsset: [PHAsset]
     
     func makeUIViewController(context: Context) -> some PHPickerViewController {
         var config = PHPickerConfiguration(photoLibrary: .shared())
