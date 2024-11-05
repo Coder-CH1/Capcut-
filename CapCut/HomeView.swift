@@ -237,7 +237,6 @@ struct HomeViewContents: View {
                                     .frame(width: UIScreen.main.bounds.width - 40, height: 200)
                                     .background(.black)
                                     .cornerRadius(10)
-                                    .padding()
                                 }
                             }
                         }
@@ -271,7 +270,6 @@ struct VideoPlayerView: View {
                 .frame(width: UIScreen.main.bounds.width - 40, height: 200)
                 .background(.black)
                 .cornerRadius(10)
-                .padding()
         } else {
             PlaceholderView()
         }
