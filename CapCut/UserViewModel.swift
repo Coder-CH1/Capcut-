@@ -171,11 +171,11 @@ class UserViewModel: ObservableObject {
             let options = PHVideoRequestOptions()
             options.isNetworkAccessAllowed = true
             
-            PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, audioTracks, info in
-                DispatchQueue.main.async { [self] in
+            PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, _, _ in
+                DispatchQueue.main.async {
                     if let urlAsset = avAsset as? AVURLAsset {
                         let player = AVPlayer(url: urlAsset.url)
-                        players[asset.localIdentifier] = player
+                        self.players[asset.localIdentifier] = player
                     }
                 }
             }
