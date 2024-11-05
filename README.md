@@ -1,6 +1,6 @@
 # Capcut
 
-- Video editing project.
+- Replicated the video editing app.
 #
 
 ## Features: 
