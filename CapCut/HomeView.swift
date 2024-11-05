@@ -420,7 +420,7 @@ struct VideoPicker: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> some PHPickerViewController {
         var config = PHPickerConfiguration(photoLibrary: .shared())
         config.filter = .videos
-        config.selectionLimit = 1
+        config.selectionLimit = 0
         
         let picker = PHPickerViewController(configuration: config)
         picker.delegate = context.coordinator
