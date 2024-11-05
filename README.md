@@ -14,6 +14,7 @@
 - AVKit
 - AVFoundation
 - SwiftUiSideMenu
+- CoreGraphics
 
 
 #
