@@ -422,7 +422,7 @@ struct VideoPicker: UIViewControllerRepresentable {
     
     func makeUIViewController(context: Context) -> some PHPickerViewController {
         var config = PHPickerConfiguration(photoLibrary: .shared())
-        config.filter = .videos
+        config.filter = .any(of: [.videos, .images])
         config.selectionLimit = 0
         
         let picker = PHPickerViewController(configuration: config)
@@ -452,7 +452,9 @@ struct VideoPicker: UIViewControllerRepresentable {
                     if let asset = asset {
                         DispatchQueue.main.async {
                             selectedAssets.append(asset)
-                            self.parent.userViewModel.selectedVideoAsset = selectedAssets
+                            if asset.mediaType == .video {
+                                self.parent.userViewModel.selectedVideoAsset = selectedAssets
+                            }
                         }
                     }
                 }
