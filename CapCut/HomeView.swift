@@ -450,8 +450,6 @@ struct VideoPicker: UIViewControllerRepresentable {
                         DispatchQueue.main.async {
                             selectedAssets.append(asset)
                             self.parent.selectedVideoAsset.append(contentsOf: selectedAssets)
-                            self.parent.userViewModel.loadVideoAssets(selectedVideoAsset: self.parent.selectedVideoAsset)
-                            self.parent.presentationMode.wrappedValue.dismiss()
                         }
                     }
                 }
