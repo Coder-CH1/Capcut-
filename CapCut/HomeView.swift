@@ -194,14 +194,14 @@ struct HomeViewContents: View {
                             showVideoPicker.toggle()
                         } label: {
                             Image(systemName: "plus")
-                                .font(.system(size: 25))
+                                .font(.system(size: 18))
                                 .foregroundColor(.white)
                         }
-                        .frame(width: UIScreen.main.bounds.width/10, height: UIScreen.main.bounds.height/22)
+                        .frame(width: UIScreen.main.bounds.width/14, height: UIScreen.main.bounds.height/26)
                         .background(.black)
                         .cornerRadius(5)
                         Text("New project")
-                            .font(.system(size: 24, weight: .black))
+                            .font(.system(size: 20, weight: .black))
                             .foregroundColor(.black)
                             .fullScreenCover(isPresented: $showVideoPicker) {
                                 VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset, userViewModel: userViewModel)
@@ -241,6 +241,9 @@ struct HomeViewContents: View {
                     }
                 }
             }
+            .onChange(of: selectedVideoAsset, perform: { newValue in
+                userViewModel.loadVideoAssets(selectedVideoAsset: newValue)
+            })
             .onAppear() {
                 userViewModel.requestPhotosLibrary()
             }
@@ -449,7 +452,6 @@ struct VideoPicker: UIViewControllerRepresentable {
                     if let asset = asset {
                         DispatchQueue.main.async {
                             selectedAssets.append(asset)
-                            self.parent.selectedVideoAsset.append(contentsOf: selectedAssets)
                             self.parent.userViewModel.loadVideoAssets(selectedVideoAsset: selectedAssets)
                         }
                     }
