@@ -158,7 +158,7 @@ class UserViewModel: ObservableObject {
                 self.loadVideoAssets(selectedVideoAsset: self.selectedVideoAsset)
             } else {
                 DispatchQueue.main.async {
-                    self.errorMessage = ""
+                    self.errorMessage = "Photo library access denied."
                 }
             }
         }

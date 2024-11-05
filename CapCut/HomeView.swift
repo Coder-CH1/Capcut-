@@ -450,14 +450,12 @@ struct VideoPicker: UIViewControllerRepresentable {
                 if let assetIdentifier = result.assetIdentifier {
                     let asset = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier], options: nil).firstObject
                     if let asset = asset {
-                        DispatchQueue.main.async {
                             selectedAssets.append(asset)
                             if asset.mediaType == .video {
-                                self.parent.userViewModel.selectedVideoAsset = selectedAssets
-                            }
                         }
                     }
                 }
+                parent.userViewModel.loadVideoAssets(selectedVideoAsset: selectedAssets)
             }
         }
     }
