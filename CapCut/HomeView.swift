@@ -230,10 +230,7 @@ struct HomeViewContents: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 10) {
                             ForEach(selectedVideoAsset.compactMap{$0}, id: \.localIdentifier) { asset in
-                                VideoPlayerView(asset: asset, player: Binding(
-                                    get: {players[asset.localIdentifier]},
-                                    set: {players[asset.localIdentifier] = $0}
-                                ))
+                                VideoPlayerView(asset: asset, player: $players[asset.localIdentifier])
                                 .frame(height: 200)
                                 .cornerRadius(10)
                                 .padding()
@@ -242,9 +239,6 @@ struct HomeViewContents: View {
                     }
                 }
             }
-            .onChange(of: selectedVideoAsset, perform: { newValue in
-                userViewModel.loadVideoAssets(selectedVideoAsset: newValue)
-            })
             .onAppear() {
                 userViewModel.requestPhotosLibrary()
             }
@@ -256,7 +250,6 @@ struct HomeViewContents: View {
 struct VideoPlayerView: View {
     var asset: PHAsset
     @Binding var player: AVPlayer?
-    @StateObject var userViewModel = UserViewModel()
     var body: some View {
         VStack {
             if let player = player {
@@ -270,9 +263,6 @@ struct VideoPlayerView: View {
             } else {
                 PlaceholderView()
             }
-        }
-        .onAppear() {
-            userViewModel.requestPhotosLibrary()
         }
     }
 }
