@@ -18,7 +18,7 @@ struct SplashView: View {
         
         ZStack{
             if self.isActive{
-                HomeView(isLoggedIn: $isLoggedIn, showSideMenu: $sideMenu, selectedVideoAsset: selectedVideoAsset, player: players)
+                HomeView(isLoggedIn: $isLoggedIn, showSideMenu: $sideMenu, selectedVideoAsset: selectedVideoAsset, players: players)
             } else {
                 Color.white.ignoresSafeArea()
                 HStack (spacing: 0){

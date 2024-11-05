@@ -256,7 +256,7 @@ struct SignInView: View {
                             .font(.system(size: 18, weight: .bold))
                             .foregroundColor(fontButtonColor)
                             .fullScreenCover(isPresented: $viewModel.showNewView) {
-                                HomeView(isLoggedIn: $isLoggedIn, showSideMenu: $sideMenu, selectedVideoAsset: selectedVideoAsset, player: players)
+                                HomeView(isLoggedIn: $isLoggedIn, showSideMenu: $sideMenu, selectedVideoAsset: selectedVideoAsset, players: players)
                             }
                     }
                     .frame(width: UIScreen.main.bounds.width/1.1, height: 50)

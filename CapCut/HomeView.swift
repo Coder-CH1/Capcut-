@@ -18,11 +18,11 @@ struct HomeView: View {
     @StateObject var userViewModel = UserViewModel()
     @State var showVideoPicker = false
     @State var selectedVideoAsset: [PHAsset] = []
-    @State var player: [String: AVPlayer] = [:]
+    @State var players: [String: AVPlayer] = [:]
     var body: some View {
         ZStack {
             VStack {
-                HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal, showSideMenu: $showSideMenu, selectedVideoAsset: $selectedVideoAsset, players: $player)
+                HomeViewContents(isLoggedIn: $isLoggedIn, showingModal: $showingModal, showSideMenu: $showSideMenu, selectedVideoAsset: $selectedVideoAsset, players: $players)
                 Spacer()
             }
             if showingModal {
@@ -46,7 +46,7 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(isLoggedIn: .constant(true), showSideMenu: .constant(false), selectedVideoAsset: [PHAsset()], player: ["": AVPlayer()])
+        HomeView(isLoggedIn: .constant(true), showSideMenu: .constant(false), selectedVideoAsset: [PHAsset()], players: ["": AVPlayer()])
     }
 }
 
@@ -453,7 +453,6 @@ struct VideoPicker: UIViewControllerRepresentable {
                         DispatchQueue.main.async {
                             selectedAssets.append(asset)
                             self.parent.userViewModel.selectedVideoAsset = selectedAssets
-                            self.parent.userViewModel.loadVideoAssets(selectedVideoAsset: selectedAssets)
                         }
                     }
                 }
