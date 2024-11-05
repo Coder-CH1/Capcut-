@@ -10,6 +10,7 @@ import SwiftUISideMenu
 import Photos
 import PhotosUI
 import AVKit
+import AVFoundation
 
 struct HomeView: View {
     @Binding var isLoggedIn: Bool
@@ -255,18 +256,23 @@ struct HomeViewContents: View {
 struct VideoPlayerView: View {
     var asset: PHAsset
     @Binding var player: AVPlayer?
-    
+    @StateObject var userViewModel = UserViewModel()
     var body: some View {
-        if let player = player {
-            VideoPlayer(player: player)
-                .onAppear() {
-                    player.play()
-                }
-                .onDisappear() {
-                    player.pause()
-                }
-        } else {
-            PlaceholderView()
+        VStack {
+            if let player = player {
+                VideoPlayer(player: player)
+                    .onAppear() {
+                        player.play()
+                    }
+                    .onDisappear() {
+                        player.pause()
+                    }
+            } else {
+                PlaceholderView()
+            }
+        }
+        .onAppear() {
+            userViewModel.requestPhotosLibrary()
         }
     }
 }
