@@ -229,13 +229,16 @@ struct HomeViewContents: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 10) {
                             ForEach(selectedVideoAsset.compactMap{$0}, id: \.localIdentifier) { asset in
-                                VideoPlayerView(asset: asset, player: Binding(
-                                    get: {players[asset.localIdentifier]},
-                                    set: {players[asset.localIdentifier] = $0}
-                                ))
-                                .frame(height: 200)
-                                .cornerRadius(10)
-                                .padding()
+                                if let player = players[asset.localIdentifier] {
+                                    VideoPlayerView(asset: asset, player: Binding(
+                                        get: {player},
+                                        set: {players[asset.localIdentifier] = $0}
+                                    ))
+                                    .frame(width: UIScreen.main.bounds.width - 40, height: 200)
+                                    .background(.black)
+                                    .cornerRadius(10)
+                                    .padding()
+                                }
                             }
                         }
                     }
@@ -265,6 +268,10 @@ struct VideoPlayerView: View {
                 .onDisappear() {
                     player.pause()
                 }
+                .frame(width: UIScreen.main.bounds.width - 40, height: 200)
+                .background(.black)
+                .cornerRadius(10)
+                .padding()
         } else {
             PlaceholderView()
         }
@@ -452,6 +459,7 @@ struct VideoPicker: UIViewControllerRepresentable {
                     if let asset = asset {
                         DispatchQueue.main.async {
                             selectedAssets.append(asset)
+                            self.parent.userViewModel.selectedVideoAsset = selectedAssets
                             self.parent.userViewModel.loadVideoAssets(selectedVideoAsset: selectedAssets)
                         }
                     }

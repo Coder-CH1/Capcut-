@@ -165,9 +165,8 @@ class UserViewModel: ObservableObject {
     }
     
     //MARK: - Method to load Video assets from the users photo library into the app -
-    func loadVideoAssets(selectedVideoAsset: [PHAsset?]) {
+    func loadVideoAssets(selectedVideoAsset: [PHAsset]) {
         for asset in selectedVideoAsset {
-            guard let asset = asset else {continue}
             let options = PHVideoRequestOptions()
             options.isNetworkAccessAllowed = true
             
