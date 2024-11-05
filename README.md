@@ -1,6 +1,6 @@
 # Capcut
 
-- Replicated the video editing app.
+- Replicating the video editing app.
 #
 
 ## Features: 
