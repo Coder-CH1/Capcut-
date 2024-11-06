@@ -1,6 +1,6 @@
 # Capcut
 
-- Video editing project.
+- Replicating the video editing app.
 #
 
 ## Features: 
@@ -14,6 +14,8 @@
 - AVKit
 - AVFoundation
 - SwiftUiSideMenu
-- 
+- CoreGraphics
 
-#
+
+##
+🤪😜✌️🥰💯
