@@ -16,6 +16,4 @@
 - SwiftUiSideMenu
 - CoreGraphics
 
-
-##
-🤪😜✌️🥰💯
+#
