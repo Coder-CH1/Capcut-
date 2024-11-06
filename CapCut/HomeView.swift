@@ -40,7 +40,7 @@ struct HomeView: View {
             
         }
         .fullScreenCover(isPresented: $showVideoPicker) {
-            VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset, userViewModel: userViewModel)
+            VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset, players: $players)
         }
     }
 }
@@ -205,7 +205,7 @@ struct HomeViewContents: View {
                             .font(.system(size: 20, weight: .black))
                             .foregroundColor(.black)
                             .fullScreenCover(isPresented: $showVideoPicker) {
-                                VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset, userViewModel: userViewModel)
+                                VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset, players: $players)
                             }
                     }
                 }
@@ -224,27 +224,16 @@ struct HomeViewContents: View {
                 }
                 Spacer()
                     .frame(height: 50)
-                if selectedVideoAsset.isEmpty {
-                    PlaceholderView()
-                } else {
+                if !selectedVideoAsset.isEmpty {
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 10) {
                             ForEach(selectedVideoAsset.compactMap{$0}, id: \.localIdentifier) { asset in
-                                VideoPlayerView(asset: asset, player: Binding(
-                                    get: {players[asset.localIdentifier]},
-                                    set: {players[asset.localIdentifier] = $0 }
-                                ))
-                                .frame(height: 200)
-                                .cornerRadius(10)
-                                .padding()
-                                .onChange(of: players[asset.localIdentifier]) { newValue in
-                                    if let newValue = newValue {
-                                        
-                                    }
-                                }
+                                VideoPlayerView(asset: asset, player: $players[asset.localIdentifier])
                             }
                         }
                     }
+                } else {
+                    PlaceholderView()
                 }
             }
             .onAppear() {
@@ -417,11 +406,10 @@ struct SideMenu: View {
 }
 
 struct VideoPicker: UIViewControllerRepresentable {
-    @Environment(\.presentationMode) var presentationMode
     @Binding var selectedVideoAsset: [PHAsset]
-    @ObservedObject var userViewModel: UserViewModel
+    @Binding var players: [String: AVPlayer]
     func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+        Coordinator(selectedVideoAsset: $selectedVideoAsset, players: $players)
     }
     
     func makeUIViewController(context: Context) -> some PHPickerViewController {
@@ -437,10 +425,11 @@ struct VideoPicker: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
     
     class Coordinator: NSObject, PHPickerViewControllerDelegate {
-        var parent: VideoPicker
-        
-        init(_ parent: VideoPicker) {
-            self.parent = parent
+        @Binding var selectedVideoAsset: [PHAsset]
+        @Binding var players: [String: AVPlayer]
+        init(selectedVideoAsset: Binding<[PHAsset]>,  players: Binding<[String : AVPlayer]>) {
+            self._selectedVideoAsset = selectedVideoAsset
+            self._players = players
         }
         
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
@@ -454,12 +443,24 @@ struct VideoPicker: UIViewControllerRepresentable {
                 if let assetIdentifier = result.assetIdentifier {
                     let asset = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier], options: nil).firstObject
                     if let asset = asset {
-                            selectedAssets.append(asset)
-                            if asset.mediaType == .video {
+                        selectedAssets.append(asset)
+                        if asset.mediaType == .video {
                         }
                     }
                 }
-                parent.userViewModel.loadVideoAssets(selectedVideoAsset: selectedAssets)
+            }
+            func loadVideoPlayer(for asset: PHAsset) {
+                let options = PHVideoRequestOptions()
+                options.isNetworkAccessAllowed = true
+                
+                PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, _, _ in
+                    DispatchQueue.main.async {
+                        if let urlAsset = avAsset as? AVURLAsset {
+                            let player = AVPlayer(url: urlAsset.url)
+                            self.players[asset.localIdentifier] = player
+                        }
+                    }
+                }
             }
         }
     }
