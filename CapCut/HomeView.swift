@@ -40,7 +40,7 @@ struct HomeView: View {
             
         }
         .fullScreenCover(isPresented: $showVideoPicker) {
-            VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset, players: $players)
+            VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset, players: $players, userViewModel: userViewModel)
         }
     }
 }
@@ -205,7 +205,7 @@ struct HomeViewContents: View {
                             .font(.system(size: 20, weight: .black))
                             .foregroundColor(.black)
                             .fullScreenCover(isPresented: $showVideoPicker) {
-                                VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset, players: $players)
+                                VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset, players: $players, userViewModel: userViewModel)
                             }
                     }
                 }
@@ -410,8 +410,9 @@ struct SideMenu: View {
 struct VideoPicker: UIViewControllerRepresentable {
     @Binding var selectedVideoAsset: [PHAsset]
     @Binding var players: [String: AVPlayer]
+    @ObservedObject var userViewModel: UserViewModel
     func makeCoordinator() -> Coordinator {
-        Coordinator(selectedVideoAsset: $selectedVideoAsset, players: $players)
+        Coordinator(selectedVideoAsset: $selectedVideoAsset, players: $players, userViewModel: userViewModel)
     }
     
     func makeUIViewController(context: Context) -> some PHPickerViewController {
@@ -429,9 +430,11 @@ struct VideoPicker: UIViewControllerRepresentable {
     class Coordinator: NSObject, PHPickerViewControllerDelegate {
         @Binding var selectedVideoAsset: [PHAsset]
         @Binding var players: [String: AVPlayer]
-        init(selectedVideoAsset: Binding<[PHAsset]>,  players: Binding<[String : AVPlayer]>) {
+        var userViewModel: UserViewModel
+        init(selectedVideoAsset: Binding<[PHAsset]>,  players: Binding<[String : AVPlayer]>, userViewModel: UserViewModel) {
             self._selectedVideoAsset = selectedVideoAsset
             self._players = players
+            self.userViewModel = userViewModel
         }
         
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
@@ -447,19 +450,7 @@ struct VideoPicker: UIViewControllerRepresentable {
                     if let asset = asset {
                         selectedAssets.append(asset)
                         if asset.mediaType == .video {
-                        }
-                    }
-                }
-            }
-            func loadVideoPlayer(for asset: PHAsset) {
-                let options = PHVideoRequestOptions()
-                options.isNetworkAccessAllowed = true
-                
-                PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, _, _ in
-                    DispatchQueue.main.async {
-                        if let urlAsset = avAsset as? AVURLAsset {
-                            let player = AVPlayer(url: urlAsset.url)
-                            self.players[asset.localIdentifier] = player
+                            self.userViewModel.loadVideoAssets(selectedVideoAsset: selectedAssets)
                         }
                     }
                 }
