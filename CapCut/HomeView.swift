@@ -42,6 +42,9 @@ struct HomeView: View {
         .fullScreenCover(isPresented: $showVideoPicker) {
             VideoPicker(selectedVideoAsset: $userViewModel.selectedVideoAsset, players: $players, userViewModel: userViewModel)
         }
+        .onAppear() {
+            userViewModel.requestPhotosLibrary()
+        }
     }
 }
 
@@ -236,9 +239,6 @@ struct HomeViewContents: View {
                 } else {
                     PlaceholderView()
                 }
-            }
-            .onAppear() {
-                userViewModel.requestPhotosLibrary()
             }
         }
         .navigationBarBackButtonHidden(true)
