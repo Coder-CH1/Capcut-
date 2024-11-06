@@ -442,19 +442,14 @@ struct VideoPicker: UIViewControllerRepresentable {
             
             if results.isEmpty {
                 picker.dismiss(animated: true)
+                //return
             }
             var selectedAssets: [PHAsset] = []
             for result in results {
-                if let assetIdentifier = result.assetIdentifier {
-                    let asset = PHAsset.fetchAssets(withLocalIdentifiers: [assetIdentifier], options: nil).firstObject
-                    if let asset = asset {
-                        selectedAssets.append(asset)
-                        if asset.mediaType == .video {
-                            selectedVideoAsset = selectedAssets
-                        }
-                    }
+                if result.itemProvider.canLoadObject(ofClass: URL.self) {
                 }
             }
+            //picker.dismiss(animated: true)
         }
     }
 }
