@@ -273,6 +273,8 @@ struct PlaceholderView: View {
             Text("Your projects will appear\n here.\nStart creating now.")
                 .font(.system(size: 18, weight: .black))
                 .foregroundColor(Color.black.opacity(0.7))
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity, alignment: .center)
         }
     }
 }
