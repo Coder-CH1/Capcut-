@@ -439,10 +439,9 @@ struct VideoPicker: UIViewControllerRepresentable {
         }
         
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            picker.dismiss(animated: true)
             
             if results.isEmpty {
-                return
+                picker.dismiss(animated: true)
             }
             var selectedAssets: [PHAsset] = []
             for result in results {
