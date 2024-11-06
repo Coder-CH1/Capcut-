@@ -451,22 +451,8 @@ struct VideoPicker: UIViewControllerRepresentable {
                     if let asset = asset {
                         selectedAssets.append(asset)
                         if asset.mediaType == .video {
-                            self.loadPlayerForAsset(asset)
+                            selectedVideoAsset = selectedAssets
                         }
-                    }
-                }
-            }
-            selectedVideoAsset = selectedAssets
-        }
-        func loadPlayerForAsset(_ asset: PHAsset) {
-            let options = PHVideoRequestOptions()
-            options.isNetworkAccessAllowed = true
-            
-            PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, _, _ in
-                DispatchQueue.main.async {
-                    if let urlAsset = avAsset as? AVURLAsset {
-                        let player = AVPlayer(url: urlAsset.url)
-                        self.players[asset.localIdentifier] = player
                     }
                 }
             }
