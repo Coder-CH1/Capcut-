@@ -230,10 +230,18 @@ struct HomeViewContents: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 10) {
                             ForEach(selectedVideoAsset.compactMap{$0}, id: \.localIdentifier) { asset in
-                                VideoPlayerView(asset: asset, player: $players[asset.localIdentifier])
+                                VideoPlayerView(asset: asset, player: Binding(
+                                    get: {players[asset.localIdentifier]},
+                                    set: {players[asset.localIdentifier] = $0 }
+                                ))
                                 .frame(height: 200)
                                 .cornerRadius(10)
                                 .padding()
+                                .onChange(of: players[asset.localIdentifier]) { newValue in
+                                    if let newValue = newValue {
+                                        
+                                    }
+                                }
                             }
                         }
                     }
