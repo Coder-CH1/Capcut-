@@ -227,10 +227,11 @@ struct HomeViewContents: View {
                 if !selectedVideoAsset.isEmpty {
                     ScrollView(.vertical, showsIndicators: false) {
                         VStack(spacing: 10) {
-                            ForEach(selectedVideoAsset.compactMap{$0}, id: \.localIdentifier) { asset in
+                            ForEach(selectedVideoAsset, id: \.localIdentifier) { asset in
                                 VideoPlayerView(asset: asset, player: $players[asset.localIdentifier])
                             }
                         }
+                        .frame(width: UIScreen.main.bounds.width - 40, height: 300)
                     }
                 } else {
                     PlaceholderView()
@@ -450,8 +451,22 @@ struct VideoPicker: UIViewControllerRepresentable {
                     if let asset = asset {
                         selectedAssets.append(asset)
                         if asset.mediaType == .video {
-                            self.userViewModel.loadVideoAssets(selectedVideoAsset: selectedAssets)
+                            self.loadPlayerForAsset(asset)
                         }
+                    }
+                }
+            }
+            selectedVideoAsset = selectedAssets
+        }
+        func loadPlayerForAsset(_ asset: PHAsset) {
+            let options = PHVideoRequestOptions()
+            options.isNetworkAccessAllowed = true
+            
+            PHImageManager.default().requestAVAsset(forVideo: asset, options: options) { avAsset, _, _ in
+                DispatchQueue.main.async {
+                    if let urlAsset = avAsset as? AVURLAsset {
+                        let player = AVPlayer(url: urlAsset.url)
+                        self.players[asset.localIdentifier] = player
                     }
                 }
             }
